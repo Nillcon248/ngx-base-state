@@ -52,7 +52,7 @@ This library will help to create service with state in 2 lines.
 
 ## Example with ObjectState
 *user-state.service.ts*
-```
+```js
 import { ObjectState } from 'ngx-base-state';
 
 @Injectable({
@@ -62,7 +62,7 @@ class UserStateService extands ObjectState<User> {}
 ```
 
 *user.component.ts*
-```
+```js
 import { UserStateService } from './user-state.service';
 
 @Component(/* some configuration */)
@@ -90,7 +90,7 @@ class UserComponent implements OnInit {
 
 ## Example with ArrayState
 *user-array-state.service.ts*
-```
+```js
 import { ObjectState } from 'ngx-base-state';
 
 @Injectable({
@@ -103,7 +103,7 @@ class UserArrayStateService extands ArrayState<User> {
 }
 ```
 
-```
+```js
 import { UserArrayStateService } from './user-state.service';
 
 @Component(/* some configuration */)
