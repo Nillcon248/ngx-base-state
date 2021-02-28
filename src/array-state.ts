@@ -1,6 +1,6 @@
 import { BehaviorSubject, Observable } from 'rxjs';
 
-export class ArrayState<T> {
+export abstract class ArrayState<T> {
 
 	public get data$(): Observable<T[] | null> {
 		return this._data$.asObservable();
@@ -57,10 +57,6 @@ export class ArrayState<T> {
 		}
 	}
 
-	protected compareItems(firstItem: T, secondItem: T): boolean {
-		return firstItem === secondItem;
-	}
-
 	protected setNewValue(value: T[] | null): void {
 		this._data$.next(value);
 	}
@@ -70,4 +66,6 @@ export class ArrayState<T> {
 			throw new Error(`Can not ${actionName}. Firstly set array.`);
 		}
 	}
+
+	abstract compareItems(firstItem: T, secondItem: T): boolean;
 }

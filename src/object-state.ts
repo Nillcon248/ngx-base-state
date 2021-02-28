@@ -1,6 +1,6 @@
 import { BehaviorSubject, Observable } from 'rxjs';
 
-export class ObjectState<T> {
+export abstract class ObjectState<T> {
 
 	public get data$(): Observable<T | null> {
 		return this._data$.asObservable();
