@@ -32,7 +32,7 @@ export abstract class ArrayState<T> {
 		try {
 			const items: T[] = (this.data as T[])
 				.filter(_currentItem => 
-					this.compareItems(_currentItem, item)
+					!this.compareItems(_currentItem, item)
 				);
 
 			this.setNewValue(items);
