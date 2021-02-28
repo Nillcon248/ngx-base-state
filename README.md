@@ -2,7 +2,7 @@
 
 [![npm](https://img.shields.io/npm/dt/ngx-base-state.svg)]()
 [![npm](https://img.shields.io/npm/l/ngx-base-state.svg)]()
-[![Build status](https://travis-ci.org/Nillcon248/ngx-base-state.svg?branch=main)](https://travis-ci.org/Nillcon248/ngx-base-state)
+[![Build status](https://travis-ci.org/Nillcon248/ngx-base-state.svg?branch=master)](https://travis-ci.org/Nillcon248/ngx-base-state)
 
 ### Classes have implemented base work with state
 
