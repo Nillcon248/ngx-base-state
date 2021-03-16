@@ -1,6 +1,6 @@
 {
 	"name": "ngx-base-state",
-	"version": "0.0.4",
+	"version": "0.0.7",
 	"main": "dist/index.js",
 	"description": "Base classes for creation state service via Rxjs observable",
 	"scripts": {
