@@ -7,7 +7,8 @@
 		"build": "tsc"
 	},
 	"dependencies": {
-		"rxjs": "~6.6.0"
+		"rxjs": "~6.6.0",
+		"tslib": "^2.1.0"
 	},
 	"devDependencies": {
 		"typescript": "~4.1.2"
