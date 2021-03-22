@@ -24,13 +24,6 @@ This library will help to create service with state in 2 lines.
 | data$           | Observable<T \| null>       | state data stream                                                   |
 | data            | T                          | state data                                                          |
 
-### *ObjectState*
-
-| Name            | Type                       | Description                                                         |
-|:----------------|:---------------------------|:--------------------------------------------------------------------|
-| data$           | Observable<T[] \| null>     | state data stream                                                   |
-| data            | T[]                        | state data                                                          |
-
 ## Methods
 
 ### *ObjectState*
@@ -58,7 +51,7 @@ import { ObjectState } from 'ngx-base-state';
 @Injectable({
   providedIn: 'root'
 })
-class UserStateService extands ObjectState<User> {}
+class UserStateService extends ObjectState<User> {}
 ```
 
 *user.component.ts*
