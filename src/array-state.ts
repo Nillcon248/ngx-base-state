@@ -1,74 +1,78 @@
 import { BaseState } from './base-state';
 
+enum ArrayStateActionEnum {
+	GetByIndex = 'get by index',
+	PushItem = 'push item',
+	RemoveItem = 'remove item',
+	ChangeItemByIndex = 'change item by index',
+	UpdateItem = 'update item',
+}
+
 export abstract class ArrayState<T> extends BaseState<T[]> {
 
-
-	public set(array: T[]): void {
-		this.setNewValue(array);
-	}
-
 	public getByIndex(index: number): T {
-		try {
-			const items: T[] = this.data as T[];
+		return this.tryDoAction<T>(ArrayStateActionEnum.GetByIndex, () => {
+			const items = this.data;
 
 			return items[index];
-		} catch(e) {
-			throw this.getErrorMessage(e, 'get by index');
-		}
+		});
 	}
 
-	public addItem (item: T): void  {
-		try {
-			const items: T[] = this.data as T[];
+	public pushItem (item: T): void  {
+		return this.tryDoAction<void>(ArrayStateActionEnum.PushItem, () => {
+			const items = this.data;
 
 			items.push(item);
 
 			this.setNewValue(items);
-		} catch(e) {
-			throw this.getErrorMessage(e, 'add item');
-		}
+		});
 	}
 
-	public removeItem(item: T): void {
-		try {
-			const items: T[] = (this.data as T[])
-				.filter(_currentItem => 
-					!this.compareItems(_currentItem, item)
+	public removeItem(itemId: any): T {
+		return this.tryDoAction<T>(ArrayStateActionEnum.RemoveItem, () => {
+			const items = this.data;
+
+			const index = this.data
+				.findIndex(_item =>
+					this.getItemId(_item) === itemId
 				);
 
+			const removedItem = items.splice(index, 1).shift();
+
 			this.setNewValue(items);
-		} catch(e) {
-			throw this.getErrorMessage(e, 'remove item');
-		}
+
+			return removedItem;
+		});
 	}
 
 	public updateItemByIndex(itemToChange: T, index: number): void {
-		try {
-			const items = this.data as T[];
+		this.tryDoAction<void>(ArrayStateActionEnum.ChangeItemByIndex, () => {
+			const items = this.data;
 
 			items[index] = itemToChange;
 
 			this.setNewValue(items);
-		} catch(e) {
-			throw this.getErrorMessage(e, 'change item by index');
-		}
+		});
 	}
 
 	public updateItem(itemToUpdate: T): void {
-		try {
-			const items = this.data as T[];
+		this.tryDoAction<void>(ArrayStateActionEnum.UpdateItem, () => {
+			const items = this.data;
+
 			const itemIndex = (items)
-				.findIndex(_currentItem => 
+				.findIndex(_currentItem =>
 					this.compareItems(_currentItem, itemToUpdate)
 				);
 
 			items[itemIndex] = itemToUpdate;
 
 			this.setNewValue(items);
-		} catch(e) {
-			throw this.getErrorMessage(e, 'update item');
-		}
+		});
 	}
 
-	protected abstract compareItems(firstItem: T, secondItem: T): boolean;
+	private compareItems(firstItem: T, secondItem: T): boolean {
+		return this.getItemId(firstItem) === this.getItemId(secondItem);
+	}
+
+	protected abstract getItemId(item: T): any;
 }
