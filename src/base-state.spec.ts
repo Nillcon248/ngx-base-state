@@ -18,6 +18,12 @@ const itemDataMock2: ItemMock = {
 
 class BaseStateMock extends BaseState<ItemMock> {}
 
+class BaseStateInitDataMock extends BaseState<ItemMock> {
+	constructor() {
+		super(itemDataMock1);
+	}
+}
+
 describe('Base state', () => {
 	let baseState: BaseStateMock;
 
@@ -50,5 +56,11 @@ describe('Base state', () => {
 		baseState.clear();
 
 		expect(baseState.data).not.toBeTruthy();
+	});
+
+	it('should use initData for first value in state', () => {
+		const baseStateInitDataMock = new BaseStateInitDataMock();
+
+		expect(baseStateInitDataMock.data).toEqual(itemDataMock1);
 	});
 });

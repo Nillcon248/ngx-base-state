@@ -17,19 +17,12 @@ This library will help to create service with state in 2 lines.
 
 ## Properties
 
-### *ObjectState*
+### *State properties*
 
 | Name            | Type                       | Description                                                         |
 |:----------------|:---------------------------|:--------------------------------------------------------------------|
-| data$           | Observable<T \| null>       | state data stream                                                   |
+| data$           | Observable<T \| null>      | state data stream                                                   |
 | data            | T                          | state data                                                          |
-
-### *ObjectState*
-
-| Name            | Type                       | Description                                                         |
-|:----------------|:---------------------------|:--------------------------------------------------------------------|
-| data$           | Observable<T[] \| null>     | state data stream                                                   |
-| data            | T[]                        | state data                                                          |
 
 ## Methods
 
@@ -72,13 +65,13 @@ class UserComponent implements OnInit {
   ngOnInit() {
     this.userStateService.data$
       .subscribe(console.log);
-    // Output:  
+    // Output:
     // null
     // { name: 'Nillcon', id: 248 }
-      
+
     this.changeUser();
   }
-  
+
   changeUser() {
     this.userStateService.set({
       name: 'Nillcon',
@@ -97,9 +90,12 @@ import { ObjectState } from 'ngx-base-state';
   providedIn: 'root'
 })
 class UserArrayStateService extands ArrayState<User> {
-  compareItems(firstUser: User, secondUser: User): boolean {
-    return firstUser.id === secondUser.id;
-  }
+    constructor() {
+        super([]); // Here you can set initial data.
+    }
+    compareItems(firstUser: User, secondUser: User): boolean {
+        return firstUser.id === secondUser.id;
+    }
 }
 ```
 
@@ -113,19 +109,19 @@ class UserTableComponent implements OnInit {
   ngOnInit() {
     this.userArrayStateService.data$
       .subscribe(console.log);
-    // Output:  
-    // null
+    // Output:
+    // []
     // [{ name: 'Nillcon', id: 248 }, { name: 'noname', id: 1 }] #1
     // [{ name: 'New name', id: 248 }, { name: 'noname', id: 1 }] #2
     // [{ name: 'New name', id: 248 }] #3
     // [{ name: 'New name', id: 248 }, { name: 'John Doe', id: 2 }] #4
-      
+
     this.setUserArray(); // #1
     this.updateUser() // #2
     this.removeUser(); // #3
     this.addUser(); // #4
   }
-  
+
   setUserArray() {
     this.userStateService.set([
       {
@@ -138,20 +134,20 @@ class UserTableComponent implements OnInit {
       }
     ]);
   }
-  
+
   updateUser() {
     const user = this.userStateService.data[0]; // { name: 'Nillcon', id: 248 }
     user.name = 'New name';
 
     this.userStateService.updateItem(user);
   }
-  
+
   removeUser() {
     const user = this.userStateService.data[1]; // { name: 'noname', id: 1 }
 
     this.userStateService.removeItem(removeItem);
   }
-  
+
   addUser() {
     this.userStateService.addItem({
       name: 'John Doe',
