@@ -1,5 +1,6 @@
 import { BehaviorSubject, Observable } from 'rxjs';
 
+
 /**
  *	@class
  *	@classdes This is a base class that used for creating hight level state classes
@@ -28,8 +29,8 @@ export abstract class BaseState<T> {
      */
 	protected readonly _data$: BehaviorSubject<T | null>;
 
-	constructor(initialData: T = null) {
-		this._data$ = new BehaviorSubject<T | null>(initialData);
+	constructor(private initialData: T = null) {
+		this._data$ = new BehaviorSubject<T | null>(this.initialData);
 	}
 
 	/**
