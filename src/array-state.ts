@@ -16,6 +16,18 @@ enum ArrayStateActionEnum {
 export abstract class ArrayState<T> extends BaseState<T[]> {
 
 	/**
+	 * 
+	 *  Copied value to new array for avoid issues with ChangeDetection
+	 */
+	protected setNewValue(value: T[] | null): void {
+		if (value) {
+			this._data$.next([...value]);
+		} else {
+			this._data$.next(null);
+		}
+	}
+
+	/**
 	 * 	Return item by quired index.
 	 *	@public
 	 *	@param {Number} index - quired index
@@ -91,6 +103,7 @@ export abstract class ArrayState<T> extends BaseState<T[]> {
 	public updateItem(itemToUpdate: T): void {
 		this.tryDoAction<void>(ArrayStateActionEnum.UpdateItem, () => {
 			const items = this.data;
+			itemToUpdate = {...itemToUpdate};
 
 			const itemIndex = (items)
 				.findIndex(_currentItem =>
