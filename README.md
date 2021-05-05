@@ -51,7 +51,7 @@ import { ObjectState } from 'ngx-base-state';
 @Injectable({
   providedIn: 'root'
 })
-class UserStateService extands ObjectState<User> {}
+class UserStateService extends ObjectState<User> {}
 ```
 
 *user.component.ts*
