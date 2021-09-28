@@ -93,8 +93,9 @@ class UserArrayStateService extands ArrayState<User> {
     constructor() {
         super([]); // Here you can set initial data.
     }
-    compareItems(firstUser: User, secondUser: User): boolean {
-        return firstUser.id === secondUser.id;
+
+    getItemId (user: User): number {
+      return user.id;
     }
 }
 ```
