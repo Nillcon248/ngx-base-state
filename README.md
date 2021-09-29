@@ -84,7 +84,7 @@ class UserComponent implements OnInit {
 ## Example with ArrayState
 *user-array-state.service.ts*
 ```js
-import { ObjectState } from 'ngx-base-state';
+import { ArrayState } from 'ngx-base-state';
 
 @Injectable({
   providedIn: 'root'
@@ -150,7 +150,7 @@ class UserTableComponent implements OnInit {
   }
 
   addUser() {
-    this.userStateService.addItem({
+    this.userStateService.pushItem({
       name: 'John Doe',
       id: 2
     });
