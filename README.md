@@ -84,7 +84,7 @@ class UserComponent implements OnInit {
 ## Example with ArrayState
 *user-array-state.service.ts*
 ```js
-import { ObjectState } from 'ngx-base-state';
+import { ArrayState } from 'ngx-base-state';
 
 @Injectable({
   providedIn: 'root'
@@ -93,8 +93,9 @@ class UserArrayStateService extands ArrayState<User> {
     constructor() {
         super([]); // Here you can set initial data.
     }
-    compareItems(firstUser: User, secondUser: User): boolean {
-        return firstUser.id === secondUser.id;
+
+    getItemId (user: User): number {
+      return user.id;
     }
 }
 ```
@@ -109,17 +110,11 @@ class UserTableComponent implements OnInit {
   ngOnInit() {
     this.userArrayStateService.data$
       .subscribe(console.log);
-    // Output:
-    // []
-    // [{ name: 'Nillcon', id: 248 }, { name: 'noname', id: 1 }] #1
-    // [{ name: 'New name', id: 248 }, { name: 'noname', id: 1 }] #2
-    // [{ name: 'New name', id: 248 }] #3
-    // [{ name: 'New name', id: 248 }, { name: 'John Doe', id: 2 }] #4
 
-    this.setUserArray(); // #1
-    this.updateUser() // #2
-    this.removeUser(); // #3
-    this.addUser(); // #4
+    this.setUserArray();  // [{ name: 'Nillcon', id: 248 }, { name: 'noname', id: 1 }]
+    this.updateUser()  // [{ name: 'New name', id: 248 }, { name: 'noname', id: 1 }]
+    this.removeUser(); // [{ name: 'New name', id: 248 }]
+    this.addUser(); // [{ name: 'New name', id: 248 }, { name: 'John Doe', id: 2 }]
   }
 
   setUserArray() {
@@ -149,7 +144,7 @@ class UserTableComponent implements OnInit {
   }
 
   addUser() {
-    this.userStateService.addItem({
+    this.userStateService.pushItem({
       name: 'John Doe',
       id: 2
     });
