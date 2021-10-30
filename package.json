@@ -1,48 +1,48 @@
 {
-	"name": "ngx-base-state",
-	"version": "0.2.3",
-	"main": "dist/index.js",
-	"description": "Base classes for creation state service via Rxjs observable",
-	"scripts": {
-		"build": "tsc",
-		"test": "jasmine-ts --config=jasmine.json",
-		"publish:patch": "npm test && npm run build && npm version patch && npm publish",
-		"publish:minor": "npm test && npm run build && npm version minor && npm publish",
-		"publish:major": "npm test && npm run build && npm version major && npm publish"
-	},
-	"dependencies": {
-		"rxjs": "~6.6.0",
-		"tslib": "^2.1.0"
-	},
-	"devDependencies": {
-		"@types/jasmine": "^3.6.9",
-		"@types/node": "^12.11.1",
-		"@typescript-eslint/eslint-plugin": "^4.19.0",
-		"@typescript-eslint/parser": "^4.19.0",
-		"eslint": "^7.23.0",
-		"jasmine": "^3.7.0",
-		"jasmine-core": "~3.6.0",
-		"jasmine-spec-reporter": "~5.0.0",
-		"jasmine-ts": "^0.3.0",
-		"ts-node": "^8.3.0",
-		"typedoc": "^0.20.34",
-		"typescript": "^4.1.5"
-	},
-	"typings": "./dist/index.d.ts",
-	"author": {
-		"name": "Nillcon",
-		"email": "nillcon248@gmail.com",
-		"url": "https://www.linkedin.com/in/nillcon"
-	},
-	"license": "MIT",
-	"keywords": [
-		"Angular",
-		"RxJs",
-		"Angular state",
-		"Ngx state base",
-		"Rxjs state"
-	],
-	"repository": {
-		"url": "https://github.com/Nillcon248/ngx-base-state"
-	}
+  "name": "ngx-base-state",
+  "version": "0.2.3",
+  "main": "dist/index.js",
+  "description": "Base classes for creation state service via Rxjs observable",
+  "scripts": {
+    "build": "tsc",
+    "test": "jasmine-ts --config=jasmine.json",
+    "publish:patch": "npm test && npm run build && npm version patch && npm publish",
+    "publish:minor": "npm test && npm run build && npm version minor && npm publish",
+    "publish:major": "npm test && npm run build && npm version major && npm publish"
+  },
+  "dependencies": {
+    "rxjs": "^6.0.0",
+    "tslib": "^2.1.0"
+  },
+  "devDependencies": {
+    "@types/jasmine": "^3.6.9",
+    "@types/node": "^12.11.1",
+    "@typescript-eslint/eslint-plugin": "^4.19.0",
+    "@typescript-eslint/parser": "^4.19.0",
+    "eslint": "^7.23.0",
+    "jasmine": "^3.7.0",
+    "jasmine-core": "~3.6.0",
+    "jasmine-spec-reporter": "~5.0.0",
+    "jasmine-ts": "^0.3.0",
+    "ts-node": "^8.3.0",
+    "typedoc": "^0.20.34",
+    "typescript": "^4.1.5"
+  },
+  "typings": "./dist/index.d.ts",
+  "author": {
+    "name": "Nillcon",
+    "email": "nillcon248@gmail.com",
+    "url": "https://www.linkedin.com/in/nillcon"
+  },
+  "license": "MIT",
+  "keywords": [
+    "Angular",
+    "RxJs",
+    "Angular state",
+    "Ngx state base",
+    "Rxjs state"
+  ],
+  "repository": {
+    "url": "https://github.com/Nillcon248/ngx-base-state"
+  }
 }
