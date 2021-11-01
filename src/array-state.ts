@@ -4,6 +4,7 @@ enum ArrayStateActionEnum {
   GetByIndex = 'get by index',
   PushItem = 'push item',
   RemoveItem = 'remove item',
+  RemoveItemById = 'remove item by id',
   ChangeItemByIndex = 'change item by index',
   UpdateItem = 'update item',
 }
@@ -60,12 +61,30 @@ export abstract class ArrayState<T> extends BaseState<T[]> {
    *	@public
    *	@param {Generic} itemId - Id of item you want to remove.
    */
-  public removeItem(itemId: any): T {
+  public removeItem(item: T): T {
     return this.tryDoAction<T>(ArrayStateActionEnum.RemoveItem, () => {
       const items = this.data;
 
+      const index = this.data.findIndex((_item) =>
+        this.compareItems(item, _item)
+      );
+
+      const removedItem = this.data[index];
+
+      items.splice(index, 1);
+
+      this.setNewValue(items);
+
+      return removedItem;
+    });
+  }
+
+  public removeItemById(itemId: unknown): T {
+    return this.tryDoAction<T>(ArrayStateActionEnum.RemoveItemById, () => {
+      const items = this.data;
+
       const index = this.data.findIndex(
-        (_item) => this.getItemId(_item) === itemId
+        (_item) => itemId === this.getItemId(_item)
       );
 
       const removedItem = this.data[index];
