@@ -87,7 +87,7 @@ describe('ArrayState', () => {
     arrayState.set(itemArrayDataMock);
     arrayState.pushItem(newItem);
 
-    arrayState.removeItem(newItem.id);
+    arrayState.removeItem(newItem);
 
     expect(arrayState.data.pop()).not.toEqual(newItem);
   });
