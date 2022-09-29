@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
 import { RuntimeMessage } from '../interfaces';
 
@@ -6,10 +6,14 @@ import { RuntimeMessage } from '../interfaces';
     providedIn: 'root'
 })
 export class ChromeTabsService {
+    constructor(
+        private readonly ngZone: NgZone
+    ) {}
+
     public watchForActive(): Observable<chrome.tabs.Tab> {
         return new Observable((subscriber) => {
-            chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-                subscriber.next(tabs[0]);
+            chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+                this.ngZone.run(() => subscriber.next(tabs[0]));
             });
         });
     }
@@ -17,9 +21,10 @@ export class ChromeTabsService {
     public sendMessage<T>(tabId: number, message: RuntimeMessage): Observable<T> {
         return new Observable((subscriber) => {
             chrome.tabs.sendMessage(tabId, message, {}, (response) => {
-                console.log('response', response);
-                subscriber.next(response);
-                subscriber.complete();
+                this.ngZone.run(() => {
+                    subscriber.next(response);
+                    subscriber.complete();
+                });
             });
         });
     }

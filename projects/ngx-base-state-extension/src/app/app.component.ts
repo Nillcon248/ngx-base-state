@@ -1,34 +1,21 @@
-import { Component, SecurityContext } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { finalize, map, Observable, switchMap, tap } from 'rxjs';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { map, switchMap } from 'rxjs';
 import { ChromeTabsService, RuntimeMessageEnum } from './core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
-  title = 'ngx-base-state-extension';
-
-  public test!: number;
-
-  public data$: Observable<unknown> = this.chromeTabsService.watchForActive()
+  public data$ = this.chromeTabsService.watchForActive()
     .pipe(
       map((tab) => tab.id as number),
-      map((tabId) => this.domSanitizer.sanitize(SecurityContext.NONE, tabId.toString())),
-      tap((data) => console.log(data))
+      switchMap((tabId) => this.chromeTabsService.sendMessage<string>(tabId, { type: RuntimeMessageEnum.Metadata }))
     );
 
   constructor(
-    private readonly chromeTabsService: ChromeTabsService,
-    private readonly domSanitizer: DomSanitizer
-  ) {
-    this.chromeTabsService.watchForActive()
-      .pipe(
-        map((tab) => tab.id as number),
-        tap((data) => console.log(data))
-      )
-      .subscribe((data) => this.test = data);
-  }
+    private readonly chromeTabsService: ChromeTabsService
+  ) {}
 }
