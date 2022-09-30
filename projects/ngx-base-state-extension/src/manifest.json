@@ -12,6 +12,7 @@
         "tabs",
         "activeTab"
     ],
+    "host_permissions": ["*://*"],
     "content_scripts": [
         {
             "matches": ["*://*/*"],

@@ -38,7 +38,9 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss"
+          "style": "scss",
+          "changeDetection": "OnPush",
+          "skipTests": true
         }
       },
       "root": "projects/ngx-base-state-extension",
@@ -57,7 +59,12 @@
             "assets": [
               "projects/ngx-base-state-extension/src/favicon.ico",
               "projects/ngx-base-state-extension/src/assets",
-              "projects/ngx-base-state-extension/src/manifest.json"
+              "projects/ngx-base-state-extension/src/manifest.json",
+              {
+                "glob": "indigo-pink.css",
+                "input": "node_modules/@angular/material/prebuilt-themes",
+                "output": "themes"
+              }
             ],
             "styles": [
               "projects/ngx-base-state-extension/src/styles.scss"
@@ -77,6 +84,11 @@
           },
           "configurations": {
             "production": {
+              "optimization": {
+                "styles": {
+                  "inlineCritical": false
+                }
+              },
               "budgets": [
                 {
                   "type": "initial",

@@ -1,0 +1,13 @@
+<mat-selection-list [multiple]="false">
+    <mat-list-option
+        *ngFor="let className of (stateClassNames$ | async)"
+        (click)="onListItemClick(className)">
+        <mat-icon mat-list-icon>code</mat-icon>
+
+        <div
+            mat-line
+            class="class-name">
+            {{ className }}
+        </div>
+    </mat-list-option>
+</mat-selection-list>

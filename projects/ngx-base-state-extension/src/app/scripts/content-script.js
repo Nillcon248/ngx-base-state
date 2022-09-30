@@ -1,4 +1,3 @@
-console.log('script init');
 let metadataInput;
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {

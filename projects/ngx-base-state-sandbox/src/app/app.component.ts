@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UsersState } from './states/users.state';
+import { UserState, ProductsState } from './states';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +10,9 @@ export class AppComponent {
   title = 'ngx-base-state-sandbox';
 
   constructor(
-    private readonly usersState: UsersState
+    private readonly userState: UserState,
+    private readonly productsState: ProductsState
   ) {
-    console.log(this.usersState);
+    console.log(this.userState, this.productsState);
   }
 }
