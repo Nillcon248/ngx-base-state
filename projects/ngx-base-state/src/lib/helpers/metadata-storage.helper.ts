@@ -5,7 +5,7 @@ export abstract class MetadataStorage {
         return window;
     }
 
-    public static get<T, R = unknown>(key: MetadataKeyEnum): R {
+    public static get<R = unknown>(key: MetadataKeyEnum): R {
         return this.window[key];
     }
 

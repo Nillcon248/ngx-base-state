@@ -69,18 +69,7 @@
             "styles": [
               "projects/ngx-base-state-extension/src/styles.scss"
             ],
-            "scripts": [
-              {
-                "input": "projects/ngx-base-state-extension/src/app/scripts/content-script.js",
-                "inject": false,
-                "bundleName": "content-script"
-              },
-              {
-                "input": "projects/ngx-base-state-extension/src/app/scripts/test.js",
-                "inject": false,
-                "bundleName": "test"
-              }
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {

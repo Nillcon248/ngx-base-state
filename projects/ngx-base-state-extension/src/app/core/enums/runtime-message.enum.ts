@@ -1,3 +1,4 @@
 export const enum RuntimeMessageEnum {
-    Metadata = '__ngx-base-state-metadata',
+    RequestMetadata = '__ngx-base-state-request-metadata',
+    Metadata = '__ngx-base-state-metadata'
 }

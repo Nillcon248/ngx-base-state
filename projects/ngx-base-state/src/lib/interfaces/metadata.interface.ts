@@ -1,3 +1,3 @@
-export interface Metadata {
+export interface NgxBaseStateDevtoolsMetadata {
     [key: string]: unknown;
 }

@@ -1,7 +1,10 @@
 import { BehaviorSubject, Observable } from 'rxjs';
 import { MetadataKeyEnum } from './enums';
 import { MetadataStorage } from './helpers';
-import { Metadata } from './interfaces';
+import {
+	NgxBaseStateDevtoolsMetadata as Metadata,
+	NgxBaseStateDevtoolsConfig as Config
+} from './interfaces';
 
 /**
  *	@class
@@ -86,10 +89,16 @@ export abstract class BaseState<T> {
 	}
 
 	private updateMetadata(): void {
-		const className = (this as Object).constructor.name;
-		const data: Metadata = MetadataStorage.get(MetadataKeyEnum.Data);
-		data[className] = this._data$.getValue();
+		const config = MetadataStorage.get<Config>(MetadataKeyEnum.Config);
 
-		MetadataStorage.set(MetadataKeyEnum.Data, data);
+		if (config?.isEnabled) {
+			const self: Object = this;
+			const className = self.constructor.name;
+			const metadata$ = MetadataStorage.get<BehaviorSubject<Metadata>>(MetadataKeyEnum.Data);
+			const metadata = { ...metadata$.value };
+			metadata[className] = this._data$.getValue();
+
+			metadata$.next(metadata);
+		}
 	}
 }

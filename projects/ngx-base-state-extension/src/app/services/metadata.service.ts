@@ -1,20 +1,32 @@
 import { Injectable } from '@angular/core';
-import { map, switchMap, share, Observable } from 'rxjs';
-import { ChromeTabsService, RuntimeMessageEnum } from '../core';
+import { NgxBaseStateDevtoolsMetadata as Metadata } from '@ngx-base-state/interfaces';
+import { map, switchMap, share, Observable, BehaviorSubject } from 'rxjs';
+import { ChromeTabsService } from '../core';
 
 @Injectable({
     providedIn: 'root'
 })
 export class MetadataService {
-    public readonly data$: Observable<Metadata> = this.chromeTabsService.watchForActive()
-        .pipe(
-            map((tab) => tab.id as number),
-            switchMap((tabId) => this.chromeTabsService.sendMessage<string>(tabId, { type: RuntimeMessageEnum.Metadata })),
-            map<string, Metadata>((rawData) => JSON.parse(rawData)),
-            share()
-        );
+    public get data$(): Observable<Metadata> {
+        return this._data$.asObservable();
+    }
+
+    private readonly _data$ = new BehaviorSubject<Metadata>({});
+
+    private readonly metadataConnectionName = 'metadata';
 
     constructor(
         private readonly chromeTabsService: ChromeTabsService
     ) {}
+
+    public initObserver(): void {
+        this.chromeTabsService.watchForActive()
+            .pipe(
+                map((tab) => tab.id as number),
+                switchMap((tabId) => this.chromeTabsService.connect<string>(tabId, this.metadataConnectionName)),
+                map<string, Metadata>((rawData) => JSON.parse(rawData)),
+                share()
+            )
+            .subscribe((metadata) => this._data$.next(metadata));
+    }
 }

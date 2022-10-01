@@ -12,12 +12,11 @@ import { OPENED_CLASS_NAME } from '../../consts';
 export class ContentComponent {
   public stateData$: Observable<unknown> = this.metadataService.data$
     .pipe(
-      // FIXME: Check why noPropertyAccessFromIndexSignature ts rule doesn't work
-      map((metadata: any) => metadata[this.openedClassName])
+      map((metadata) => metadata[this.openedClassName])
     );
 
   constructor(
-    @Inject(OPENED_CLASS_NAME) private readonly openedClassName: string,
+    @Inject(OPENED_CLASS_NAME) private readonly openedClassName: keyof Metadata,
     private readonly metadataService: MetadataService
   ) {}
 }

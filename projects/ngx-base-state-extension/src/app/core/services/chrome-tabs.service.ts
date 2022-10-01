@@ -28,4 +28,23 @@ export class ChromeTabsService {
             });
         });
     }
+
+    public connect<T>(tabId: number, connectionName: string): Observable<T> {
+        return new Observable((subscriber) => {
+            const port = chrome.tabs.connect(tabId, {
+                name: connectionName
+            });
+
+            port.onMessage.addListener((message) => {
+                this.ngZone.run(() => subscriber.next(message));
+            });
+
+            return {
+                unsubscribe: () => {
+                    port.disconnect();
+                    subscriber.complete();
+                }
+            };
+        });
+    }
 }
