@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ArrayState } from 'projects/ngx-base-state/src/lib';
+import { ArrayState } from '@ngx-base-state';
 
 @Injectable({
     providedIn: 'root'

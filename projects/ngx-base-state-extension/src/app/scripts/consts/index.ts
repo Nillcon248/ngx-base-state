@@ -1,1 +1,1 @@
-export * from './metadata-input-element-id.const';
+export * from './metadata-change-event.const';

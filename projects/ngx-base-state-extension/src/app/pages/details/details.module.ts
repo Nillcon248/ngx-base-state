@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { DetailsComponent } from './details.component';
 import { DetailsRoutingModule } from './details.routing';
 import { SharedModule } from '../../shared';
@@ -12,7 +13,8 @@ import { ToolbarComponent, ContentComponent } from './components';
   ],
   imports: [
     SharedModule,
-    DetailsRoutingModule
+    DetailsRoutingModule,
+    NgxJsonViewerModule
   ]
 })
 export class DetailsModule {}

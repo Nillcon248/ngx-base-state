@@ -1,9 +1,12 @@
-import { fromEvent, takeUntil, Observable, startWith, map } from 'rxjs';
-import { METADATA_INPUT_ELEMENT_ID } from './consts';
+import { fromEvent, takeUntil, Observable, map, ReplaySubject, share } from 'rxjs';
+import { METADATA_CHANGE_EVENT } from './consts';
 
 const scrapperScriptName = 'scrapper.js';
 const scrapperScriptPath = chrome.extension.getURL(scrapperScriptName);
-let metadataInputElement: HTMLInputElement;
+const metadataChangeEvent$ = new ReplaySubject<CustomEvent>(1);
+
+fromEvent<CustomEvent>(document, METADATA_CHANGE_EVENT)
+    .subscribe((event) => metadataChangeEvent$.next(event));
 
 chrome.runtime.onConnect.addListener((port) => {
     const portDisconnect$ = new Observable((subscriber) => {
@@ -13,11 +16,9 @@ chrome.runtime.onConnect.addListener((port) => {
         });
     });
 
-    fromEvent(metadataInputElement, 'change')
+    metadataChangeEvent$
         .pipe(
-            map((event) => event.target as HTMLInputElement),
-            map((targetElement) => targetElement.value),
-            startWith(metadataInputElement.value),
+            map((event) => event.detail),
             takeUntil(portDisconnect$)
         )
         .subscribe((metadata) => port.postMessage(metadata));
@@ -33,13 +34,4 @@ function injectScript(filePath: string): HTMLScriptElement {
     return scriptElement;
 }
 
-function injectScrapperScript(): void {
-    const scriptElement = injectScript(scrapperScriptPath);
-
-    scriptElement.addEventListener('load', () => {
-        metadataInputElement = document
-            .getElementById(METADATA_INPUT_ELEMENT_ID) as HTMLInputElement;
-    });
-}
-
-injectScrapperScript();
+injectScript(scrapperScriptPath);

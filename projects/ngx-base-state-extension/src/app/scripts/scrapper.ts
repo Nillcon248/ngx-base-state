@@ -1,22 +1,14 @@
 import { MetadataKeyEnum } from '../../../../ngx-base-state/src/lib/enums';
 import { NgxBaseStateDevtoolsMetadata as Metadata } from '../../../../ngx-base-state/src/lib/interfaces';
+import { MetadataStorage } from '../../../../ngx-base-state/src/lib/helpers';
 import { Observable } from 'rxjs';
-import { METADATA_INPUT_ELEMENT_ID } from './consts';
+import { METADATA_CHANGE_EVENT } from './consts';
 
-const windowObj: any = window;
-const dataKey = MetadataKeyEnum.Data;
-const metadata$: Observable<Metadata> = windowObj[dataKey];
-const metadataInputElement = document.createElement('input');
-metadataInputElement.id = METADATA_INPUT_ELEMENT_ID;
-metadataInputElement.type = 'hidden';
+const metadata$: Observable<Metadata> = MetadataStorage.get(MetadataKeyEnum.Data);
 
-document.body.appendChild(metadataInputElement);
+metadata$.subscribe((metadata) => emitMetadataChangeEvent(metadata));
 
-metadata$.subscribe((metadata) => {
-    metadataInputElement.value = JSON.stringify(metadata);
-
-    // FIXME: Find actual approach to trigger "change" event
-    const event = document.createEvent("HTMLEvents");
-    event.initEvent("change", false, true);
-    metadataInputElement.dispatchEvent(event);
-});
+function emitMetadataChangeEvent(metadata: Metadata): void {
+    const event = new CustomEvent(METADATA_CHANGE_EVENT, { detail: metadata });
+    document.dispatchEvent(event);
+}

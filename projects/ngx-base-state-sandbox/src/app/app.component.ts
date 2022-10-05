@@ -1,5 +1,13 @@
 import { Component } from '@angular/core';
-import { UserState, ProductsState } from './states';
+import {
+  UserState,
+  UserAgeState,
+  UserNameState,
+  ProductsState,
+  UserAuthorizationState,
+  VideosState,
+  ShortVideosState
+} from './states';
 
 @Component({
   selector: 'app-root',
@@ -7,12 +15,17 @@ import { UserState, ProductsState } from './states';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'ngx-base-state-sandbox';
+  public readonly title = 'ngx-base-state-sandbox';
 
   constructor(
-    private readonly userState: UserState,
-    private readonly productsState: ProductsState
+    public readonly userState: UserState,
+    public readonly userAuthorizationState: UserAuthorizationState,
+    public readonly userAgeState: UserAgeState,
+    public readonly userNameState: UserNameState,
+    public readonly productsState: ProductsState,
+    public readonly videosState: VideosState,
+    public readonly shortVideosState: ShortVideosState
   ) {
-    console.log(this.userState, this.productsState);
+    console.log(arguments);
   }
 }

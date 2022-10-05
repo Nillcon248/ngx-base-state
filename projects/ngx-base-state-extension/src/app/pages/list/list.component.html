@@ -1,13 +1,22 @@
-<mat-selection-list [multiple]="false">
+<mat-selection-list
+    *ngIf="(stateShortInfoArray$ | async) as stateShortInfoArray"
+    [multiple]="false">
     <mat-list-option
-        *ngFor="let className of (stateClassNames$ | async)"
-        (click)="onListItemClick(className)">
+        *ngFor="let stateShortInfo of stateShortInfoArray"
+        (click)="onListItemClick(stateShortInfo.className)">
         <mat-icon mat-list-icon>code</mat-icon>
 
         <div
             mat-line
             class="class-name">
-            {{ className }}
+            {{ stateShortInfo.className }}
+        </div>
+
+        <div
+            mat-line
+            class="data-type"
+            [style.color]="stateShortInfo.dataType.color">
+            {{ stateShortInfo.dataType.name }}
         </div>
     </mat-list-option>
 </mat-selection-list>

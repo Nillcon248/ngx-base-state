@@ -11,7 +11,6 @@ import {
  *	@classdes This is a base class that used for creating hight level state classes
  */
 export abstract class BaseState<T> {
-
 	/**
 	 * 	Get Observable with state data.
      *	@return {Generic} Observable with the state data.
@@ -28,6 +27,7 @@ export abstract class BaseState<T> {
 		return this._data$.value;
 	}
 
+	// FIXME: Maybe it should be private?
 	/**
 	 * 	Main `Observable` with state data. Must be isolated to avoid possible issues.
      *	@return {BehaviorSubject<Generic>} BehaviorSubject with state data.

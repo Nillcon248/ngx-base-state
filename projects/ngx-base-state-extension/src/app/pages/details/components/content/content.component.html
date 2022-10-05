@@ -1,1 +1,9 @@
-{{ stateData$ | async | json }}
+<h1
+    *ngIf="(dataType$ | async) as dataType"
+    class="title">
+    {{ dataType.name }}
+</h1>
+
+<ngx-json-viewer
+    [json]="(stateData$ | async)">
+</ngx-json-viewer>
