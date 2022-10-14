@@ -1,0 +1,12 @@
+:host {
+    display: block;
+}
+
+.content {
+    color: gray;
+    font-size: 20px;
+
+    .method-name {
+        line-height: 22px;
+    }
+}

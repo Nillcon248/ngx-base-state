@@ -1,0 +1,19 @@
+<app-title class="title">
+    <mat-icon title-icon>event</mat-icon>
+
+    <span>{{ operation.date | date:'hh:mm:ss' }}</span>
+    
+    <app-operation-type-chip
+        class="chip"
+        [operation]="operation">
+    </app-operation-type-chip>
+</app-title>
+
+<app-stacktrace-button
+    class="stacktrace-button"
+    [operation]="operation">
+</app-stacktrace-button>
+
+<app-value-viewer
+    [data]="operation.data">
+</app-value-viewer>

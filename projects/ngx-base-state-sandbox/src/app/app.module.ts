@@ -3,10 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgxBaseStateDevtoolsModule } from 'projects/ngx-base-state/src/lib/devtools.module';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
+import { VideosState } from './states';
+import { UfoTableComponent } from './components';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    UfoTableComponent
   ],
   imports: [
     BrowserModule,
@@ -14,6 +17,11 @@ import { AppComponent } from './app.component';
       isEnabled: !environment.production
     })
   ],
-  bootstrap: [AppComponent]
+  providers: [
+    VideosState
+  ],
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule {}

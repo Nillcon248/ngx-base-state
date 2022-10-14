@@ -1,0 +1,26 @@
+@import "../base.component.scss";
+
+$historical-operation-color: #0077e6;
+$color: #d61c3b;
+
+:host {
+    @include base-timeline-item;
+
+    border: solid 1px $color;
+    color: $color;
+
+    &.selected {
+        background-color: $color;
+        color: #fff;
+    }
+
+    &.historical {
+        border: solid 1px $historical-operation-color;
+        color: $historical-operation-color;
+
+        &.selected {
+            background-color: $historical-operation-color;
+            color: #fff;
+        }
+    }
+}

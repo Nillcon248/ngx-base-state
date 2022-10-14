@@ -1,0 +1,13 @@
+@import "../base.component.scss";
+
+:host {
+    @include base-timeline-item;
+
+    border: solid 1px var(--operation-color);
+    color: var(--operation-color);
+
+    &.selected {
+        color: #fff;
+        background-color: var(--operation-color);
+    }
+}

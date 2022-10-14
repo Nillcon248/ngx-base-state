@@ -1,0 +1,17 @@
+:host {
+    display: block;
+}
+
+.title {
+    margin: 0px 0px 5px 0px;
+}
+
+.timeline {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.timeline-item {
+    margin: 0px 2px;
+}

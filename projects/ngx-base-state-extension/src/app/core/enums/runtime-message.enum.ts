@@ -1,4 +1,4 @@
 export const enum RuntimeMessageEnum {
-    RequestMetadata = '__ngx-base-state-request-metadata',
-    Metadata = '__ngx-base-state-metadata'
+    RequestIsLibraryAvailable = '__ngx-b-s-req-lib-availability',
+    LibraryAvailability = '__ngx-b-s-lib-availability'
 }

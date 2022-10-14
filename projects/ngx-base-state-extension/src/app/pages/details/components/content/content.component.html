@@ -1,9 +1,18 @@
-<h1
-    *ngIf="(dataType$ | async) as dataType"
-    class="title">
-    {{ dataType.name }}
-</h1>
+<ng-container
+    *ngIf="(selectedTimelineItem$ | async) as selectedTimelineItem"
+    [ngSwitch]="selectedTimelineItem.type">
+    <app-historical-operation
+        *ngSwitchCase="timelineItemTypeEnum.Historical"
+        class="operation-viewer"
+        [operation]="selectedTimelineItem.operation!">
+    </app-historical-operation>
 
-<ngx-json-viewer
-    [json]="(stateData$ | async)">
-</ngx-json-viewer>
+    <app-realtime-operation
+        *ngSwitchCase="timelineItemTypeEnum.Realtime"
+        class="operation-viewer">
+    </app-realtime-operation>
+</ng-container>
+
+<app-timeline
+    class="timeline">
+</app-timeline>

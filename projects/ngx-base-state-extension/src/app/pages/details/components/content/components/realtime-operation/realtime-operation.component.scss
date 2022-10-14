@@ -1,0 +1,23 @@
+@keyframes flickerAnimation {
+    0% { opacity: 1; }
+
+    50% { opacity: 0; }
+
+    100% { opacity: 1; }
+}
+
+:host {
+    position: relative;
+}
+
+.title {
+    color: #d61c3b;
+
+    .icon {
+        animation: flickerAnimation 1.5s infinite;
+    }
+}
+
+.chip {
+    margin-left: 7px;
+}

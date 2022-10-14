@@ -1,9 +1,10 @@
 <mat-toolbar [color]="'primary'">
-  <button
-    mat-icon-button
-    (click)="onBackButtonClick()">
-    <mat-icon>arrow_back</mat-icon>
-  </button>
+    <button
+        mat-icon-button
+        class="back-button"
+        (click)="onBackButtonClick()">
+        <mat-icon>arrow_back</mat-icon>
+    </button>
 
-  <span>{{ openedClassName }}</span>
+    <span>{{ openedClassName }}</span>
 </mat-toolbar>

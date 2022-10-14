@@ -1,31 +1,40 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { UserService } from './services';
 import {
-  UserState,
-  UserAgeState,
-  UserNameState,
-  ProductsState,
-  UserAuthorizationState,
-  VideosState,
-  ShortVideosState
+    UserAgeState,
+    UserNameState,
+    ProductsState,
+    UserAuthorizationState,
+    VideosState,
+    ShortVideosState
 } from './states';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
-  public readonly title = 'ngx-base-state-sandbox';
+    public isUfoTableVisible = false;
 
-  constructor(
-    public readonly userState: UserState,
-    public readonly userAuthorizationState: UserAuthorizationState,
-    public readonly userAgeState: UserAgeState,
-    public readonly userNameState: UserNameState,
-    public readonly productsState: ProductsState,
-    public readonly videosState: VideosState,
-    public readonly shortVideosState: ShortVideosState
-  ) {
-    console.log(arguments);
-  }
+    constructor(
+        public readonly userService: UserService,
+        public readonly userAuthorizationState: UserAuthorizationState,
+        public readonly userAgeState: UserAgeState,
+        public readonly userNameState: UserNameState,
+        public readonly productsState: ProductsState,
+        public readonly videosState: VideosState,
+        public readonly shortVideosState: ShortVideosState
+    ) {
+        this.userService.incrementAge();
+
+        setInterval(() => {
+            this.userService.incrementAge();
+        }, 1000);
+    }
+
+    public onToggleUfoTableButtonClick(): void {
+        this.isUfoTableVisible = !this.isUfoTableVisible;
+    }
 }

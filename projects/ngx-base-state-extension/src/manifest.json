@@ -1,18 +1,15 @@
 {
     "name": "ngx-base-state explorer",
     "version": "0.1",
-    "description": "Test",
-    "manifest_version": 2,
-    "browser_action": {
-        "default_icon": {
-        },
-        "default_popup": "index.html"
-    },
+    "description": "This tool allows you to see data in your states based on ngx-base-state.",
+    "manifest_version": 3,
+    "devtools_page": "devtools/index.html",
     "permissions": [
         "tabs",
         "activeTab"
     ],
     "host_permissions": ["*://*"],
+    "optional_host_permissions": ["*://*"],
     "content_scripts": [
         {
             "matches": ["*://*/*"],
@@ -20,6 +17,14 @@
             "run_at": "document_end"
         }
     ],
-    "web_accessible_resources" : ["scrapper.js"],
-    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+    "web_accessible_resources" : [
+        {
+            "resources": ["scrapper.js"],
+            "matches": ["*://*/*"],
+            "extension_ids": ["ciigajfomocdmgbpmcojmokmfcienidh"]
+        }
+    ],
+    "content_security_policy": {
+        "sandbox": "sandbox allow-scripts; default-src 'self' 'unsafe-eval'; object-src 'self'"
+    }
 }

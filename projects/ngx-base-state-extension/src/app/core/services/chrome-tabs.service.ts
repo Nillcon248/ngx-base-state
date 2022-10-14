@@ -1,5 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
-import { Observable } from 'rxjs';
+import { ContentScriptConnectionEnum } from '@extension-core/enums';
+import { Observable, retry } from 'rxjs';
 import { RuntimeMessage } from '../interfaces';
 
 @Injectable({
@@ -29,14 +30,19 @@ export class ChromeTabsService {
         });
     }
 
-    public connect<T>(tabId: number, connectionName: string): Observable<T> {
-        return new Observable((subscriber) => {
+    public connect<T>(tabId: number, connection: ContentScriptConnectionEnum): Observable<T> {
+        return new Observable<T>((subscriber) => {
             const port = chrome.tabs.connect(tabId, {
-                name: connectionName
+                name: connection
             });
 
             port.onMessage.addListener((message) => {
                 this.ngZone.run(() => subscriber.next(message));
+            });
+
+            port.onDisconnect.addListener(() => {
+                console.warn(`Connection to the tab dropped...`);
+                this.ngZone.run(() => subscriber.error());
             });
 
             return {
@@ -45,6 +51,8 @@ export class ChromeTabsService {
                     subscriber.complete();
                 }
             };
-        });
+        }).pipe(
+            retry({ delay: 500 })
+        );
     }
 }

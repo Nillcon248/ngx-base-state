@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppRouteEnum } from '../../core';
-import { DataTypeService, MetadataService } from '../../services';
+import { StateShortInfo } from './interfaces';
 import { StateShortInfoService } from './services';
 
 @Component({
@@ -23,5 +23,9 @@ export class ListComponent {
 
     public onListItemClick(className: string): void {
         this.router.navigateByUrl(`/${AppRouteEnum.Details}/${className}`);
+    }
+
+    public trackByFn(itemIndex: number, item: StateShortInfo): string {
+        return item.className;
     }
 }

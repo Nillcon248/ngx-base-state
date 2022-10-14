@@ -1,1 +1,1 @@
-export const METADATA_CHANGE_EVENT = 'ngx-base-state-data-change';
+export const METADATA_OPERATION_EMITTER_EVENT = 'ngx-base-state-operation-emitter-event';

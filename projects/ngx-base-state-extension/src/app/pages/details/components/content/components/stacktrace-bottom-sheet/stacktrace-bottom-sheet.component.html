@@ -1,0 +1,11 @@
+<app-title>
+    Call Stack
+</app-title>
+
+<ul class="content">
+    <li
+        *ngFor="let methodName of operation.stackTrace"
+        class="method-name">
+        {{ methodName }}
+    </li>
+</ul>

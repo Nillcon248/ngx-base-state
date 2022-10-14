@@ -1,10 +1,8 @@
-import { BehaviorSubject, Observable } from 'rxjs';
-import { MetadataKeyEnum } from './enums';
+import { ReplaySubject, BehaviorSubject, Observable } from 'rxjs';
+import { ɵMetadataOperation } from './classes';
+import { MetadataKeyEnum, ɵMetadataOperationTypeEnum } from './enums';
 import { MetadataStorage } from './helpers';
-import {
-	NgxBaseStateDevtoolsMetadata as Metadata,
-	NgxBaseStateDevtoolsConfig as Config
-} from './interfaces';
+import { NgxBaseStateDevtoolsConfig as Config } from './interfaces';
 
 /**
  *	@class
@@ -27,18 +25,22 @@ export abstract class BaseState<T> {
 		return this._data$.value;
 	}
 
-	// FIXME: Maybe it should be private?
 	/**
 	 * 	Main `Observable` with state data. Must be isolated to avoid possible issues.
      *	@return {BehaviorSubject<Generic>} BehaviorSubject with state data.
      */
-	protected readonly _data$: BehaviorSubject<T | null>;
+	private readonly _data$: BehaviorSubject<T | null>;
 
 	constructor(private initialData: T | null = null) {
 		this._data$ = new BehaviorSubject<T | null>(this.initialData);
 
-		this.updateMetadata();
+		this.emitMetadataOperation(ɵMetadataOperationTypeEnum.Init);
 	}
+
+	// public ngOnDestroy(): void {
+	// 	this._data$.complete();
+	// 	this.emitMetadataOperation(ɵMetadataOperationTypeEnum.Destroy);
+	// }
 
 	/**
 	 *	Set new value to state
@@ -55,11 +57,18 @@ export abstract class BaseState<T> {
 	}
 
 	/**
+	 * 	Restore initial value from constructor.
+	 */
+	public restoreInitialValue(): void {
+		this.setNewValue(this.initialData);
+	}
+
+	/**
 	 * 	Protected method for set data functionality. May be expanded.
      */
 	protected setNewValue(value: T | null): void {
 		this._data$.next(value);
-		this.updateMetadata();
+		this.emitMetadataOperation(ɵMetadataOperationTypeEnum.Update);
 	}
 
 	/**
@@ -88,17 +97,20 @@ export abstract class BaseState<T> {
 		throw new Error(`Error: '${error.message}' in action '${actionName}'`);
 	}
 
-	private updateMetadata(): void {
+	private emitMetadataOperation(type: ɵMetadataOperationTypeEnum): void {
 		const config = MetadataStorage.get<Config>(MetadataKeyEnum.Config);
 
 		if (config?.isEnabled) {
 			const self: Object = this;
 			const className = self.constructor.name;
-			const metadata$ = MetadataStorage.get<BehaviorSubject<Metadata>>(MetadataKeyEnum.Data);
-			const metadata = { ...metadata$.value };
-			metadata[className] = this._data$.getValue();
+			const metadataOperation = new ɵMetadataOperation(className, this.data, type);
+			const operationEmitter$ = MetadataStorage.get<ReplaySubject<ɵMetadataOperation>>(MetadataKeyEnum.MetadataOperation);
 
-			metadata$.next(metadata);
+			operationEmitter$.next(metadataOperation);
 		}
 	}
+}
+
+(BaseState.prototype as any)['ngOnDestroy'] = function() {
+	this['emitMetadataOperation'](ɵMetadataOperationTypeEnum.Destroy);
 }

@@ -1,0 +1,17 @@
+$width: 25px;
+$height: 14px;
+
+@mixin base-timeline-item {
+    min-width: $width;
+    width: $width;
+    height: $height;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px;
+    cursor: pointer;
+
+    .icon {
+        transform: scale(.7);
+    }
+}

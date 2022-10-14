@@ -1,0 +1,25 @@
+<app-title class="title">
+    <mat-icon
+        title-icon
+        class="icon">
+        radio_button_checked
+    </mat-icon>
+
+    <span>Realtime</span>
+
+    <app-operation-type-chip
+        *ngIf="(lastOperation$ | async) as lastOperation"
+        class="chip"
+        [operation]="lastOperation">
+    </app-operation-type-chip>
+</app-title>
+
+<app-stacktrace-button
+    *ngIf="(lastOperation$ | async) as lastOperation"
+    class="stacktrace-button"
+    [operation]="lastOperation">
+</app-stacktrace-button>
+
+<app-value-viewer
+    [data]="(realtimeData$ | async)">
+</app-value-viewer>

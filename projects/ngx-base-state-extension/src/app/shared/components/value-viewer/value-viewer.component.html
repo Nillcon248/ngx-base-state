@@ -1,0 +1,16 @@
+<ngx-json-viewer
+    *ngIf="isDataValidForJsonViewer"
+    [json]="data">
+</ngx-json-viewer>
+
+<b
+    *ngIf="isDataUndefined"
+    class="non-json-value">
+    undefined
+</b>
+
+<b
+    *ngIf="isDataNull"
+    class="non-json-value">
+    null
+</b>

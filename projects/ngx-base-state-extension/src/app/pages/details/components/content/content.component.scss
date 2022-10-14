@@ -1,9 +1,18 @@
 :host {
-    display: block;
-    font-weight: bold;
-    font-size: 18px;
+    display: flex;
+    flex-direction: column;
 }
 
-.title {
-    margin: 5px 0px;
+.operation-viewer {
+    height: 100%;
+    padding: 10px;
+    display: block;
+    flex-flow: column;
+    overflow-y: auto;
+}
+
+.timeline {
+    padding: 10px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 1px 4px;
+    overflow: auto hidden;
 }

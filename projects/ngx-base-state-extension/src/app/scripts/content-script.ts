@@ -1,12 +1,35 @@
-import { fromEvent, takeUntil, Observable, map, ReplaySubject, share } from 'rxjs';
-import { METADATA_CHANGE_EVENT } from './consts';
+import {
+    ContentScriptConnectionEnum as ConnectionEnum,
+    RuntimeMessage,
+    RuntimeMessageEnum
+} from '../core';
+import { fromEvent, takeUntil, Observable, map, filter, ReplaySubject } from 'rxjs';
+import { ɵMetadataOperation } from '../../../../ngx-base-state/src/lib/classes';
+import { METADATA_OPERATION_EMITTER_EVENT } from './consts';
 
 const scrapperScriptName = 'scrapper.js';
-const scrapperScriptPath = chrome.extension.getURL(scrapperScriptName);
-const metadataChangeEvent$ = new ReplaySubject<CustomEvent>(1);
+const scrapperScriptPath = chrome.runtime.getURL(scrapperScriptName);
+const operationEmitterEvent$ = new ReplaySubject<ɵMetadataOperation>();
+let isScrapperSentCustomEvent = false;
 
-fromEvent<CustomEvent>(document, METADATA_CHANGE_EVENT)
-    .subscribe((event) => metadataChangeEvent$.next(event));
+fromEvent<CustomEvent<ɵMetadataOperation>>(document, METADATA_OPERATION_EMITTER_EVENT)
+    .pipe(
+        map((event) => event.detail)
+    )
+    .subscribe((metadataOperation) => {
+        isScrapperSentCustomEvent = true;
+
+        operationEmitterEvent$.next(metadataOperation);
+    });
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.type === RuntimeMessageEnum.RequestIsLibraryAvailable) {
+        sendResponse(<RuntimeMessage>{
+            type: RuntimeMessageEnum.LibraryAvailability,
+            data: isScrapperSentCustomEvent
+        });
+    }
+});
 
 chrome.runtime.onConnect.addListener((port) => {
     const portDisconnect$ = new Observable((subscriber) => {
@@ -16,12 +39,16 @@ chrome.runtime.onConnect.addListener((port) => {
         });
     });
 
-    metadataChangeEvent$
+    if (port.name === ConnectionEnum.AppInit) {
+        port.postMessage(true);
+    }
+
+    operationEmitterEvent$
         .pipe(
-            map((event) => event.detail),
+            filter(() => (port.name === ConnectionEnum.Operation)),
             takeUntil(portDisconnect$)
         )
-        .subscribe((metadata) => port.postMessage(metadata));
+        .subscribe((metadataOperation) => port.postMessage(metadataOperation));
 });
 
 function injectScript(filePath: string): HTMLScriptElement {

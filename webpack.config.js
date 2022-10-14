@@ -20,5 +20,6 @@ module.exports = {
         loader: "ts-loader"
       }
     ]
-  }
+  },
+  devtool: 'cheap-module-source-map'
 };

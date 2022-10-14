@@ -1,28 +1,29 @@
 import { Injectable } from '@angular/core';
-import { NgxBaseStateDevtoolsMetadata as Metadata } from '@ngx-base-state/interfaces';
-import { map, switchMap, Observable } from 'rxjs';
-import { ChromeTabsService } from '../core';
+import { Observable } from 'rxjs';
+import { ApplicationReloadEmitter, MetadataOperationEmitter } from '../emitters';
 import { MetadataState } from '../states';
 
 @Injectable({
     providedIn: 'root'
 })
 export class MetadataService {
-    public readonly data$ = this.metadataState.data$ as Observable<Metadata>;
-
-    private readonly metadataConnectionName = 'metadata';
+    public readonly data$ = this.metadataState.data$ as Observable<Map<string, unknown>>;
 
     constructor(
-        private readonly chromeTabsService: ChromeTabsService,
+        private readonly applicationReloadEmitter: ApplicationReloadEmitter,
+        private readonly metadataOperationEmitter: MetadataOperationEmitter,
         private readonly metadataState: MetadataState
-    ) {}
+    ) {
+        this.initApplicationReloadObserver();
+    }
 
     public initObserver(): void {
-        this.chromeTabsService.watchForActive()
-            .pipe(
-                map((tab) => tab.id as number),
-                switchMap((tabId) => this.chromeTabsService.connect<Metadata>(tabId, this.metadataConnectionName))
-            )
-            .subscribe((metadata) => this.metadataState.set(metadata));
+        this.metadataOperationEmitter.data$
+            .subscribe((operation) => this.metadataState.updateByOperation(operation));
+    }
+
+    private initApplicationReloadObserver(): void {
+        this.applicationReloadEmitter.data$
+            .subscribe(() => this.metadataState.restoreInitialValue());
     }
 }

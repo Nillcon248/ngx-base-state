@@ -1,14 +1,14 @@
-import { MetadataKeyEnum } from '../../../../ngx-base-state/src/lib/enums';
-import { NgxBaseStateDevtoolsMetadata as Metadata } from '../../../../ngx-base-state/src/lib/interfaces';
-import { MetadataStorage } from '../../../../ngx-base-state/src/lib/helpers';
 import { Observable } from 'rxjs';
-import { METADATA_CHANGE_EVENT } from './consts';
+import { MetadataKeyEnum } from '../../../../ngx-base-state/src/lib/enums';
+import { MetadataStorage } from '../../../../ngx-base-state/src/lib/helpers';
+import { ɵMetadataOperation } from '../../../../ngx-base-state/src/lib/classes';
+import { METADATA_OPERATION_EMITTER_EVENT } from './consts';
 
-const metadata$: Observable<Metadata> = MetadataStorage.get(MetadataKeyEnum.Data);
+const metadataOperation$: Observable<ɵMetadataOperation> = MetadataStorage
+    .get(MetadataKeyEnum.MetadataOperation);
 
-metadata$.subscribe((metadata) => emitMetadataChangeEvent(metadata));
-
-function emitMetadataChangeEvent(metadata: Metadata): void {
-    const event = new CustomEvent(METADATA_CHANGE_EVENT, { detail: metadata });
-    document.dispatchEvent(event);
-}
+metadataOperation$
+    .subscribe((metadataOperation) => {
+        const event = new CustomEvent(METADATA_OPERATION_EMITTER_EVENT, { detail: metadataOperation });
+        document.dispatchEvent(event);
+    });

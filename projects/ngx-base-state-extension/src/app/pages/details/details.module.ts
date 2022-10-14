@@ -1,20 +1,18 @@
 import { NgModule } from '@angular/core';
-import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { DetailsComponent } from './details.component';
 import { DetailsRoutingModule } from './details.routing';
 import { SharedModule } from '../../shared';
-import { ToolbarComponent, ContentComponent } from './components';
+import { ToolbarComponent, ContentModule } from './components';
 
 @NgModule({
   declarations: [
     DetailsComponent,
-    ToolbarComponent,
-    ContentComponent
+    ToolbarComponent
   ],
   imports: [
     SharedModule,
     DetailsRoutingModule,
-    NgxJsonViewerModule
+    ContentModule
   ]
 })
 export class DetailsModule {}

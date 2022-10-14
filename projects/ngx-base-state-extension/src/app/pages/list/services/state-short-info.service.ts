@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { combineLatest, map, share, tap } from 'rxjs';
-import { NgxBaseStateDevtoolsMetadata as Metadata } from '@ngx-base-state/interfaces';
+import { combineLatest, map, share } from 'rxjs';
 import { DataTypeService, MetadataService } from '@extension-services';
 import { StateDataTypeEnum } from '@extension-core';
 import { StateShortInfo } from '../interfaces';
@@ -24,10 +23,10 @@ export class StateShortInfoService {
     ) {}
 
     private adaptMetadata(
-        metadata: Metadata,
+        metadataMap: Map<string, unknown>,
         dataTypeMap: Map<string, StateDataTypeEnum>
     ): StateShortInfo[] {
-        return Object.keys(metadata)
+        return [...metadataMap.keys()]
             .map((className) => {
                 const dataTypeId = dataTypeMap.get(className) as StateDataTypeEnum;
 

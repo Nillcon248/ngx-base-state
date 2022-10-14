@@ -61,6 +61,11 @@
               "projects/ngx-base-state-extension/src/assets",
               "projects/ngx-base-state-extension/src/manifest.json",
               {
+                "glob": "**/*",
+                "input": "projects/ngx-base-state-extension/src/devtools",
+                "output": "devtools"
+              },
+              {
                 "glob": "indigo-pink.css",
                 "input": "node_modules/@angular/material/prebuilt-themes",
                 "output": "themes"
