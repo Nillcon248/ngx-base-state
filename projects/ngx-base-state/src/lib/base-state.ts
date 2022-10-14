@@ -37,11 +37,6 @@ export abstract class BaseState<T> {
 		this.emitMetadataOperation(ɵMetadataOperationTypeEnum.Init);
 	}
 
-	// public ngOnDestroy(): void {
-	// 	this._data$.complete();
-	// 	this.emitMetadataOperation(ɵMetadataOperationTypeEnum.Destroy);
-	// }
-
 	/**
 	 *	Set new value to state
 	 */
@@ -111,6 +106,7 @@ export abstract class BaseState<T> {
 	}
 }
 
+// FIXME: Investigate better approach
 (BaseState.prototype as any)['ngOnDestroy'] = function() {
 	this['emitMetadataOperation'](ɵMetadataOperationTypeEnum.Destroy);
 }

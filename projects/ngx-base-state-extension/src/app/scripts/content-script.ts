@@ -9,6 +9,9 @@ import { METADATA_OPERATION_EMITTER_EVENT } from './consts';
 
 const scrapperScriptName = 'scrapper.js';
 const scrapperScriptPath = chrome.runtime.getURL(scrapperScriptName);
+// FIXME: Investigate how to pass ReplaySubject from the window to content-script
+// Right now here creating another ReplaySubject which contain exact buffer that contain
+// ReplaySubject in the window.
 const operationEmitterEvent$ = new ReplaySubject<ɵMetadataOperation>();
 let isScrapperSentCustomEvent = false;
 
