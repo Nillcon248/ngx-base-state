@@ -3,7 +3,12 @@ import { Router } from '@angular/router';
 import { ɵMetadataOperationTypeEnum } from '@ngx-base-state/enums';
 import { AppRouteEnum } from '../../core';
 import { StateShortInfo } from './interfaces';
-import { StateShortInfoService } from './services';
+import { MetadataListFiltersState } from './states';
+import {
+    StateShortInfoService,
+    FilteredRealtimeOperationsService,
+    MetadataListFiltersService
+} from './services';
 
 @Component({
     selector: 'app-list',
@@ -11,7 +16,10 @@ import { StateShortInfoService } from './services';
     styleUrls: ['./list.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
-        StateShortInfoService
+        MetadataListFiltersState,
+        StateShortInfoService,
+        FilteredRealtimeOperationsService,
+        MetadataListFiltersService
     ]
 })
 export class ListComponent {

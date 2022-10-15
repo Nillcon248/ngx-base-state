@@ -1,5 +1,5 @@
 export enum ɵMetadataOperationTypeEnum {
-    Init,
+    Init = 1,
     Update,
     Destroy
 }

@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import { combineLatest, map, share } from 'rxjs';
 import { ɵMetadataOperation } from '@ngx-base-state/classes';
-import { DataTypeService, MetadataService } from '@extension-services';
+import { DataTypeService } from '@extension-services';
 import { StateDataTypeEnum } from '@extension-core';
 import { StateShortInfo } from '../interfaces';
 import { StateDataType } from '../../../interfaces';
 import { DATA_TYPE_MAP, OPERATION_TYPE_MAP } from '../../../data';
+import { FilteredRealtimeOperationsService } from './filtered-realtime-operations.service';
 
 @Injectable()
 export class StateShortInfoService {
     public readonly data$ = combineLatest([
-        this.metadataService.data$,
+        this.filteredOperationsService.data$,
         this.dataTypeService.data$
     ])
         .pipe(
@@ -19,22 +20,21 @@ export class StateShortInfoService {
         );
 
     constructor(
-        private readonly metadataService: MetadataService,
+        private readonly filteredOperationsService: FilteredRealtimeOperationsService,
         private readonly dataTypeService: DataTypeService
     ) {}
 
     private adaptMetadata(
-        metadataMap: Map<string, ɵMetadataOperation>,
+        operations: ɵMetadataOperation[],
         dataTypeMap: Map<string, StateDataTypeEnum>
     ): StateShortInfo[] {
-        return [...metadataMap.keys()]
-            .map((className) => {
-                const operationTypeId = metadataMap.get(className)!.type;
-                const dataTypeId = dataTypeMap.get(className) as StateDataTypeEnum;
-                const operationType = OPERATION_TYPE_MAP.get(operationTypeId)!;
+        return operations
+            .map((operation) => {
+                const dataTypeId = dataTypeMap.get(operation.className)!;
+                const operationType = OPERATION_TYPE_MAP.get(operation.type)!;
 
                 return {
-                    className,
+                    className: operation.className,
                     operationType,
                     dataType: this.getDataTypeById(dataTypeId)
                 } as StateShortInfo;

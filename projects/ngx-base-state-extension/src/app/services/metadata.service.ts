@@ -21,6 +21,12 @@ export class MetadataService {
             share()
         );
 
+    public readonly dataAsArray$ = this.data$
+        .pipe(
+            map((metadataMap) => [...metadataMap.values()]),
+            share()
+        );
+
     constructor(
         private readonly operationHistoryState: MetadataOperationHistoryState
     ) {}
