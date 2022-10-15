@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import {
     DataTypeService,
-    MetadataService,
     MetadataOperationHistoryService,
     MetadataOperationService,
     ApplicationReloadService
@@ -16,7 +15,6 @@ import {
 export class AppComponent implements OnInit {
     constructor(
         private readonly applicationReloadService: ApplicationReloadService,
-        private readonly metadataService: MetadataService,
         private readonly metadataOperationHistoryService: MetadataOperationHistoryService,
         private readonly metadataOperationService: MetadataOperationService,
         private readonly dataTypeService: DataTypeService
@@ -24,7 +22,6 @@ export class AppComponent implements OnInit {
 
     public ngOnInit(): void {
         this.applicationReloadService.initObserver();
-        this.metadataService.initObserver();
         this.metadataOperationService.initObserver();
         this.dataTypeService.initObserver();
         this.metadataOperationHistoryService.initObserver();

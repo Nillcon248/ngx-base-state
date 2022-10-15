@@ -10,21 +10,10 @@ import { OPENED_CLASS_NAME } from '../../../../consts';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RealtimeOperationComponent {
-    public readonly realtimeData$: Observable<unknown> = this.metadataService.data$
-        .pipe(
-            map((metadata) => metadata.get(this.openedClassName))
-        );
-
-    public readonly lastOperation$ = this.operationHistoryService.data$
-        .pipe(
-            map((operationHistoryMap) => operationHistoryMap.get(this.openedClassName)),
-            map((operations) => operations![operations!.length - 1]),
-            share()
-        );
+    public readonly lastOperation$ = this.metadataService.getWithinClass(this.openedClassName);
 
     constructor(
         @Inject(OPENED_CLASS_NAME) private readonly openedClassName: string,
-        private readonly metadataService: MetadataService,
-        private readonly operationHistoryService: MetadataOperationHistoryService
+        private readonly metadataService: MetadataService
     ) {}
 }

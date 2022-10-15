@@ -5,3 +5,16 @@
 .data-type {
     font-weight: bold;
 }
+
+.list-option {
+    &.destroyed {
+        .class-name {
+            text-decoration: line-through;
+            color: gray;
+        }
+
+        .data-type {
+            color: gray !important;
+        }
+    }
+}

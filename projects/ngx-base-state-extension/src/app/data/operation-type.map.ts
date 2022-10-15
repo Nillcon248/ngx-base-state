@@ -5,7 +5,7 @@ export const OPERATION_TYPE_MAP = new Map<ɵMetadataOperationTypeEnum, Operation
     [
         ɵMetadataOperationTypeEnum.Init,
         {
-            type: ɵMetadataOperationTypeEnum.Init,
+            id: ɵMetadataOperationTypeEnum.Init,
             name: 'Initialized',
             color: '#cbaf00'
         }
@@ -13,7 +13,7 @@ export const OPERATION_TYPE_MAP = new Map<ɵMetadataOperationTypeEnum, Operation
     [
         ɵMetadataOperationTypeEnum.Update,
         {
-            type: ɵMetadataOperationTypeEnum.Update,
+            id: ɵMetadataOperationTypeEnum.Update,
             name: 'Updated',
             color: '#0077e6'
         }
@@ -21,7 +21,7 @@ export const OPERATION_TYPE_MAP = new Map<ɵMetadataOperationTypeEnum, Operation
     [
         ɵMetadataOperationTypeEnum.Destroy,
         {
-            type: ɵMetadataOperationTypeEnum.Destroy,
+            id: ɵMetadataOperationTypeEnum.Destroy,
             name: 'Destroyed',
             color: '#b400e6'
         }

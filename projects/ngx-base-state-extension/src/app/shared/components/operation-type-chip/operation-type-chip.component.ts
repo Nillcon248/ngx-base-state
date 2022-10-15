@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, HostBinding } from '@angular/core';
 import { OPERATION_TYPE_MAP } from '@extension-data';
 import { OperationType } from '@extension-interfaces';
-import { ɵMetadataOperation } from '@ngx-base-state/classes';
+import { ɵMetadataOperationTypeEnum } from '@ngx-base-state/enums';
 
 @Component({
     selector: 'app-operation-type-chip',
@@ -11,10 +11,15 @@ import { ɵMetadataOperation } from '@ngx-base-state/classes';
 })
 export class OperationTypeChipComponent {
     @Input()
-    public operation!: ɵMetadataOperation;
+    public operationTypeId!: ɵMetadataOperationTypeEnum;
+
+    @HostBinding('style.backgroundColor')
+    public get hostBackgroundColorStyle(): string {
+        return this.operationType.color;
+    }
 
     public get operationType(): OperationType {
         return OPERATION_TYPE_MAP
-            .get(this.operation.type) as OperationType;
+            .get(this.operationTypeId) as OperationType;
     }
 }

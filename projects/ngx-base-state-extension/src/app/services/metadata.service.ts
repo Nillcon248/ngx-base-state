@@ -1,29 +1,34 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { ApplicationReloadEmitter, MetadataOperationEmitter } from '../emitters';
-import { MetadataState } from '../states';
+import { map, share, tap, Observable } from 'rxjs';
+import { ɵMetadataOperation } from '@ngx-base-state/classes';
+import { MetadataOperationHistoryState } from '../states';
 
 @Injectable({
     providedIn: 'root'
 })
 export class MetadataService {
-    public readonly data$ = this.metadataState.data$ as Observable<Map<string, unknown>>;
+    public readonly data$: Observable<Map<string, ɵMetadataOperation>> = this.operationHistoryState.data$
+        .pipe(
+            map((historyMap) => {
+                const metadataMap = new Map<string, ɵMetadataOperation>();
+
+                historyMap!.forEach((operations, className) => {
+                    metadataMap.set(className, operations[operations.length - 1]);
+                });
+
+                return metadataMap;
+            }),
+            share()
+        );
 
     constructor(
-        private readonly applicationReloadEmitter: ApplicationReloadEmitter,
-        private readonly metadataOperationEmitter: MetadataOperationEmitter,
-        private readonly metadataState: MetadataState
-    ) {
-        this.initApplicationReloadObserver();
-    }
+        private readonly operationHistoryState: MetadataOperationHistoryState
+    ) {}
 
-    public initObserver(): void {
-        this.metadataOperationEmitter.data$
-            .subscribe((operation) => this.metadataState.updateByOperation(operation));
-    }
-
-    private initApplicationReloadObserver(): void {
-        this.applicationReloadEmitter.data$
-            .subscribe(() => this.metadataState.restoreInitialValue());
+    public getWithinClass(className: string): Observable<ɵMetadataOperation> {
+        return this.data$
+            .pipe(
+                map((operationMap) => operationMap.get(className)!)
+            );
     }
 }

@@ -5,13 +5,18 @@
     [multiple]="false">
     <mat-list-option
         *ngFor="let stateShortInfo of stateShortInfoArray; trackBy: trackByFn"
+        class="list-option"
+        [class]="getListItemCssClass(stateShortInfo)"
         (click)="onListItemClick(stateShortInfo.className)">
-        <mat-icon mat-list-icon>code</mat-icon>
-
         <div
             mat-line
             class="class-name">
             {{ stateShortInfo.className }}
+
+            <app-operation-type-chip
+                class="operation-type-chip"
+                [operationTypeId]="stateShortInfo.operationType.id">
+            </app-operation-type-chip>
         </div>
 
         <div

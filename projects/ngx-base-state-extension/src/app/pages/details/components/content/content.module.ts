@@ -9,8 +9,7 @@ import {
     RealtimeTimelineItemComponent,
     HistoricalTimelineItemComponent,
     StacktraceButtonComponent,
-    StacktraceBottomSheetComponent,
-    OperationTypeChipComponent
+    StacktraceBottomSheetComponent
 } from './components';
 
 @NgModule({
@@ -22,8 +21,7 @@ import {
         HistoricalOperationComponent,
         RealtimeOperationComponent,
         StacktraceButtonComponent,
-        StacktraceBottomSheetComponent,
-        OperationTypeChipComponent
+        StacktraceBottomSheetComponent
     ],
     imports: [
         SharedModule,

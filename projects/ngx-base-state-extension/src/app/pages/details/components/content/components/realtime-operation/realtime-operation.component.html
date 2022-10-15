@@ -1,25 +1,25 @@
-<app-title class="title">
-    <mat-icon
-        title-icon
-        class="icon">
-        radio_button_checked
-    </mat-icon>
-
-    <span>Realtime</span>
-
-    <app-operation-type-chip
-        *ngIf="(lastOperation$ | async) as lastOperation"
-        class="chip"
+<ng-container *ngIf="(lastOperation$ | async) as lastOperation">
+    <app-title class="title">
+        <mat-icon
+            title-icon
+            class="icon">
+            radio_button_checked
+        </mat-icon>
+    
+        <span>Realtime</span>
+    
+        <app-operation-type-chip
+            class="chip"
+            [operationTypeId]="lastOperation.type">
+        </app-operation-type-chip>
+    </app-title>
+    
+    <app-stacktrace-button
+        class="stacktrace-button"
         [operation]="lastOperation">
-    </app-operation-type-chip>
-</app-title>
-
-<app-stacktrace-button
-    *ngIf="(lastOperation$ | async) as lastOperation"
-    class="stacktrace-button"
-    [operation]="lastOperation">
-</app-stacktrace-button>
-
-<app-value-viewer
-    [data]="(realtimeData$ | async)">
-</app-value-viewer>
+    </app-stacktrace-button>
+    
+    <app-value-viewer
+        [data]="lastOperation.data">
+    </app-value-viewer>
+</ng-container>

@@ -7,30 +7,37 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
-import { MatChipsModule } from '@angular/material/chips';
-import { ValueViewerComponent, TitleComponent } from './components';
+import {
+    ValueViewerComponent,
+    TitleComponent,
+    OperationTypeChipComponent
+} from './components';
+
+const sharedModules = [
+    CommonModule,
+    MatButtonModule,
+    MatListModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatTooltipModule,
+    MatBottomSheetModule
+];
 
 @NgModule({
     declarations: [
         ValueViewerComponent,
-        TitleComponent
+        TitleComponent,
+        OperationTypeChipComponent
     ],
     imports: [
-        CommonModule,
-        NgxJsonViewerModule
+        NgxJsonViewerModule,
+        ...sharedModules
     ],
     exports: [
-        CommonModule,
-        MatButtonModule,
-        MatListModule,
-        MatIconModule,
-        MatToolbarModule,
-        MatTooltipModule,
-        MatBottomSheetModule,
-        MatChipsModule,
-        
+        ...sharedModules,
         ValueViewerComponent,
-        TitleComponent
+        TitleComponent,
+        OperationTypeChipComponent
     ]
 })
 export class SharedModule {}

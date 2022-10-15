@@ -14,9 +14,12 @@ export class MetadataOperationHistoryState extends BaseState<Map<string, ɵMetad
     }
 
     public pushWithinClassName(className: string, operation: ɵMetadataOperation): void {
-        this.initOperationHistoryArrayIfAbsent(className);
-
         const data = new Map(this.data);
+
+        if (!data.has(className)) {
+            data.set(className, []);
+        }
+
         const lastOperations = this.getLastOperationsWithinClassName(className);
         const updatedOperations = [...lastOperations, operation];
 
@@ -24,19 +27,8 @@ export class MetadataOperationHistoryState extends BaseState<Map<string, ɵMetad
         this.set(data);
     }
 
-    private initOperationHistoryArrayIfAbsent(className: string): void {
-        const data = new Map(this.data);
-        
-        if (!data.has(className)) {
-            data.set(className, []);
-        }
-
-        this.set(data);
-    }
-
     private getLastOperationsWithinClassName(className: string): ɵMetadataOperation[] {
-        const data = new Map(this.data);
-        const operations = data.get(className) as ɵMetadataOperation[];
+        const operations = this.data!.get(className) ?? [];
         const isArrayExceedsMaxAmount = (operations.length >= this.maxOperationAmount);
         const amountOfOperationFromStart = (isArrayExceedsMaxAmount) ?
             (operations.length - this.maxOperationAmount) : 0;
