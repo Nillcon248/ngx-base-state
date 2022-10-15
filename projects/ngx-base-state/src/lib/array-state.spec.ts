@@ -1,130 +1,137 @@
+import { Injectable } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 import { ArrayState } from './array-state';
 
 interface ItemMock {
-  id: number;
-  data: string;
+    readonly id: number;
+    readonly data: string;
 }
 
+@Injectable()
 class ArrayStateMock extends ArrayState<ItemMock> {
-  protected getItemId(item: ItemMock): number {
-    return item.id;
-  }
+    protected override getItemId(item: ItemMock): number {
+        return item.id;
+    }
 }
 
 const itemDataMock1: ItemMock = {
-  id: 248,
-  data: 'Some info',
+    id: 248,
+    data: 'Some info',
 };
 
 const itemDataMock2: ItemMock = {
-  id: 163264,
-  data: 'Some info alala',
+    id: 163264,
+    data: 'Some info alala',
 };
 
 const itemArrayDataMock: ItemMock[] = [itemDataMock1, itemDataMock2];
 
 describe('ArrayState', () => {
-  let arrayState: ArrayStateMock;
+    let arrayState: ArrayStateMock;
 
-  beforeEach(() => {
-    arrayState = new ArrayStateMock();
-  });
+    beforeEach(() => {
+        const testBed = TestBed.configureTestingModule({
+			providers: [ArrayStateMock]
+		});
 
-  it('should exist', () => {
-    expect(arrayState).toBeTruthy();
-  });
+        arrayState = testBed.inject(ArrayStateMock);
+    });
 
-  it('should set data to state', () => {
-    arrayState.set(itemArrayDataMock);
+    it('should exist', () => {
+        expect(arrayState).toBeTruthy();
+    });
 
-    expect(arrayState.data).toEqual(itemArrayDataMock);
-  });
+    it('should set data to state', () => {
+        arrayState.set(itemArrayDataMock);
 
-  it('should clear data in state', () => {
-    arrayState.set(itemArrayDataMock);
+        expect(arrayState.data).toEqual(itemArrayDataMock);
+    });
 
-    arrayState.clear();
+    it('should clear data in state', () => {
+        arrayState.set(itemArrayDataMock);
 
-    expect(arrayState.data).not.toBeTruthy();
-  });
+        arrayState.clear();
 
-  it('should emit data to subscribers after data has set', () => {
-    const spy = jasmine.createSpy();
-    arrayState.data$.subscribe(spy);
+        expect(arrayState.data).not.toBeTruthy();
+    });
 
-    arrayState.set(itemArrayDataMock);
+    it('should emit data to subscribers after data has set', () => {
+        const spy = jasmine.createSpy();
+        arrayState.data$.subscribe(spy);
 
-    expect(spy).toHaveBeenCalled();
-  });
+        arrayState.set(itemArrayDataMock);
 
-  it('should return item by quired index', () => {
-    const index = 0;
+        expect(spy).toHaveBeenCalled();
+    });
 
-    arrayState.set(itemArrayDataMock);
+    it('should return item by quired index', () => {
+        const index = 0;
 
-    expect(arrayState.getByIndex(index)).toEqual(arrayState.data![index]);
-  });
+        arrayState.set(itemArrayDataMock);
 
-  it('should push item to array', () => {
-    const newItem: ItemMock = {
-      id: Math.random(),
-      data: 'new data',
-    };
+        expect(arrayState.getByIndex(index)).toEqual(arrayState.data![index]);
+    });
 
-    arrayState.set(itemArrayDataMock);
+    it('should push item to array', () => {
+        const newItem: ItemMock = {
+            id: Math.random(),
+            data: 'new data',
+        };
 
-    arrayState.pushItem(newItem);
+        arrayState.set(itemArrayDataMock);
 
-    expect(arrayState.data!.pop()).toEqual(newItem);
-  });
+        arrayState.pushItem(newItem);
 
-  it('should remove item from array', () => {
-    const newItem: ItemMock = {
-      id: Math.random(),
-      data: 'new data',
-    };
+        expect(arrayState.data!.pop()).toEqual(newItem);
+    });
 
-    arrayState.set(itemArrayDataMock);
-    arrayState.pushItem(newItem);
+    it('should remove item from array', () => {
+        const newItem: ItemMock = {
+            id: Math.random(),
+            data: 'new data',
+        };
 
-    arrayState.removeItem(newItem);
+        arrayState.set(itemArrayDataMock);
+        arrayState.pushItem(newItem);
 
-    expect(arrayState.data!.pop()).not.toEqual(newItem);
-  });
+        arrayState.removeItem(newItem);
 
-  it('should return removed item after remove', () => {
-    const newItem: ItemMock = {
-      id: Math.random(),
-      data: 'new data',
-    };
+        expect(arrayState.data!.pop()).not.toEqual(newItem);
+    });
 
-    arrayState.set(itemArrayDataMock);
-    arrayState.pushItem(newItem);
+    it('should return removed item after remove', () => {
+        const newItem: ItemMock = {
+            id: Math.random(),
+            data: 'new data',
+        };
 
-    expect(arrayState.removeItem(newItem)).toEqual(newItem);
-  });
+        arrayState.set(itemArrayDataMock);
+        arrayState.pushItem(newItem);
 
-  it('should update item in array by index', () => {
-    const indexOfItem = 0;
-    const itemToUpdate = { ...itemArrayDataMock[indexOfItem] };
-    itemToUpdate.data = `${Math.random()} new data for updated item by index`;
+        expect(arrayState.removeItem(newItem)).toEqual(newItem);
+    });
 
-    arrayState.set(itemArrayDataMock);
+    it('should update item in array by index', () => {
+        const indexOfItem = 0;
+        const itemToUpdate = { ...itemArrayDataMock[indexOfItem] };
+        itemToUpdate.data = `${Math.random()} new data for updated item by index`;
 
-    arrayState.updateItemByIndex(itemToUpdate, indexOfItem);
+        arrayState.set(itemArrayDataMock);
 
-    expect(arrayState.data![indexOfItem]).toEqual(itemToUpdate);
-  });
+        arrayState.updateItemByIndex(itemToUpdate, indexOfItem);
 
-  it('should update item in array by id', () => {
-    const indexOfItem = 0;
-    const itemToUpdate = { ...itemArrayDataMock[indexOfItem] };
-    itemToUpdate.data = `${Math.random()} new data for updated item by id`;
+        expect(arrayState.data![indexOfItem]).toEqual(itemToUpdate);
+    });
 
-    arrayState.set(itemArrayDataMock);
+    it('should update item in array by id', () => {
+        const indexOfItem = 0;
+        const itemToUpdate = { ...itemArrayDataMock[indexOfItem] };
+        itemToUpdate.data = `${Math.random()} new data for updated item by id`;
 
-    arrayState.updateItem(itemToUpdate);
+        arrayState.set(itemArrayDataMock);
 
-    expect(arrayState.data![indexOfItem]).toEqual(itemToUpdate);
-  });
+        arrayState.updateItem(itemToUpdate);
+
+        expect(arrayState.data![indexOfItem]).toEqual(itemToUpdate);
+    });
 });

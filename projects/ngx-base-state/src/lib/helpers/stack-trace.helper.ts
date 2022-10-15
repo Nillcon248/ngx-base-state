@@ -1,4 +1,4 @@
-export abstract class StackTrace {
+export abstract class ɵStackTrace {
     public static capture(): string[] {
         // FIXME: Refactor and investigate
         const amountOfInternalMethodCall = 4;

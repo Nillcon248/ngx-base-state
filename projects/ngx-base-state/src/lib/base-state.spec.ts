@@ -1,10 +1,15 @@
+import { Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { ReplaySubject } from 'rxjs';
 import { BaseState } from './base-state';
-
+import { ɵMetadataOperation } from './classes';
+import { NgxBaseStateDevtoolsModule } from './devtools.module';
+import { ɵMetadataKeyEnum } from './enums';
+import { ɵMetadataStorage } from './helpers';
 
 interface ItemMock {
-	id: number;
-	data: string;
+	readonly id: number;
+	readonly data: string;
 }
 
 const itemDataMock1: ItemMock = {
@@ -17,8 +22,10 @@ const itemDataMock2: ItemMock = {
 	data: 'Some info alala'
 };
 
+@Injectable()
 class BaseStateMock extends BaseState<ItemMock> {}
 
+@Injectable()
 class BaseStateInitDataMock extends BaseState<ItemMock> {
 	constructor() {
 		super(itemDataMock1);
@@ -26,10 +33,15 @@ class BaseStateInitDataMock extends BaseState<ItemMock> {
 }
 
 describe('Base state', () => {
+	let testBed: TestBed;
 	let baseState: BaseStateMock;
 
 	beforeEach(() => {
-		baseState = new BaseStateMock();
+		testBed = TestBed.configureTestingModule({
+			providers: [BaseStateMock, BaseStateInitDataMock]
+		});
+
+		baseState = testBed.inject(BaseStateMock);
 	});
 
 	it('should exist', () => {
@@ -60,14 +72,30 @@ describe('Base state', () => {
 	});
 
 	it('should use initData for first value in state', () => {
-		const baseStateInitDataMock = new BaseStateInitDataMock();
+		const baseStateInitDataMock = testBed.inject(BaseStateInitDataMock);
 
 		expect(baseStateInitDataMock.data).toEqual(itemDataMock1);
 	});
 
 	it('should access to config from window', () => {
-		const baseStateInitDataMock = new BaseStateInitDataMock();
+		const baseStateInitDataMock = testBed.inject(BaseStateInitDataMock);
 
 		expect(baseStateInitDataMock.data).toEqual(itemDataMock1);
+	});
+
+	it('should emit metadata when DevtoolsModule imported with isEnabled=true', () => {
+		// TestBed.configureTestingModule({
+		// 	imports: [
+		// 		NgxBaseStateDevtoolsModule.withConfig({
+		// 			isEnabled: true
+		// 		})
+		// 	]
+		// });
+
+        // const metadataOperation$ = MetadataStorage.get<ReplaySubject<ɵMetadataOperation>>(MetadataKeyEnum.MetadataOperation);
+
+		// metadataOperation$.subscribe((operation) => {
+		// 	expect(operation).toBeTruthy();
+		// });
 	});
 });

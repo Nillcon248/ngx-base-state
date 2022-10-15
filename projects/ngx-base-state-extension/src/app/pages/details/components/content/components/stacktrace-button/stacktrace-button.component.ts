@@ -7,10 +7,7 @@ import { StacktraceBottomSheetComponent } from '../stacktrace-bottom-sheet';
     selector: 'app-stacktrace-button',
     templateUrl: './stacktrace-button.component.html',
     styleUrls: ['./stacktrace-button.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [
-        MatBottomSheet
-    ]
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StacktraceButtonComponent {
     @Input()

@@ -1,16 +1,21 @@
+import { Inject, Injectable, OnDestroy, Optional, inject,InjectionToken } from '@angular/core';
 import { ReplaySubject, BehaviorSubject, Observable } from 'rxjs';
 import { ɵMetadataOperation } from './classes';
-import { MetadataKeyEnum, ɵMetadataOperationTypeEnum } from './enums';
-import { MetadataStorage } from './helpers';
-import { NgxBaseStateDevtoolsConfig as Config } from './interfaces';
+import { ɵMetadataKeyEnum, ɵMetadataOperationTypeEnum } from './enums';
+import { ɵMetadataStorage } from './helpers';
+import { NGX_BASE_STATE_DEVTOOLS_CONFIG } from './tokens';
+
+const INITIAL_DATA = new InjectionToken('__NGX_BASE_STATE_INITIAL_DATA');
 
 /**
  *	@class
  *	@classdes This is a base class that used for creating hight level state classes
  */
-export abstract class BaseState<T> {
+@Injectable()
+export abstract class BaseState<T> implements OnDestroy {
 	/**
-	 * 	Get Observable with state data.
+	 * 	Get `Observable` with state data.
+	 *  @public
      *	@return {Generic} Observable with the state data.
      */
 	public get data$(): Observable<T | null> {
@@ -19,6 +24,7 @@ export abstract class BaseState<T> {
 
 	/**
 	 * 	Get state data.
+	 *  @public
      *	@return {Generic} State data.
      */
 	public get data(): T | null {
@@ -26,41 +32,63 @@ export abstract class BaseState<T> {
 	}
 
 	/**
-	 * 	Main `Observable` with state data. Must be isolated to avoid possible issues.
-     *	@return {BehaviorSubject<Generic>} BehaviorSubject with state data.
+	 * 	Main `BehaviorSubject` with state data.
+	 *  @private
      */
 	private readonly _data$: BehaviorSubject<T | null>;
 
-	constructor(private initialData: T | null = null) {
+	private readonly _devtoolsConfig = inject(NGX_BASE_STATE_DEVTOOLS_CONFIG);
+	private readonly _metadataStorage = inject(ɵMetadataStorage);
+
+	constructor(
+		/** Initial data should be passed via the `super` method call. */
+		@Inject(INITIAL_DATA) @Optional() protected readonly initialData: T | null = null
+	) {
 		this._data$ = new BehaviorSubject<T | null>(this.initialData);
 
 		this.emitMetadataOperation(ɵMetadataOperationTypeEnum.Init);
 	}
 
 	/**
-	 *	Set new value to state
+	 *  Base implementation of `ngOnDestroy`.
+	 *  Don't forget to call `super.ngOnDestroy` in case of override.
+	 *  @public
+	 */
+	public ngOnDestroy(): void {
+		this.emitMetadataOperation(ɵMetadataOperationTypeEnum.Destroy);
+	}
+
+	/**
+	 *  Set new value to state
+	 *  @public
+     *	@param {Generic} value - the value that should be set to update `BehaviorSubject`.
 	 */
 	public set(value: T): void {
 		this.setNewValue(value);
 	}
 
 	/**
-	 * 	Clear state value. (Will be set `null`)
+	 *  Clear state value. (Will be set `null`)
+	 *  @public
 	 */
 	public clear(): void {
 		this.setNewValue(null);
 	}
 
 	/**
-	 * 	Restore initial value from constructor.
+	 *  Restore initial value from constructor.
+	 *  @public
 	 */
 	public restoreInitialValue(): void {
 		this.setNewValue(this.initialData);
 	}
 
 	/**
-	 * 	Protected method for set data functionality. May be expanded.
-     */
+	 *  Method for set data functionality. It may be expanded.
+	 *  The idea is to process the creation of new instances of complex structures.
+	 *  @protected
+     *	@param {Generic | null} value - the value that should be set to update `BehaviorSubject`.
+	 */
 	protected setNewValue(value: T | null): void {
 		this._data$.next(value);
 		this.emitMetadataOperation(ɵMetadataOperationTypeEnum.Update);
@@ -68,7 +96,10 @@ export abstract class BaseState<T> {
 
 	/**
 	 * 	Method used for try to work out any method
-     *	@return {Generic} the x value.
+	 *  @protected
+     *	@param {string} actionName - Action you try to fire. Used to show in Error text when something went wrong.
+     *	@param {Function} actionFunc - Callback with logic. When something goes wrong - Error will be created.
+     *	@return {Generic} result of the callback call.
      */
 	protected tryDoAction<V>(actionName: string, actionFunc: () => any): V | undefined {
 		try {
@@ -82,31 +113,29 @@ export abstract class BaseState<T> {
 	}
 
 	/**
-	 *	Method that	processed error for user friendly error messages
-     */
+	 *  Method that	processed error for user friendly error messages
+	 *  @protected
+     *	@param {Error} error - Error.
+     *	@param {string} actionName - Name of the action where error happened.
+	 */
 	protected catchError(error: Error, actionName: string): void {
-		if (error instanceof TypeError) {
-			throw new Error(`Can not ${actionName}. Firstly set array.`);
-		}
-
 		throw new Error(`Error: '${error.message}' in action '${actionName}'`);
 	}
 
+	/**
+	 *  Emits information about state changes into `ReplaySubject` at the `window`.
+	 *  Extension use this information to visually represent current state and history of states changes.
+	 *  @private
+	 */
 	private emitMetadataOperation(type: ɵMetadataOperationTypeEnum): void {
-		const config = MetadataStorage.get<Config>(MetadataKeyEnum.Config);
-
-		if (config?.isEnabled) {
+		if (this._devtoolsConfig.isEnabled) {
 			const self: Object = this;
 			const className = self.constructor.name;
 			const metadataOperation = new ɵMetadataOperation(className, this.data, type);
-			const operationEmitter$ = MetadataStorage.get<ReplaySubject<ɵMetadataOperation>>(MetadataKeyEnum.MetadataOperation);
+			const operationEmitter$ = this._metadataStorage
+				.get<ReplaySubject<ɵMetadataOperation>>(ɵMetadataKeyEnum.MetadataOperation);
 
 			operationEmitter$.next(metadataOperation);
 		}
 	}
-}
-
-// FIXME: Investigate better approach
-(BaseState.prototype as any)['ngOnDestroy'] = function() {
-	this['emitMetadataOperation'](ɵMetadataOperationTypeEnum.Destroy);
 }

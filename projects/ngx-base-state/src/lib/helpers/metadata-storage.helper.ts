@@ -1,15 +1,19 @@
-import { MetadataKeyEnum } from '../enums';
+import { Injectable } from '@angular/core';
+import { ɵMetadataKeyEnum } from '../enums';
 
-export abstract class MetadataStorage {
-    private static get window(): any {
+@Injectable({
+    providedIn: 'root'
+})
+export class ɵMetadataStorage {
+    private get window(): any {
         return window;
     }
 
-    public static get<R = unknown>(key: MetadataKeyEnum): R {
+    public get<R = unknown>(key: ɵMetadataKeyEnum): R {
         return this.window[key];
     }
 
-    public static set<T>(key: MetadataKeyEnum, data: T): void {
+    public set<T>(key: ɵMetadataKeyEnum, data: T): void {
         this.window[key] = data;
     }
 }

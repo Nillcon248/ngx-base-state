@@ -16,28 +16,16 @@ enum ArrayStateActionEnum {
  */
 export abstract class ArrayState<T> extends BaseState<T[]> {
     /**
-     *
-     *  Copied value to new array for avoid issues with ChangeDetection
-     */
-    override setNewValue(value: T[] | null): void {
-        if (value) {
-        super.setNewValue([...value]);
-        } else {
-        super.setNewValue(null);
-        }
-    }
-
-    /**
      * 	Return item by quired index.
      *	@public
     *	@param {Number} index - quired index
-    *	@return {Generic} quered item.
+    *	@return {Generic} quired item.
     */
     public getByIndex(index: number): T | undefined {
         return this.tryDoAction<T>(ArrayStateActionEnum.GetByIndex, () => {
-        const items = this.data;
+            const items = this.data;
 
-        return items![index];
+            return items![index];
         });
     }
 
@@ -48,11 +36,11 @@ export abstract class ArrayState<T> extends BaseState<T[]> {
     */
     public pushItem(item: T): void {
         return this.tryDoAction<void>(ArrayStateActionEnum.PushItem, () => {
-        const items = this.data;
+            const items = this.data;
 
-        items!.push(item);
+            items!.push(item);
 
-        this.setNewValue(items);
+            this.setNewValue(items);
         });
     }
 
@@ -63,37 +51,37 @@ export abstract class ArrayState<T> extends BaseState<T[]> {
     */
     public removeItem(item: T): T | undefined {
         return this.tryDoAction<T>(ArrayStateActionEnum.RemoveItem, () => {
-        const items = this.data;
+            const items = this.data;
 
-        const index = this.data!.findIndex((_item) =>
-            this.compareItems(item, _item)
-        );
+            const index = this.data!.findIndex((_item) =>
+                this.compareItems(item, _item)
+            );
 
-        const removedItem = this.data![index];
+            const removedItem = this.data![index];
 
-        items!.splice(index, 1);
+            items!.splice(index, 1);
 
-        this.setNewValue(items);
+            this.setNewValue(items);
 
-        return removedItem;
+            return removedItem;
         });
     }
 
     public removeItemById(itemId: unknown): T | undefined {
         return this.tryDoAction<T>(ArrayStateActionEnum.RemoveItemById, () => {
-        const items = this.data;
+            const items = this.data;
 
-        const index = this.data!.findIndex(
-            (_item) => itemId === this.getItemId(_item)
-        );
+            const index = this.data!.findIndex(
+                (_item) => itemId === this.getItemId(_item)
+            );
 
-        const removedItem = this.data![index];
+            const removedItem = this.data![index];
 
-        items!.splice(index, 1);
+            items!.splice(index, 1);
 
-        this.setNewValue(items);
+            this.setNewValue(items);
 
-        return removedItem;
+            return removedItem;
         });
     }
 
@@ -105,11 +93,11 @@ export abstract class ArrayState<T> extends BaseState<T[]> {
     */
     public updateItemByIndex(itemToUpdate: T, index: number): void {
         this.tryDoAction<void>(ArrayStateActionEnum.ChangeItemByIndex, () => {
-        const items = this.data;
+            const items = this.data;
 
-        items![index] = itemToUpdate;
+            items![index] = itemToUpdate;
 
-        this.setNewValue(items);
+            this.setNewValue(items);
         });
     }
 
@@ -120,37 +108,65 @@ export abstract class ArrayState<T> extends BaseState<T[]> {
     */
     public updateItem(itemToUpdate: T): void {
         this.tryDoAction<void>(ArrayStateActionEnum.UpdateItem, () => {
-        const items = this.data;
-        itemToUpdate = { ...itemToUpdate };
+            const items = this.data;
+            itemToUpdate = { ...itemToUpdate };
 
-        const itemIndex = items!.findIndex((_currentItem) =>
-            this.compareItems(_currentItem, itemToUpdate)
-        );
+            const itemIndex = items!.findIndex((_currentItem) =>
+                this.compareItems(_currentItem, itemToUpdate)
+            );
 
-        items![itemIndex] = itemToUpdate;
+            items![itemIndex] = itemToUpdate;
 
-        this.setNewValue(items);
+            this.setNewValue(items);
         });
     }
 
     /**
-     * 	Compare two items via `getItemId`
-     *	@private
-    *	@param {Generic} itemToUpdate - item that will be update.
-    */
-    private compareItems(firstItem: T, secondItem: T): boolean {
-        return this.getItemId(firstItem) === this.getItemId(secondItem);
+     *  Copied value to new array for avoid issues with ChangeDetection
+     *  @protected
+     *  @param {T[] | null} value - the value that should be set to update `BehaviorSubject`.
+     */
+     protected override setNewValue(value: T[] | null): void {
+        if (value) {
+            super.setNewValue([...value]);
+        } else {
+            super.setNewValue(null);
+        }
     }
 
     /**
+	 *  Method that	processed error for user friendly error messages
+	 *  @protected
+     *	@param {Error | TypeError} error - Error.
+     *	@param {string} actionName - Name of the action where error happened.
+	 */
+    protected override catchError(error: Error | TypeError, actionName: string): void {
+		if (error instanceof TypeError) {
+			throw new Error(`Can not ${actionName}. Firstly set array.`);
+		}
+
+		super.catchError(error, actionName);
+	}
+
+    /**
      *	Must return identify param of item.
-    *	Method must be filled in child classes.
-    *	Used for compare two any items.
-    *	@abstract
-    *	@param {Generic} item - item of your state.
-    *	@return {Generic} identify param of item.
-    */
-    protected getItemId(item: T): any {
+     *	Method must be filled in child classes.
+     *	Used for compare two any items.
+     *  @protected
+     *	@param {Generic} item - item of your state.
+     *	@return {Generic} identify param of item.
+     */
+     protected getItemId(item: T): any {
         return item;
     };
+
+    /**
+     * 	Compare two items via `getItemId`
+     *	@private
+     *	@param {Generic} itemToUpdate - item that will be update.
+     *	@return {boolean} result of comparing two items via `getItemId`.
+     */
+    private compareItems(firstItem: T, secondItem: T): boolean {
+        return this.getItemId(firstItem) === this.getItemId(secondItem);
+    }
 }

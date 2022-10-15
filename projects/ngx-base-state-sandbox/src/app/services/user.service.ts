@@ -13,6 +13,6 @@ export class UserService {
     public incrementAge(): void {
         const data = this.state.data as User;
 
-        this.state.setNewValue({ ...data, age: (data.age + 1) })
+        this.state.set({ ...data, age: (data.age + 1) })
     }
 }

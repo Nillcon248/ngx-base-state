@@ -1,3 +1,5 @@
+import { Injectable } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 import { PrimitiveState } from './primitive-state';
 
 interface ItemMock {
@@ -15,13 +17,18 @@ const itemDataMock2: ItemMock = {
 	data: 'Some info alala'
 };
 
+@Injectable()
 class PrimitiveStateMock extends PrimitiveState<ItemMock> {}
 
 describe('Primitive state', () => {
 	let primitiveState: PrimitiveStateMock;
 
 	beforeEach(() => {
-		primitiveState = new PrimitiveStateMock();
+		const testBed = TestBed.configureTestingModule({
+			providers: [PrimitiveStateMock]
+		});
+
+		primitiveState = testBed.inject(PrimitiveStateMock);
 	});
 
 	it('should exist', () => {

@@ -1,8 +1,10 @@
+import { Injectable } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 import { ObjectState } from './object-state';
 
 interface ItemMock {
-	id: number;
-	data: string;
+	readonly id: number;
+	readonly data: string;
 }
 
 const itemDataMock1: ItemMock = {
@@ -15,13 +17,18 @@ const itemDataMock2: ItemMock = {
 	data: 'Some info alala'
 };
 
+@Injectable()
 class ObjectStateMock extends ObjectState<ItemMock> {}
 
 describe('Object state', () => {
 	let objectState: ObjectStateMock;
 
 	beforeEach(() => {
-		objectState = new ObjectStateMock();
+		const testBed = TestBed.configureTestingModule({
+			providers: [ObjectStateMock]
+		});
+
+		objectState = testBed.inject(ObjectStateMock);
 	});
 
 	it('should exist', () => {

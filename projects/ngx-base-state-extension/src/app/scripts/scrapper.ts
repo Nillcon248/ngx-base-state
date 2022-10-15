@@ -1,14 +1,30 @@
+// Need to avoid index.ts files,
+// or investigate how to setup webpack
+// to avoid huge bundle sizes while using index.ts files.
 import { Observable } from 'rxjs';
-import { MetadataKeyEnum } from '../../../../ngx-base-state/src/lib/enums';
-import { MetadataStorage } from '../../../../ngx-base-state/src/lib/helpers';
-import { ɵMetadataOperation } from '../../../../ngx-base-state/src/lib/classes';
-import { METADATA_OPERATION_EMITTER_EVENT } from './consts';
+import { ɵMetadataKeyEnum } from '../../../../ngx-base-state/src/lib/enums/metadata-key.enum';
+import { ɵMetadataOperation } from '../../../../ngx-base-state/src/lib/classes/metadata-operation.class';
+import { CustomEventEnum } from './enums/custom-event.enum';
 
-const metadataOperation$: Observable<ɵMetadataOperation> = MetadataStorage
-    .get(MetadataKeyEnum.MetadataOperation);
+const windowObj = (window as any);
+const metadataOperation$: Observable<ɵMetadataOperation> = windowObj[ɵMetadataKeyEnum.MetadataOperation];
 
-metadataOperation$
-    .subscribe((metadataOperation) => {
-        const event = new CustomEvent(METADATA_OPERATION_EMITTER_EVENT, { detail: metadataOperation });
-        document.dispatchEvent(event);
-    });
+emitIsDevtoolsEnabled();
+initMetadataOperationEmitter();
+
+function initMetadataOperationEmitter(): void {
+    metadataOperation$
+        .subscribe((operation) => emitCustomEvent(CustomEventEnum.MetadataOperation, operation));
+}
+
+function emitIsDevtoolsEnabled(): void {
+    const state = windowObj[ɵMetadataKeyEnum.DevtoolsEnabled];
+
+    emitCustomEvent(CustomEventEnum.IsDevtoolsEnabled, state);
+}
+
+function emitCustomEvent<T>(eventName: CustomEventEnum, detail: T): void {
+    const event = new CustomEvent(eventName, { detail });
+
+    document.dispatchEvent(event);
+}

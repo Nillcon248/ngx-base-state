@@ -1,9 +1,9 @@
-import { StackTrace } from '../helpers';
+import { ɵStackTrace } from '../helpers';
 import { ɵMetadataOperationTypeEnum } from '../enums';
 
 export class ɵMetadataOperation {
     public readonly date: string = new Date().toJSON();
-    public readonly stackTrace = StackTrace.capture();
+    public readonly stackTrace = ɵStackTrace.capture();
 
     constructor(
         public readonly className: string,
