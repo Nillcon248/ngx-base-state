@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { PrimitiveState } from './primitive-state';
+import { PrimitiveState } from '../primitive-state';
 
 interface ItemMock {
 	id: number;

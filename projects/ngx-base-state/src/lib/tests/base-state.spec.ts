@@ -1,11 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { ReplaySubject } from 'rxjs';
-import { BaseState } from './base-state';
-import { ɵMetadataOperation } from './classes';
-import { NgxBaseStateDevtoolsModule } from './devtools.module';
-import { ɵMetadataKeyEnum } from './enums';
-import { ɵMetadataStorage } from './helpers';
+import { BaseState } from '../base-state';
 
 interface ItemMock {
 	readonly id: number;
@@ -81,21 +76,5 @@ describe('Base state', () => {
 		const baseStateInitDataMock = testBed.inject(BaseStateInitDataMock);
 
 		expect(baseStateInitDataMock.data).toEqual(itemDataMock1);
-	});
-
-	it('should emit metadata when DevtoolsModule imported with isEnabled=true', () => {
-		// TestBed.configureTestingModule({
-		// 	imports: [
-		// 		NgxBaseStateDevtoolsModule.withConfig({
-		// 			isEnabled: true
-		// 		})
-		// 	]
-		// });
-
-        // const metadataOperation$ = MetadataStorage.get<ReplaySubject<ɵMetadataOperation>>(MetadataKeyEnum.MetadataOperation);
-
-		// metadataOperation$.subscribe((operation) => {
-		// 	expect(operation).toBeTruthy();
-		// });
 	});
 });

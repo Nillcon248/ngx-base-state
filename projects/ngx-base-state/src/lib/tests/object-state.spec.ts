@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { ObjectState } from './object-state';
+import { ObjectState } from '../object-state';
 
 interface ItemMock {
 	readonly id: number;
