@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { OPERATION_TYPE_MAP } from '@extension-data';
+import { StateDataTypeEnum } from '@extension-core';
+import { DATA_TYPE_MAP } from '@extension-data';
 import { ɵMetadataOperationTypeEnum } from '@ngx-base-state/enums';
+import { SORT_OPERATION_ARRAY } from '../../data';
+import { SortOperation } from '../../interfaces';
 import { MetadataListFiltersService } from '../../services';
 
 @Component({
@@ -10,7 +13,8 @@ import { MetadataListFiltersService } from '../../services';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FiltersComponent {
-    public readonly operationTypeArray = [...OPERATION_TYPE_MAP.values()];
+    public readonly dataTypeArray = [...DATA_TYPE_MAP.values()];
+    public readonly sortOperationArray = [...SORT_OPERATION_ARRAY];
     public readonly filters$ = this.filtersService.data$;
 
     constructor(
@@ -23,7 +27,11 @@ export class FiltersComponent {
         this.filtersService.update({ searchString: inputElement.value });
     }
 
-    public onOperationSelectValueChange(operationId: ɵMetadataOperationTypeEnum | null): void {
-        this.filtersService.update({ operationType: operationId });
+    public onOperationSelectValueChange(dataType: StateDataTypeEnum): void {
+        this.filtersService.update({ dataType });
+    }
+
+    public onSortBySelectValueChange(sortBy: SortOperation): void {
+        this.filtersService.update({ sortBy });
     }
 }

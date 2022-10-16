@@ -2,11 +2,10 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { ɵMetadataOperationTypeEnum } from '@ngx-base-state/enums';
 import { AppRouteEnum } from '../../core';
-import { StateShortInfo } from './interfaces';
+import { StateFullInfo } from './interfaces';
 import { MetadataListFiltersState } from './states';
 import {
-    StateShortInfoService,
-    FilteredRealtimeOperationsService,
+    StateFullInfoService,
     MetadataListFiltersService
 } from './services';
 
@@ -17,16 +16,15 @@ import {
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
         MetadataListFiltersState,
-        StateShortInfoService,
-        FilteredRealtimeOperationsService,
+        StateFullInfoService,
         MetadataListFiltersService
     ]
 })
 export class ListComponent {
-    public readonly stateShortInfoArray$ = this.stateShortInfoService.data$;
+    public readonly stateFullInfoArray$ = this.stateFullInfoService.data$;
 
     constructor(
-        private readonly stateShortInfoService: StateShortInfoService,
+        private readonly stateFullInfoService: StateFullInfoService,
         private readonly router: Router
     ) {}
 
@@ -34,11 +32,11 @@ export class ListComponent {
         this.router.navigateByUrl(`/${AppRouteEnum.Details}/${classId}`);
     }
 
-    public getListItemCssClass(shortInfo: StateShortInfo): string {
-        return (shortInfo.operationType.id === ɵMetadataOperationTypeEnum.Destroy) ? 'destroyed' : '';
+    public getListItemCssClass({ operation }: StateFullInfo): string {
+        return (operation.type === ɵMetadataOperationTypeEnum.Destroy) ? 'destroyed' : '';
     }
 
-    public trackByFn(itemIndex: number, item: StateShortInfo): string {
-        return item.className;
+    public trackByFn(itemIndex: number, stateFullInfo: StateFullInfo): string {
+        return stateFullInfo.operation.className;
     }
 }

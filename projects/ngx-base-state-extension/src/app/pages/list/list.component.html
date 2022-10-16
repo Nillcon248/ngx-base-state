@@ -2,35 +2,44 @@
 
 <app-filters></app-filters>
 
-<mat-selection-list
-    *ngIf="(stateShortInfoArray$ | async) as stateShortInfoArray"
-    [multiple]="false">
-    <mat-list-option
-        *ngFor="let stateShortInfo of stateShortInfoArray; trackBy: trackByFn"
-        class="list-option"
-        [class]="getListItemCssClass(stateShortInfo)"
-        (click)="onListItemClick(stateShortInfo.classId)">
-        <div
-            mat-line
-            class="class-name">
-            {{ stateShortInfo.className }}
+<div
+    *ngIf="(stateFullInfoArray$ | async) as stateFullInfoArray"
+    class="content">
+    <mat-selection-list [multiple]="false">
+        <mat-list-option
+            *ngFor="let stateFullInfo of stateFullInfoArray; trackBy: trackByFn"
+            class="list-option"
+            [class]="getListItemCssClass(stateFullInfo)"
+            (click)="onListItemClick(stateFullInfo.operation.classId)">
+            <div
+                mat-line
+                class="class-name">
+                {{ stateFullInfo.operation.className }}
 
-            <ng-container
-                *ngIf="stateShortInfo.classContext">
-                [{{ stateShortInfo.classContext }}]
-            </ng-container>
+                <ng-container
+                    *ngIf="stateFullInfo.operation.classContext">
+                    [{{ stateFullInfo.operation.classContext }}]
+                </ng-container>
 
-            <app-operation-type-chip
-                class="operation-type-chip"
-                [operationTypeId]="stateShortInfo.operationType.id">
-            </app-operation-type-chip>
-        </div>
+                <app-operation-type-chip
+                    class="operation-type-chip"
+                    [operationTypeId]="stateFullInfo.operation.type">
+                </app-operation-type-chip>
+            </div>
 
-        <div
-            mat-line
-            class="data-type"
-            [style.color]="stateShortInfo.dataType.color">
-            {{ stateShortInfo.dataType.name }}
-        </div>
-    </mat-list-option>
-</mat-selection-list>
+            <div mat-line>
+                <span
+                    class="data-type"
+                    [style.color]="stateFullInfo.dataType.color">
+                    {{ stateFullInfo.dataType.name }}
+                </span>|
+
+                updated at:
+
+                <span class="date">
+                    {{ stateFullInfo.operation.date | date:'hh:mm:ss' }}
+                </span>
+            </div>
+        </mat-list-option>
+    </mat-selection-list>
+</div>

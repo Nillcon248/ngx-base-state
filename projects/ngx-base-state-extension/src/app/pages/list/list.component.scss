@@ -1,20 +1,32 @@
-.title {
-    margin: 10px;
+:host {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-.data-type {
-    font-weight: bold;
-}
+.content {
+    height: 100%;
+    display: block;
+    overflow-y: auto;
 
-.list-option {
-    &.destroyed {
-        .class-name {
-            text-decoration: line-through;
-            color: gray;
-        }
-
-        .data-type {
-            color: gray !important;
+    .data-type {
+        font-weight: bold;
+    }
+    
+    .date {
+        color: gray;
+    }
+    
+    .list-option {
+        &.destroyed {
+            .class-name {
+                text-decoration: line-through;
+                color: gray;
+            }
+    
+            .data-type {
+                color: gray !important;
+            }
         }
     }
 }

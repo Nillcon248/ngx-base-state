@@ -1,5 +1,5 @@
 export enum StateDataTypeEnum {
-    Object,
+    Object = 1,
     Array,
     String,
     Number,

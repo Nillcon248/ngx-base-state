@@ -1,6 +1,8 @@
-import { ɵMetadataOperationTypeEnum } from '@ngx-base-state/enums';
+import { StateDataTypeEnum } from '@extension-core';
+import { SortOperation } from './sort-operation.interface';
 
 export interface Filters {
     readonly searchString: string;
-    readonly operationType: ɵMetadataOperationTypeEnum | null;
+    readonly dataType: StateDataTypeEnum | null;
+    readonly sortBy: SortOperation;
 }

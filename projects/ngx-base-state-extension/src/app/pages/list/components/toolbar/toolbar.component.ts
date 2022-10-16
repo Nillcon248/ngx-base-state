@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { environment } from '@extension-env';
 import { map } from 'rxjs';
-import { FilteredRealtimeOperationsService } from '../../services';
+import { StateFullInfoService } from '../../services';
 
 @Component({
     selector: 'app-toolbar',
@@ -10,7 +10,7 @@ import { FilteredRealtimeOperationsService } from '../../services';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ToolbarComponent {
-    public readonly amountOfDisplayedStates$ = this.filteredOperationsService.data$
+    public readonly amountOfDisplayedStates$ = this.stateFullInfoService.data$
         .pipe(
             map((operations) => operations.length)
         );
@@ -20,6 +20,6 @@ export class ToolbarComponent {
     }
 
     constructor(
-        private readonly filteredOperationsService: FilteredRealtimeOperationsService
+        private readonly stateFullInfoService: StateFullInfoService
     ) {}
 }
