@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { environment } from '@extension-env';
 import { map } from 'rxjs';
 import { FilteredRealtimeOperationsService } from '../../services';
 
@@ -13,6 +14,10 @@ export class ToolbarComponent {
         .pipe(
             map((operations) => operations.length)
         );
+
+    public get version(): string {
+        return environment.version;
+    }
 
     constructor(
         private readonly filteredOperationsService: FilteredRealtimeOperationsService

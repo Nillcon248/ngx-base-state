@@ -23,7 +23,8 @@
       "@extension-data": ["projects/ngx-base-state-extension/src/app/data"],
       "@extension-data/*": ["projects/ngx-base-state-extension/src/app/data/*"],
       "@extension-interfaces": ["projects/ngx-base-state-extension/src/app/interfaces"],
-      "@extension-interfaces/*": ["projects/ngx-base-state-extension/src/app/interfaces/*"]
+      "@extension-interfaces/*": ["projects/ngx-base-state-extension/src/app/interfaces/*"],
+      "@extension-env": ["projects/ngx-base-state-extension/src/environments/environment"]
     },
     "declaration": false,
     "downlevelIteration": true,

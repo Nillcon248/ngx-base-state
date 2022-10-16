@@ -1,3 +1,13 @@
 <mat-toolbar [color]="'primary'">
+    <img
+        class="logo"
+        src="/assets/icons/icon-96.png" />
+
     <span>States of your Application ({{ (amountOfDisplayedStates$ | async) }})</span>
+
+    <span class="spacer"></span>
+
+    <span class="version">
+        v. {{ version }}
+    </span>
 </mat-toolbar>
