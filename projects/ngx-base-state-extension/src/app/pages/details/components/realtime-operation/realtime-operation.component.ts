@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
-import { MetadataOperationHistoryService, MetadataService } from '@extension-services';
-import { map, Observable, share } from 'rxjs';
-import { OPENED_CLASS_NAME } from '../../../../consts';
+import { MetadataService } from '@extension-services';
+import { OPENED_CLASS_NAME } from '../../consts';
 
 @Component({
     selector: 'app-realtime-operation',

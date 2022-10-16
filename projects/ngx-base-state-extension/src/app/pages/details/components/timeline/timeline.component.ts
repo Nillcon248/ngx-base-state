@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { ɵMetadataOperation } from '@ngx-base-state/classes';
 import { MetadataOperationHistoryService } from '@extension-services';
 import { TimelineItemTypeEnum } from '../../enums';
-import { OPENED_CLASS_NAME } from '../../../../consts';
+import { OPENED_CLASS_NAME } from '../../consts';
 import { SelectedTimelineItemState } from '../../states';
-import { ɵMetadataOperation } from '@ngx-base-state/classes';
 
 @Component({
     selector: 'app-timeline',

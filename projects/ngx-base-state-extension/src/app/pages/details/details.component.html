@@ -1,3 +1,22 @@
 <app-toolbar class="toolbar"></app-toolbar>
 
-<app-content class="content"></app-content>
+<div class="content">
+    <ng-container
+        *ngIf="(selectedTimelineItem$ | async) as selectedTimelineItem"
+        [ngSwitch]="selectedTimelineItem.type">
+        <app-historical-operation
+            *ngSwitchCase="timelineItemTypeEnum.Historical"
+            class="operation-viewer"
+            [operation]="selectedTimelineItem.operation!">
+        </app-historical-operation>
+
+        <app-realtime-operation
+            *ngSwitchCase="timelineItemTypeEnum.Realtime"
+            class="operation-viewer">
+        </app-realtime-operation>
+    </ng-container>
+
+    <app-timeline
+        class="timeline">
+    </app-timeline>
+</div>
