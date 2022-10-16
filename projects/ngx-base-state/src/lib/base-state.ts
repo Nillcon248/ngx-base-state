@@ -1,11 +1,17 @@
 import { Inject, Injectable, OnDestroy, Optional, inject,InjectionToken } from '@angular/core';
 import { ReplaySubject, BehaviorSubject, Observable } from 'rxjs';
-import { ɵMetadataOperation } from './classes';
+import { ɵMetadataOperation } from './interfaces';
 import { ɵMetadataKeyEnum, ɵMetadataOperationTypeEnum } from './enums';
-import { ɵMetadataStorage } from './helpers';
+import { ɵMetadataStorage, ɵStackTrace } from './helpers';
 import { NGX_BASE_STATE_DEVTOOLS_CONFIG } from './tokens';
 
 const INITIAL_DATA = new InjectionToken('__NGX_BASE_STATE_INITIAL_DATA');
+const INITIAL_CONFIG = new InjectionToken('__NGX_BASE_STATE_INITIAL_CONFIG');
+const CLASS_ID_FIELD = '_ɵID';
+
+interface InitialConfig {
+	readonly context: string;
+}
 
 /**
  *	@class
@@ -40,12 +46,21 @@ export abstract class BaseState<T> implements OnDestroy {
 	private readonly _devtoolsConfig = inject(NGX_BASE_STATE_DEVTOOLS_CONFIG);
 	private readonly _metadataStorage = inject(ɵMetadataStorage);
 
+	private get selfConstructor(): any {
+		const self = (this as Object);
+
+		return self.constructor;
+	}
+
 	constructor(
 		/** Initial data should be passed via the `super` method call. */
-		@Inject(INITIAL_DATA) @Optional() protected readonly initialData: T | null = null
+		@Inject(INITIAL_DATA) @Optional() protected readonly initialData: T | null = null,
+		/** Initial config should be passed via the `super` method call. */
+		@Inject(INITIAL_CONFIG) @Optional() private readonly initialConfig: InitialConfig | null = null
 	) {
 		this._data$ = new BehaviorSubject<T | null>(this.initialData);
 
+		this.ɵInitClassIdIfAbsent();
 		this.emitMetadataOperation(ɵMetadataOperationTypeEnum.Init);
 	}
 
@@ -122,6 +137,12 @@ export abstract class BaseState<T> implements OnDestroy {
 		throw new Error(`Error: '${error.message}' in action '${actionName}'`);
 	}
 
+	private ɵInitClassIdIfAbsent(): void {
+		if (!this.selfConstructor[CLASS_ID_FIELD]) {
+			this.selfConstructor[CLASS_ID_FIELD] = Math.random();
+		}
+	}
+
 	/**
 	 *  Emits information about state changes into `ReplaySubject` at the `window`.
 	 *  Extension use this information to visually represent current state and history of states changes.
@@ -130,12 +151,18 @@ export abstract class BaseState<T> implements OnDestroy {
 	private emitMetadataOperation(type: ɵMetadataOperationTypeEnum): void {
 		if (this._devtoolsConfig.isEnabled) {
 			const self: Object = this;
-			const className = self.constructor.name;
-			const metadataOperation = new ɵMetadataOperation(className, this.data, type);
 			const operationEmitter$ = this._metadataStorage
 				.get<ReplaySubject<ɵMetadataOperation>>(ɵMetadataKeyEnum.MetadataOperation);
 
-			operationEmitter$.next(metadataOperation);
+			operationEmitter$.next({
+				type,
+				classId: this.selfConstructor[CLASS_ID_FIELD],
+				className: self.constructor.name,
+				classContext: this.initialConfig?.context,
+				date: new Date().toJSON(),
+				data: this.data,
+				stackTrace: ɵStackTrace.capture()
+			});
 		}
 	}
 }

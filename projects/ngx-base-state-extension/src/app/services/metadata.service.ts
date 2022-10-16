@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 import { map, shareReplay, Observable } from 'rxjs';
-import { ɵMetadataOperation } from '@ngx-base-state/classes';
+import { ɵMetadataOperation } from '@ngx-base-state/interfaces';
 import { MetadataOperationHistoryState } from '../states';
 
 @Injectable({
     providedIn: 'root'
 })
 export class MetadataService {
-    public readonly data$: Observable<Map<string, ɵMetadataOperation>> = this.operationHistoryState.data$
+    public readonly data$: Observable<Map<number, ɵMetadataOperation>> = this.operationHistoryState.data$
         .pipe(
             map((historyMap) => {
-                const metadataMap = new Map<string, ɵMetadataOperation>();
+                const metadataMap = new Map<number, ɵMetadataOperation>();
 
-                historyMap!.forEach((operations, className) => {
-                    metadataMap.set(className, operations[operations.length - 1]);
+                historyMap!.forEach((operations, classId) => {
+                    metadataMap.set(classId, operations[operations.length - 1]);
                 });
 
                 return metadataMap;
@@ -30,10 +30,10 @@ export class MetadataService {
         private readonly operationHistoryState: MetadataOperationHistoryState
     ) {}
 
-    public getWithinClass(className: string): Observable<ɵMetadataOperation> {
+    public getWithinClassId(classId: number): Observable<ɵMetadataOperation> {
         return this.data$
             .pipe(
-                map((operationMap) => operationMap.get(className)!)
+                map((operationMap) => operationMap.get(classId)!)
             );
     }
 }

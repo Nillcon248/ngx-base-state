@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MetadataService } from '@extension-services';
-import { OPENED_CLASS_NAME } from '../../consts';
+import { OPENED_CLASS_ID } from '../../consts';
 
 @Component({
     selector: 'app-realtime-operation',
@@ -9,10 +9,10 @@ import { OPENED_CLASS_NAME } from '../../consts';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RealtimeOperationComponent {
-    public readonly lastOperation$ = this.metadataService.getWithinClass(this.openedClassName);
+    public readonly lastOperation$ = this.metadataService.getWithinClassId(this.openedClassId);
 
     constructor(
-        @Inject(OPENED_CLASS_NAME) private readonly openedClassName: string,
+        @Inject(OPENED_CLASS_ID) private readonly openedClassId: number,
         private readonly metadataService: MetadataService
     ) {}
 }

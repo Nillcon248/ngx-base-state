@@ -5,7 +5,7 @@ import { fromEvent, takeUntil, Observable, map, take, ReplaySubject } from 'rxjs
 import { ContentScriptConnectionEnum as ConnectionEnum } from '../core/enums/content-script-connection.enum';
 import { RuntimeMessage } from '../core/interfaces/runtime-message.interface';
 import { RuntimeMessageEnum } from '../core/enums/runtime-message.enum';
-import { ɵMetadataOperation } from '../../../../ngx-base-state/src/lib/classes/metadata-operation.class';
+import { ɵMetadataOperation } from '../../../../ngx-base-state/src/lib/interfaces/metadata-operation.interface';
 import { CustomEventEnum } from './enums/custom-event.enum';
 
 const scrapperScriptName = 'scrapper.js';

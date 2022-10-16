@@ -3,7 +3,7 @@
 // to avoid huge bundle sizes while using index.ts files.
 import { Observable } from 'rxjs';
 import { ɵMetadataKeyEnum } from '../../../../ngx-base-state/src/lib/enums/metadata-key.enum';
-import { ɵMetadataOperation } from '../../../../ngx-base-state/src/lib/classes/metadata-operation.class';
+import { ɵMetadataOperation } from '../../../../ngx-base-state/src/lib/interfaces/metadata-operation.interface';
 import { CustomEventEnum } from './enums/custom-event.enum';
 
 const windowObj = (window as any);

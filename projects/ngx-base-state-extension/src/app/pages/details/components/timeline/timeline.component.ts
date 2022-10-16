@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
-import { ɵMetadataOperation } from '@ngx-base-state/classes';
+import { ɵMetadataOperation } from '@ngx-base-state/interfaces';
 import { MetadataOperationHistoryService } from '@extension-services';
 import { TimelineItemTypeEnum } from '../../enums';
-import { OPENED_CLASS_NAME } from '../../consts';
+import { OPENED_CLASS_ID } from '../../consts';
 import { SelectedTimelineItemState } from '../../states';
 
 @Component({
@@ -15,10 +15,10 @@ export class TimelineComponent {
     public readonly timelineItemTypeEnum = TimelineItemTypeEnum;
 
     public readonly operationHistory$ = this.metadataOperationHistoryService
-        .getAllWithinClassName(this.openedClassName);
+        .getAllWithinClassId(this.openedClassId);
 
     constructor(
-        @Inject(OPENED_CLASS_NAME) private readonly openedClassName: string,
+        @Inject(OPENED_CLASS_ID) private readonly openedClassId: number,
         private readonly selectedTimelineItemState: SelectedTimelineItemState,
         private readonly metadataOperationHistoryService: MetadataOperationHistoryService
     ) {}

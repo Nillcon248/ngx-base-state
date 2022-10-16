@@ -1,21 +1,26 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { map } from 'rxjs';
 import { AppRouteEnum } from '@extension-core';
-import { OPENED_CLASS_NAME } from '../../consts';
+import { MetadataService } from '@extension-services';
+import { OPENED_CLASS_ID } from '../../consts';
 
 @Component({
-  selector: 'app-toolbar',
-  templateUrl: './toolbar.component.html',
-  styleUrls: ['./toolbar.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-toolbar',
+    templateUrl: './toolbar.component.html',
+    styleUrls: ['./toolbar.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ToolbarComponent {
-  constructor(
-    @Inject(OPENED_CLASS_NAME) public readonly openedClassName: string,
-    private readonly router: Router
-  ) {}
+    public readonly lastOperation$ = this.metadataService.getWithinClassId(this.openedClassId);
 
-  public onBackButtonClick(): void {
-    this.router.navigateByUrl(`/${AppRouteEnum.List}`);
-  }
+    constructor(
+        @Inject(OPENED_CLASS_ID) private readonly openedClassId: number,
+        private readonly metadataService: MetadataService,
+        private readonly router: Router
+    ) {}
+
+    public onBackButtonClick(): void {
+        this.router.navigateByUrl(`/${AppRouteEnum.List}`);
+    }
 }

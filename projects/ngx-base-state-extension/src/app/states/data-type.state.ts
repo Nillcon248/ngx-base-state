@@ -2,19 +2,19 @@ import { Injectable } from '@angular/core';
 import { BaseState } from '@ngx-base-state';
 import { StateDataTypeEnum } from '@extension-core';
 
-/** Map contain key as `className` */
+/** Map contain key as `classId` */
 @Injectable({
     providedIn: 'root'
 })
-export class DataTypeState extends BaseState<Map<string, StateDataTypeEnum>> {
+export class DataTypeState extends BaseState<Map<number, StateDataTypeEnum>> {
     constructor() {
         super(new Map());
     }
 
-    public setWithinClassName(className: string, dataType: StateDataTypeEnum): void {
+    public setWithinClassId(classId: number, dataType: StateDataTypeEnum): void {
         const data = new Map(this.data);
 
-        data.set(className, dataType);
+        data.set(classId, dataType);
         this.set(data);
     }
 }

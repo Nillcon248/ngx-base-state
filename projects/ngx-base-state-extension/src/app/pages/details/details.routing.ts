@@ -5,7 +5,7 @@ import { DetailsParamEnum } from './enums';
 
 const routes: Routes = [
   {
-    path: `:${DetailsParamEnum.ClassName}`,
+    path: `:${DetailsParamEnum.ClassId}`,
     component: DetailsComponent
   }
 ];

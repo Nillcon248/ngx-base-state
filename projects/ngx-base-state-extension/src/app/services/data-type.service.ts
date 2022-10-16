@@ -9,7 +9,7 @@ import { ApplicationReloadEmitter, MetadataOperationEmitter } from '../emitters'
     providedIn: 'root'
 })
 export class DataTypeService {
-    public readonly data$ = this.dataTypeState.data$ as Observable<Map<string, StateDataTypeEnum>>;
+    public readonly data$ = this.dataTypeState.data$ as Observable<Map<number, StateDataTypeEnum>>;
 
     constructor(
         private readonly dataToTypeAdapter: DataToTypeAdapter,
@@ -25,7 +25,7 @@ export class DataTypeService {
             .subscribe((operation) => {
                 const dataType = this.dataToTypeAdapter.adapt(operation.data);
 
-                this.dataTypeState.setWithinClassName(operation.className, dataType);
+                this.dataTypeState.setWithinClassId(operation.classId, dataType);
             });
     }
 

@@ -30,8 +30,8 @@ export class ListComponent {
         private readonly router: Router
     ) {}
 
-    public onListItemClick(className: string): void {
-        this.router.navigateByUrl(`/${AppRouteEnum.Details}/${className}`);
+    public onListItemClick(classId: number): void {
+        this.router.navigateByUrl(`/${AppRouteEnum.Details}/${classId}`);
     }
 
     public getListItemCssClass(shortInfo: StateShortInfo): string {

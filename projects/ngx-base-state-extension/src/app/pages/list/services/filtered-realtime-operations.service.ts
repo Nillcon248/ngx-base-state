@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { combineLatest, map, shareReplay } from 'rxjs';
-import { ɵMetadataOperation } from '@ngx-base-state/classes';
+import { ɵMetadataOperation } from '@ngx-base-state/interfaces';
 import { MetadataService } from '@extension-services';
 import { Filters } from '../interfaces';
 import { MetadataListFiltersState } from '../states';

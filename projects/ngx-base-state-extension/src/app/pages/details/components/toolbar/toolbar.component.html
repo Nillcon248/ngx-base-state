@@ -6,5 +6,12 @@
         <mat-icon>arrow_back</mat-icon>
     </button>
 
-    <span>{{ openedClassName }}</span>
+    <span
+        *ngIf="(lastOperation$ | async) as lastOperation">
+        {{ lastOperation.className }}
+
+        <ng-container *ngIf="lastOperation.classContext">
+            [{{ lastOperation.classContext }}]
+        </ng-container>
+    </span>
 </mat-toolbar>

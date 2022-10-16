@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { combineLatest, map, shareReplay } from 'rxjs';
-import { ɵMetadataOperation } from '@ngx-base-state/classes';
+import { ɵMetadataOperation } from '@ngx-base-state/interfaces';
 import { DataTypeService } from '@extension-services';
 import { StateDataTypeEnum } from '@extension-core';
 import { StateShortInfo } from '../interfaces';
@@ -26,18 +26,20 @@ export class StateShortInfoService {
 
     private adaptMetadata(
         operations: ɵMetadataOperation[],
-        dataTypeMap: Map<string, StateDataTypeEnum>
+        dataTypeMap: Map<number, StateDataTypeEnum>
     ): StateShortInfo[] {
         return operations
             .map((operation) => {
-                const dataTypeId = dataTypeMap.get(operation.className)!;
+                const dataTypeId = dataTypeMap.get(operation.classId)!;
                 const operationType = OPERATION_TYPE_MAP.get(operation.type)!;
 
-                return {
+                return <StateShortInfo>{
+                    classId: operation.classId,
                     className: operation.className,
+                    classContext: operation.classContext,
                     operationType,
                     dataType: this.getDataTypeById(dataTypeId)
-                } as StateShortInfo;
+                };
             });
     }
 

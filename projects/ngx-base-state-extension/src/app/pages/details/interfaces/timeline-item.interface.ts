@@ -1,4 +1,4 @@
-import { ɵMetadataOperation } from '@ngx-base-state/classes';
+import { ɵMetadataOperation } from '@ngx-base-state/interfaces';
 import { TimelineItemTypeEnum } from '../enums';
 
 export interface TimelineItem {

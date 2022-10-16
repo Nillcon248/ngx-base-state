@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { interval, take, takeUntil, Subject } from 'rxjs';
-import { UfoState } from './states';
+import { UfoState, UserState } from './states';
 
 @Component({
     selector: 'app-ufo-table',
@@ -8,14 +8,16 @@ import { UfoState } from './states';
     styleUrls: ['./ufo-table.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
-        UfoState
+        UfoState,
+        UserState
     ]
 })
 export class UfoTableComponent implements OnDestroy {
     private readonly viewDestroyed$ = new Subject<void>();
 
     constructor(
-        public readonly ufoState: UfoState
+        public readonly ufoState: UfoState,
+        public readonly userState: UserState
     ) {
         interval(500)
             .pipe(

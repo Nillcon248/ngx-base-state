@@ -9,11 +9,16 @@
         *ngFor="let stateShortInfo of stateShortInfoArray; trackBy: trackByFn"
         class="list-option"
         [class]="getListItemCssClass(stateShortInfo)"
-        (click)="onListItemClick(stateShortInfo.className)">
+        (click)="onListItemClick(stateShortInfo.classId)">
         <div
             mat-line
             class="class-name">
             {{ stateShortInfo.className }}
+
+            <ng-container
+                *ngIf="stateShortInfo.classContext">
+                [{{ stateShortInfo.classContext }}]
+            </ng-container>
 
             <app-operation-type-chip
                 class="operation-type-chip"
