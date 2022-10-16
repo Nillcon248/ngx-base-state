@@ -6,7 +6,7 @@ enum ArrayStateActionEnum {
     RemoveItem = 'remove item',
     RemoveItemById = 'remove item by id',
     ChangeItemByIndex = 'change item by index',
-    UpdateItem = 'update item',
+    UpdateItem = 'update item'
 }
 
 /**
@@ -156,7 +156,7 @@ export abstract class ArrayState<T> extends BaseState<T[]> {
      *	@param {Generic} item - item of your state.
      *	@return {Generic} identify param of item.
      */
-     protected getItemId(item: T): any {
+    protected getItemId(item: T): any {
         return item;
     };
 

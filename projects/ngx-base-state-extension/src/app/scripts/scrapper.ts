@@ -14,7 +14,7 @@ initMetadataOperationEmitter();
 
 function initMetadataOperationEmitter(): void {
     metadataOperation$
-        .subscribe((operation) => emitCustomEvent(CustomEventEnum.MetadataOperation, operation));
+        ?.subscribe((operation) => emitCustomEvent(CustomEventEnum.MetadataOperation, operation));
 }
 
 function emitIsDevtoolsEnabled(): void {

@@ -1,4 +1,4 @@
-import { Inject, Injectable, OnDestroy, Optional, inject,InjectionToken } from '@angular/core';
+import { Inject, Injectable, OnDestroy, Optional, inject, InjectionToken } from '@angular/core';
 import { ReplaySubject, BehaviorSubject, Observable } from 'rxjs';
 import { ɵMetadataOperation } from './interfaces';
 import { ɵMetadataKeyEnum, ɵMetadataOperationTypeEnum } from './enums';
