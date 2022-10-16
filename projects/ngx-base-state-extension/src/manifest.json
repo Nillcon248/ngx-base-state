@@ -8,12 +8,7 @@
         "96": "./assets/icons/icon-96.png"
     },
     "devtools_page": "devtools/index.html",
-    "permissions": [
-        "tabs",
-        "activeTab"
-    ],
-    "host_permissions": ["*://*"],
-    "optional_host_permissions": ["*://*"],
+    "permissions": [],
     "content_scripts": [
         {
             "matches": ["*://*/*"],

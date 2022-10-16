@@ -41,16 +41,11 @@ function onAppInitConnectionEstablished(port: chrome.runtime.Port): void {
 }
 
 function onOperationConnectionEstablished(port: chrome.runtime.Port): void {
-    const portDisconnect$ = new Observable((subscriber) => {
-        port.onDisconnect.addListener(() => {
-            subscriber.next();
-            subscriber.complete();
-        });
-    });
-
-    operationEmitterEvent$
-        .pipe(takeUntil(portDisconnect$))
+    const operationEmitterSubscription = operationEmitterEvent$
         .subscribe((metadataOperation) => port.postMessage(metadataOperation));
+
+    port.onDisconnect
+        .addListener(() => operationEmitterSubscription.unsubscribe());
 }
 
 function initMetadataOperationObserver(): void {
