@@ -1,4 +1,6 @@
-## Angular - Base state class 🐍
+## ngx-base-state 🐍
+
+[![ngx-base-state](/projects/ngx-base-state-extension/src/assets/icons/icon-96.png)]()
 
 [![npm](https://img.shields.io/npm/dt/ngx-base-state.svg)]()
 [![npm](https://img.shields.io/npm/l/ngx-base-state.svg)]()
