@@ -1,8 +1,12 @@
 {
-    "name": "ngx-base-state explorer",
+    "name": "ngx-base-state",
     "version": "0.1",
     "description": "This tool allows you to see data in your states based on ngx-base-state.",
     "manifest_version": 3,
+    "icons": {
+        "48": "./assets/icons/icon-48.png",
+        "96": "./assets/icons/icon-96.png"
+    },
     "devtools_page": "devtools/index.html",
     "permissions": [
         "tabs",
