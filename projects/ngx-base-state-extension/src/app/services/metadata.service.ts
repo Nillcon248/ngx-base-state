@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { map, share, tap, Observable } from 'rxjs';
+import { map, shareReplay, Observable } from 'rxjs';
 import { ɵMetadataOperation } from '@ngx-base-state/classes';
 import { MetadataOperationHistoryState } from '../states';
 
@@ -18,13 +18,12 @@ export class MetadataService {
 
                 return metadataMap;
             }),
-            share()
+            shareReplay(1)
         );
 
     public readonly dataAsArray$ = this.data$
         .pipe(
-            map((metadataMap) => [...metadataMap.values()]),
-            share()
+            map((metadataMap) => [...metadataMap.values()])
         );
 
     constructor(

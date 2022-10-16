@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { combineLatest, map, share } from 'rxjs';
+import { combineLatest, map, shareReplay } from 'rxjs';
 import { ɵMetadataOperation } from '@ngx-base-state/classes';
 import { DataTypeService } from '@extension-services';
 import { StateDataTypeEnum } from '@extension-core';
@@ -16,7 +16,7 @@ export class StateShortInfoService {
     ])
         .pipe(
             map(([metadata, dataTypeMap]) => this.adaptMetadata(metadata, dataTypeMap)),
-            share()
+            shareReplay(1)
         );
 
     constructor(

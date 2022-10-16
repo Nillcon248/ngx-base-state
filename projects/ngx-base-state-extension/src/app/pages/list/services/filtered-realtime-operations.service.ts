@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { combineLatest, map, share } from 'rxjs';
+import { combineLatest, map, shareReplay } from 'rxjs';
 import { ɵMetadataOperation } from '@ngx-base-state/classes';
 import { MetadataService } from '@extension-services';
 import { Filters } from '../interfaces';
@@ -13,7 +13,7 @@ export class FilteredRealtimeOperationsService {
     ])
         .pipe(
             map(([filters, operations]) => this.filterOperations(filters!, operations)),
-            share()
+            shareReplay(1)
         );
 
     constructor(
