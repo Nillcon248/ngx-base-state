@@ -1,9 +1,8 @@
 // Need to avoid index.ts files,
 // or investigate how to setup webpack
 // to avoid huge bundle sizes while using index.ts files.
-import { fromEvent, takeUntil, Observable, map, take, ReplaySubject } from 'rxjs';
+import { fromEvent, map, take, ReplaySubject } from 'rxjs';
 import { ContentScriptConnectionEnum as ConnectionEnum } from '../core/enums/content-script-connection.enum';
-import { RuntimeMessage } from '../core/interfaces/runtime-message.interface';
 import { RuntimeMessageEnum } from '../core/enums/runtime-message.enum';
 import { ɵMetadataOperation } from '../../../../ngx-base-state/src/lib/interfaces/metadata-operation.interface';
 import { CustomEventEnum } from './enums/custom-event.enum';
@@ -21,10 +20,7 @@ initMetadataOperationObserver();
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.type === RuntimeMessageEnum.RequestIsLibraryAvailable) {
-        sendResponse(<RuntimeMessage>{
-            type: RuntimeMessageEnum.LibraryAvailability,
-            data: isDevtoolsEnabled
-        });
+        sendResponse(isDevtoolsEnabled);
     }
 });
 

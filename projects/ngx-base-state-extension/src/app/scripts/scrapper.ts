@@ -18,7 +18,7 @@ function initMetadataOperationEmitter(): void {
 }
 
 function emitIsDevtoolsEnabled(): void {
-    const state = windowObj[ɵMetadataKeyEnum.DevtoolsEnabled];
+    const state = (windowObj[ɵMetadataKeyEnum.DevtoolsEnabled] ?? false);
 
     emitCustomEvent(CustomEventEnum.IsDevtoolsEnabled, state);
 }
