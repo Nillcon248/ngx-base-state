@@ -195,16 +195,24 @@ class UsersState extends ArrayState<User> {
 ```
 
 ``` typescript
-import { UserArrayStateService } from './user.state';
+import { UsersState } from './users.state';
 
-@Component(/* some configuration */)
-export class UserTableComponent implements OnInit {
+// This service demonstrates examples of work with methods of ArrayState.
+@Injectable({
+  providedIn: 'root'
+})
+export class UsersService implements OnInit {
+  // Async data for components.
+  public readonly data$ = this.usersState.data$;
+
+  // Sync data for components.
+  public get data(): User {
+    return this.usersState.data;
+  }
+
   constructor(
-    // Don't inject states directly to components in real projects!
     private readonly usersState: UsersState
-  ) {}
-
-  public ngOnInit(): void {
+  ) {
     this.usersState.data$
       .subscribe(console.log);
 
