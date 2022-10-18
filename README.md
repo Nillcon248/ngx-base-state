@@ -1,17 +1,17 @@
 ## ngx-base-state 🐍
 
-[![ngx-base-state](/projects/ngx-base-state-extension/src/assets/icons/icon-96.png)]()
-
 [![npm](https://img.shields.io/npm/dt/ngx-base-state.svg)]()
 [![npm](https://img.shields.io/npm/l/ngx-base-state.svg)]()
 [![Build status](https://travis-ci.org/Nillcon248/ngx-base-state.svg?branch=master)](https://travis-ci.org/Nillcon248/ngx-base-state)
+
+<img width="48" src="projects/ngx-base-state-extension/src/assets/icons/icon-96.png">
 
 ### Classes have implemented base work with state
 
 # Idea
 The main idea of this library is remove useless code from class.
 Usually state services violate [DRY pattern](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself)  
-This library will help to create service with state in 2 lines.
+This library will help to create state in 2 lines.
 
 # Installation
 
@@ -205,7 +205,7 @@ export class UserTableComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
-    this.userArrayStateService.data$
+    this.usersState.data$
       .subscribe(console.log);
 
     this.setUserArray();  // [{ name: 'Nillcon', id: 248 }, { name: 'noname', id: 1 }]
@@ -215,7 +215,7 @@ export class UserTableComponent implements OnInit {
   }
 
   private setUserArray(): void {
-    this.userStateService.set([
+    this.usersState.set([
       {
         name: 'Nillcon',
         id: 248
@@ -228,20 +228,20 @@ export class UserTableComponent implements OnInit {
   }
 
   private updateUser(): void {
-    const user = this.userStateService.data[0]; // { name: 'Nillcon', id: 248 }
+    const user = this.usersState.data[0]; // { name: 'Nillcon', id: 248 }
     user.name = 'New name';
 
-    this.userStateService.updateItem(user);
+    this.usersState.updateItem(user);
   }
 
   private removeUser(): void {
-    const user = this.userStateService.data[1]; // { name: 'noname', id: 1 }
+    const user = this.usersState.data[1]; // { name: 'noname', id: 1 }
 
-    this.userStateService.removeItem(removeItem);
+    this.usersState.removeItem(removeItem);
   }
 
   private addUser(): void {
-    this.userStateService.pushItem({
+    this.usersState.pushItem({
       name: 'John Doe',
       id: 2
     });
