@@ -76,7 +76,7 @@ List of States                                                                  
 |:----------------- |:---------------------------|:--------------------------------------------------------------------|
 | set               | value: T (generic type)    | set new value for state                                             |
 | clear             |                            | clear value for state                                               |
-| updateWithPartial | value: Partial<T>          | update state by merging current state with new partial value        |
+| updateWithPartial | value: Partial\<T\>          | update state by merging current state with new partial value        |
 
 ### *ArrayState*
 
