@@ -7,6 +7,7 @@
     "build:extension": "ng build ngx-base-state-extension && npx webpack",
     "start:sandbox": "ng serve ngx-base-state-sandbox",
     "build:sandbox": "ng build ngx-base-state-sandbox",
+    "build:library": "ng build ngx-base-state --configuration production",
     "test:library": "ng test ngx-base-state"
   },
   "private": true,

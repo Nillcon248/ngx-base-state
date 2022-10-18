@@ -47,7 +47,7 @@ export class AppModule {}
 
 This tool allows you to see data in your states based on ngx-base-state.
 
-- Install `ngx-base-state` extension from [Chrome WebStore](https://chrome.google.com/webstore/category/extensions);
+- Install `ngx-base-state` extension from [Chrome WebStore](https://chrome.google.com/webstore/detail/ngx-base-state/pdilblejagnnejglfodkilcilclmillb);
 - Open tab with your Application using ngx-base-state;
 - Press F12 to open Devtools;
 - Choose ngx-base-state panel in devtools;
