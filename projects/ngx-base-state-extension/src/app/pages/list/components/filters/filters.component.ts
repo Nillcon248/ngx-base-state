@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StateDataTypeEnum } from '@extension-core';
 import { DATA_TYPE_MAP } from '@extension-data';
-import { ɵMetadataOperationTypeEnum } from '@ngx-base-state/enums';
 import { SORT_OPERATION_ARRAY } from '../../data';
 import { SortOperation } from '../../interfaces';
 import { MetadataListFiltersService } from '../../services';

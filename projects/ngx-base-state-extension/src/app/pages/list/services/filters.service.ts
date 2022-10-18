@@ -11,6 +11,6 @@ export class MetadataListFiltersService {
     ) {}
 
     public update(filters: Partial<Filters>): void {
-        this.state.set({ ...this.state.data!, ...filters });
+        this.state.updateWithPartial(filters);
     }
 }

@@ -1,6 +1,6 @@
 import { Inject, Injectable, OnDestroy, Optional, inject, InjectionToken } from '@angular/core';
 import { ReplaySubject, BehaviorSubject, Observable } from 'rxjs';
-import { ɵMetadataOperation } from './interfaces';
+import { ɵInitialConfig, ɵMetadataOperation } from './interfaces';
 import { ɵMetadataKeyEnum, ɵMetadataOperationTypeEnum } from './enums';
 import { ɵMetadataStorage, ɵStackTrace } from './helpers';
 import { NGX_BASE_STATE_DEVTOOLS_CONFIG } from './tokens';
@@ -8,10 +8,6 @@ import { NGX_BASE_STATE_DEVTOOLS_CONFIG } from './tokens';
 const INITIAL_DATA = new InjectionToken('__NGX_BASE_STATE_INITIAL_DATA');
 const INITIAL_CONFIG = new InjectionToken('__NGX_BASE_STATE_INITIAL_CONFIG');
 const CLASS_ID_FIELD = '_ɵID';
-
-interface InitialConfig {
-	readonly context: string;
-}
 
 /**
  *	@class
@@ -56,9 +52,9 @@ export abstract class BaseState<T> implements OnDestroy {
 		/** Initial data should be passed via the `super` method call. */
 		@Inject(INITIAL_DATA) @Optional() protected readonly initialData: T | null = null,
 		/** Initial config should be passed via the `super` method call. */
-		@Inject(INITIAL_CONFIG) @Optional() private readonly initialConfig: InitialConfig | null = null
+		@Inject(INITIAL_CONFIG) @Optional() private readonly initialConfig: ɵInitialConfig | null = null
 	) {
-		this._data$ = new BehaviorSubject<T | null>(this.initialData);
+		this._data$ = new BehaviorSubject(this.initialData);
 
 		this.ɵInitClassIdIfAbsent();
 		this.emitMetadataOperation(ɵMetadataOperationTypeEnum.Init);
@@ -122,7 +118,6 @@ export abstract class BaseState<T> implements OnDestroy {
 		} catch (error) {
 			this.catchError(error as Error, actionName);
 
-			// Quick fix of this issue 'not all code paths return a value'
 			return undefined;
 		}
 	}

@@ -167,6 +167,6 @@ export abstract class ArrayState<T> extends BaseState<T[]> {
      *	@return {boolean} result of comparing two items via `getItemId`.
      */
     private compareItems(firstItem: T, secondItem: T): boolean {
-        return this.getItemId(firstItem) === this.getItemId(secondItem);
+        return (this.getItemId(firstItem) === this.getItemId(secondItem));
     }
 }
