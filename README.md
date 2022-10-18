@@ -55,19 +55,15 @@ This tool allows you to see data in your states based on ngx-base-state.
 Main page will contain list of all your states.
 Click to some state and will opened "details page" with state changes history.
 
-## List of States
-
-[![List Page](/projects/ngx-base-state-extension/src/assets/images/extension-list-page.png)]()
-
-## Details of concrete State
-
-[![List Page](/projects/ngx-base-state-extension/src/assets/images/extension-details-page.png)]()
+List of States                                                                    | Details of concrete State                                                             |
+:--------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------: |
+![](projects/ngx-base-state-extension/src/assets/images/extension-list-page.png)  | ![](projects/ngx-base-state-extension/src/assets/images/extension-details-page.png)   |
 
 ## Properties
 
 ### *State properties*
 
-| Name            | Type                       | Description                                                         |
+| Name            | Type                       |  Description                                                        |
 |:----------------|:---------------------------|:--------------------------------------------------------------------|
 | data$           | Observable<T \| null>      | state data stream                                                   |
 | data            | T                          | state data                                                          |
@@ -76,86 +72,139 @@ Click to some state and will opened "details page" with state changes history.
 
 ### *ObjectState*
 
-| Name            | Arguments                  | Description                                                         |
-|:----------------|:---------------------------|:--------------------------------------------------------------------|
-| set             | value: T (generic type)    | set new value for state                                             |
-| clear           |                            | clear value for state                                               |
+| Name              | Arguments                  | Description                                                         |
+|:----------------- |:---------------------------|:--------------------------------------------------------------------|
+| set               | value: T (generic type)    | set new value for state                                             |
+| clear             |                            | clear value for state                                               |
+| updateWithPartial | value: Partial<T>          | update state by merging current state with new partial value        |
 
 ### *ArrayState*
 
-| Name            | Arguments                   | Description                                                            |
-|:----------------|:----------------------------|:-----------------------------------------------------------------------|
-| set             | value: T[]                  | set new array for state                                                |
-| addItem         | item: T                     | push new item to array                                                 |
-| removeItem      | item: T                     | remove item from array                                                 |
-| updateItem      | itemToUpdate: T             | update item in array                                                   |
-| compareItems    | firstItem: T, secondItem: T | method that needs implementation, it used for comparing items in array |
+| Name            | Arguments                   | Description                                                                |
+|:----------------|:----------------------------|:-------------------------------------------------------------------------- |
+| compareItems    | firstItem: T, secondItem: T | **method might be overridden, it used for comparing items in array**       |
+| set             | value: T[]                  | set new array for state                                                    |
+| addItem         | item: T                     | push new item to array                                                     |
+| removeItem      | item: T                     | remove item from array                                                     |
+| updateItem      | itemToUpdate: T             | update item in array                                                       |
 
 ## Example with ObjectState
-*user-state.service.ts*
-```js
+
+*user.state.ts*
+``` typescript
 import { ObjectState } from 'ngx-base-state';
 
+// So easy to create new State :)
 @Injectable({
   providedIn: 'root'
 })
-class UserStateService extends ObjectState<User> {}
+class UserState extends ObjectState<User> {}
+```
+
+*user.service.ts*
+``` typescript
+import { User } from '../interfaces';
+import { UserApi } from '../api';
+import { UserState } from '../states';
+
+// IMPORTANT: Work with states only via "Service" layer.
+@Injectable({
+  providedIn: 'root'
+})
+class UserService {
+  // Share data for components.
+  public readonly data$ = this.userState.data$;
+
+  constructor(
+    private readonly userApi: UserApi,
+    private readonly userState: UserState
+  ) {}
+
+  // Make your methods with business logic, which might affect states.
+  // Return Observable. Components can process result by subscribing (complete/next/error).
+  public update(): Observable<User> {
+    return this.userApi.getCurrent()
+      .pipe(
+        tap((user) => this.userState.set(user))
+      );
+  }
+}
 ```
 
 *user.component.ts*
-```js
-import { UserStateService } from './user-state.service';
+``` typescript
+import { ToastService } from '@my-library';
+import { UserService } from '@features/user';
 
-@Component(/* some configuration */)
+// IMPORTANT: Don't inject States directly to components!
+// Only services with business logic should know how to affect your states.
+@Component({
+  selector: 'smart-user',
+  template: '{{ user$ | async | json }}',
+  styles: ['']
+})
 class UserComponent implements OnInit {
-  constructor(private userStateService: UserStateService) {}
+  // Here is data from our state.
+  public readonly user$ = this.userService.data$;
 
-  ngOnInit() {
-    this.userStateService.data$
-      .subscribe(console.log);
-    // Output:
-    // null
-    // { name: 'Nillcon', id: 248 }
+  constructor(
+    private readonly userService: UserService,
+    private readonly toastService: ToastService
+  ) {}
 
-    this.changeUser();
+  public ngOnInit(): void {
+    this.updateUser();
   }
 
-  changeUser() {
-    this.userStateService.set({
-      name: 'Nillcon',
-      id: 248
-    })
+  // Run some services business logic from the smart component
+  private updateUser(): void {
+    this.userService.update()
+      .pipe(
+        catchError(() => this.showErrorToastAboutUserUpdatingError())
+      )
+      .subscribe();
+  }
+
+  // This is task of specific smart components to show UI staff, like: toasts, dialogs, bottomSheets etc...
+  private showErrorToastAboutUserUpdatingError(): Observable<unknown> {
+    return this.toastService.createError(`Can't update user!`);
   }
 }
 ```
 
 ## Example with ArrayState
-*user-array-state.service.ts*
+*users.state.ts*
 ```js
 import { ArrayState } from 'ngx-base-state';
 
 @Injectable({
   providedIn: 'root'
 })
-class UserArrayStateService extends ArrayState<User> {
-    constructor() {
-        super([]); // Here you can set initial data.
-    }
+class UsersState extends ArrayState<User> {
+  constructor() {
+    super([]); // Here you can set initial data.
+  }
 
-    getItemId (user: User): number {
-      return user.id;
-    }
+  // ArrayState have base methods to work with array, like: removeItem, updateItem
+  // and these methods might compare items in array using some unique value.
+  // You can override method `getItemId` if you want operate with items via specific unique value like `id`.
+  protected override getItemId(user: User): number {
+    return user.id;
+  }
 }
 ```
 
-```js
-import { UserArrayStateService } from './user-state.service';
+``` typescript
+import { UserArrayStateService } from './user.state';
 
 @Component(/* some configuration */)
-class UserTableComponent implements OnInit {
-  constructor(private userArrayStateService: UserArrayStateService) {}
+export class UserTableComponent implements OnInit {
+  constructor(
+    // Don't inject states directly to components in real projects!
+    private readonly usersState: UsersState
+  ) {}
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.userArrayStateService.data$
       .subscribe(console.log);
 
@@ -165,7 +214,7 @@ class UserTableComponent implements OnInit {
     this.addUser(); // [{ name: 'New name', id: 248 }, { name: 'John Doe', id: 2 }]
   }
 
-  setUserArray() {
+  private setUserArray(): void {
     this.userStateService.set([
       {
         name: 'Nillcon',
@@ -178,20 +227,20 @@ class UserTableComponent implements OnInit {
     ]);
   }
 
-  updateUser() {
+  private updateUser(): void {
     const user = this.userStateService.data[0]; // { name: 'Nillcon', id: 248 }
     user.name = 'New name';
 
     this.userStateService.updateItem(user);
   }
 
-  removeUser() {
+  private removeUser(): void {
     const user = this.userStateService.data[1]; // { name: 'noname', id: 1 }
 
     this.userStateService.removeItem(removeItem);
   }
 
-  addUser() {
+  private addUser(): void {
     this.userStateService.pushItem({
       name: 'John Doe',
       id: 2
