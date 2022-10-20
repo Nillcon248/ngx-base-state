@@ -170,7 +170,6 @@ export abstract class BaseState<T> implements OnDestroy {
 				data: this.data,
 				stackTrace: ɵStackTrace.capture()
 			});
-			console.log(this._currentlyInvokedAction);
 		}
 
 		this._currentlyInvokedAction = null;
