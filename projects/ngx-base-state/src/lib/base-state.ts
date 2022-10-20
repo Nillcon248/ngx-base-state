@@ -49,10 +49,6 @@ export abstract class BaseState<T> implements OnDestroy {
 		return (this as Object);
 	}
 
-	private get selfName(): string {
-		return this.self.constructor.name;
-	}
-
 	private get selfConstructor(): any {
 		return this.self.constructor;
 	}
@@ -145,7 +141,7 @@ export abstract class BaseState<T> implements OnDestroy {
      *	@param {string} actionName - Name of the action where error happened.
 	 */
 	protected catchError(error: Error, actionName: string): void {
-		throw new Error(`Error at ${this.selfName}: '${error.message}' in action '${actionName}'`);
+		throw new Error(`Error at ${this.selfConstructor.name}: '${error.message}' in action '${actionName}'`);
 	}
 
 	private ɵInitClassIdIfAbsent(): void {
@@ -167,7 +163,7 @@ export abstract class BaseState<T> implements OnDestroy {
 			operationEmitter$.next({
 				type,
 				classId: this.selfConstructor[CLASS_ID_FIELD],
-				className: this.selfName,
+				className: this.selfConstructor.name,
 				classContext: this.initialConfig?.context,
 				actionName: this._currentlyInvokedAction!,
 				date: new Date().toJSON(),
