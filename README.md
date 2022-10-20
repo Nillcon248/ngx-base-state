@@ -94,8 +94,8 @@ List of States                                                                  
 ``` typescript
 import { ObjectState, NgxState } from 'ngx-base-state';
 
-@NgxState()
 // So easy to create new State :)
+@NgxState()
 @Injectable({
   providedIn: 'root'
 })
