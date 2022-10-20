@@ -84,7 +84,7 @@ List of States                                                                  
 |:----------------|:----------------------------|:-------------------------------------------------------------------------- |
 | compareItems    | firstItem: T, secondItem: T | **method might be overridden, it used for comparing items in array**       |
 | set             | value: T[]                  | set new array for state                                                    |
-| addItem         | item: T                     | push new item to array                                                     |
+| pushItem        | item: T                     | push new item to array                                                     |
 | removeItem      | item: T                     | remove item from array                                                     |
 | updateItem      | itemToUpdate: T             | update item in array                                                       |
 
@@ -92,8 +92,9 @@ List of States                                                                  
 
 *user.state.ts*
 ``` typescript
-import { ObjectState } from 'ngx-base-state';
+import { ObjectState, NgxState } from 'ngx-base-state';
 
+@NgxState()
 // So easy to create new State :)
 @Injectable({
   providedIn: 'root'
@@ -140,8 +141,7 @@ import { UserService } from '@features/user';
 // Only services with business logic should know how to affect your states.
 @Component({
   selector: 'smart-user',
-  template: '{{ user$ | async | json }}',
-  styles: ['']
+  template: '{{ user$ | async | json }}'
 })
 class UserComponent implements OnInit {
   // Here is data from our state.
@@ -173,10 +173,12 @@ class UserComponent implements OnInit {
 ```
 
 ## Example with ArrayState
+
 *users.state.ts*
 ```js
-import { ArrayState } from 'ngx-base-state';
+import { ArrayState, NgxState } from 'ngx-base-state';
 
+@NgxState()
 @Injectable({
   providedIn: 'root'
 })
@@ -194,6 +196,7 @@ class UsersState extends ArrayState<User> {
 }
 ```
 
+*users.service.ts*
 ``` typescript
 import { UsersState } from './users.state';
 
@@ -236,16 +239,17 @@ export class UsersService implements OnInit {
   }
 
   private updateUser(): void {
-    const user = this.usersState.data[0]; // { name: 'Nillcon', id: 248 }
+    let user = this.usersState.data[0]; // { name: 'Nillcon', id: 248 }
     user.name = 'New name';
 
+    // ngx-base-state will create new instance of user to avoid possible object mutations
     this.usersState.updateItem(user);
   }
 
   private removeUser(): void {
     const user = this.usersState.data[1]; // { name: 'noname', id: 1 }
 
-    this.usersState.removeItem(removeItem);
+    this.usersState.removeItem(user);
   }
 
   private addUser(): void {
