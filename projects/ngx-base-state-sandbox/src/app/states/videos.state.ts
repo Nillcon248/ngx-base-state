@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { ArrayState } from '@ngx-base-state';
+import { ArrayState, NgxState } from '@ngx-base-state';
 
+@NgxState()
 @Injectable()
 export class VideosState extends ArrayState<unknown> {
     constructor() {

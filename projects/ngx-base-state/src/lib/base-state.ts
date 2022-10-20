@@ -4,6 +4,7 @@ import { ɵInitialConfig, ɵMetadataOperation } from './interfaces';
 import { ɵMetadataKeyEnum, ɵMetadataOperationTypeEnum } from './enums';
 import { ɵMetadataStorage, ɵStackTrace } from './helpers';
 import { NGX_BASE_STATE_DEVTOOLS_CONFIG } from './tokens';
+import { ɵAction as Action } from './decorators';
 
 const INITIAL_DATA = new InjectionToken('__NGX_BASE_STATE_INITIAL_DATA');
 const INITIAL_CONFIG = new InjectionToken('__NGX_BASE_STATE_INITIAL_CONFIG');
@@ -39,13 +40,21 @@ export abstract class BaseState<T> implements OnDestroy {
      */
 	private readonly _data$: BehaviorSubject<T | null>;
 
+	private _currentlyInvokedAction: string | null = null;
+
 	private readonly _devtoolsConfig = inject(NGX_BASE_STATE_DEVTOOLS_CONFIG);
 	private readonly _metadataStorage = inject(ɵMetadataStorage);
 
-	private get selfConstructor(): any {
-		const self = (this as Object);
+	private get self(): Object {
+		return (this as Object);
+	}
 
-		return self.constructor;
+	private get selfName(): string {
+		return this.self.constructor.name;
+	}
+
+	private get selfConstructor(): any {
+		return this.self.constructor;
 	}
 
 	constructor(
@@ -74,6 +83,7 @@ export abstract class BaseState<T> implements OnDestroy {
 	 *  @public
      *	@param {Generic} value - the value that should be set to update `BehaviorSubject`.
 	 */
+	@Action
 	public set(value: T): void {
 		this.setNewValue(value);
 	}
@@ -82,6 +92,7 @@ export abstract class BaseState<T> implements OnDestroy {
 	 *  Clear state value. (Will be set `null`)
 	 *  @public
 	 */
+	@Action
 	public clear(): void {
 		this.setNewValue(null);
 	}
@@ -90,6 +101,7 @@ export abstract class BaseState<T> implements OnDestroy {
 	 *  Restore initial value from constructor.
 	 *  @public
 	 */
+	@Action
 	public restoreInitialValue(): void {
 		this.setNewValue(this.initialData);
 	}
@@ -113,6 +125,10 @@ export abstract class BaseState<T> implements OnDestroy {
      *	@return {Generic} result of the callback call.
      */
 	protected tryDoAction<V>(actionName: string, actionFunc: () => any): V | undefined {
+		if (!this._currentlyInvokedAction) {
+			this._currentlyInvokedAction = actionName;
+		}
+
 		try {
 			return actionFunc();
 		} catch (error) {
@@ -129,7 +145,7 @@ export abstract class BaseState<T> implements OnDestroy {
      *	@param {string} actionName - Name of the action where error happened.
 	 */
 	protected catchError(error: Error, actionName: string): void {
-		throw new Error(`Error: '${error.message}' in action '${actionName}'`);
+		throw new Error(`Error at ${this.selfName}: '${error.message}' in action '${actionName}'`);
 	}
 
 	private ɵInitClassIdIfAbsent(): void {
@@ -145,19 +161,22 @@ export abstract class BaseState<T> implements OnDestroy {
 	 */
 	private emitMetadataOperation(type: ɵMetadataOperationTypeEnum): void {
 		if (this._devtoolsConfig.isEnabled) {
-			const self: Object = this;
 			const operationEmitter$ = this._metadataStorage
 				.get<ReplaySubject<ɵMetadataOperation>>(ɵMetadataKeyEnum.MetadataOperation);
 
 			operationEmitter$.next({
 				type,
 				classId: this.selfConstructor[CLASS_ID_FIELD],
-				className: self.constructor.name,
+				className: this.selfName,
 				classContext: this.initialConfig?.context,
+				actionName: this._currentlyInvokedAction!,
 				date: new Date().toJSON(),
 				data: this.data,
 				stackTrace: ɵStackTrace.capture()
 			});
+			console.log(this._currentlyInvokedAction);
 		}
+
+		this._currentlyInvokedAction = null;
 	}
 }

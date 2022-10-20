@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { ObjectState } from '@ngx-base-state';
+import { NgxState, ObjectState } from '@ngx-base-state';
 
+@NgxState()
 @Injectable()
 export class UserState extends ObjectState<unknown> {
     constructor() {

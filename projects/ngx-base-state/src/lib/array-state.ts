@@ -1,13 +1,5 @@
 import { BaseState } from './base-state';
-
-enum ArrayStateActionEnum {
-    GetByIndex = 'get by index',
-    PushItem = 'push item',
-    RemoveItem = 'remove item',
-    RemoveItemById = 'remove item by id',
-    ChangeItemByIndex = 'change item by index',
-    UpdateItem = 'update item'
-}
+import { ɵAction as Action } from './decorators';
 
 /**
  *	@class
@@ -18,107 +10,106 @@ export abstract class ArrayState<T> extends BaseState<T[]> {
     /**
      * 	Return item by quired index.
      *	@public
-    *	@param {Number} index - quired index
-    *	@return {Generic} quired item.
-    */
+     *	@param {Number} index - quired index
+     *	@return {Generic} quired item.
+     */
+	@Action
     public getByIndex(index: number): T | undefined {
-        return this.tryDoAction<T>(ArrayStateActionEnum.GetByIndex, () => {
-            const items = this.data;
+        const items = this.data;
 
-            return items![index];
-        });
+        return items![index];
     }
 
     /**
      * 	Push item to array in state.
      *	@public
-    *	@param {Generic} item - item needs to push
-    */
+     *	@param {Generic} item - item needs to push
+     */
+	@Action
     public pushItem(item: T): void {
-        return this.tryDoAction<void>(ArrayStateActionEnum.PushItem, () => {
-            const items = this.data;
+        const items = this.data;
 
-            items!.push(item);
+        items!.push(item);
 
-            this.setNewValue(items);
-        });
+        this.setNewValue(items);
     }
 
     /**
-     * 	Remove item in array by item identify param.
+     * 	Remove item in array by item identify param (using `compareItems` method).
      *	@public
-    *	@param {Generic} itemId - Id of item you want to remove.
-    */
+     *	@param {Generic} itemId - Id of item you want to remove.
+     */
+	@Action
     public removeItem(item: T): T | undefined {
-        return this.tryDoAction<T>(ArrayStateActionEnum.RemoveItem, () => {
-            const items = this.data;
+        const items = this.data;
 
-            const index = this.data!.findIndex((_item) =>
-                this.compareItems(item, _item)
-            );
+        const index = this.data!.findIndex((_item) =>
+            this.compareItems(item, _item)
+        );
 
-            const removedItem = this.data![index];
+        const removedItem = this.data![index];
 
-            items!.splice(index, 1);
+        items!.splice(index, 1);
 
-            this.setNewValue(items);
+        this.setNewValue(items);
 
-            return removedItem;
-        });
+        return removedItem;
     }
 
+    /**
+     * 	Remove item in array by item id (using `getItemId` method).
+     *	@public
+     *	@param {Generic} itemId - Id of item you want to remove.
+     */
+	@Action
     public removeItemById(itemId: unknown): T | undefined {
-        return this.tryDoAction<T>(ArrayStateActionEnum.RemoveItemById, () => {
-            const items = this.data;
+        const items = this.data;
 
-            const index = this.data!.findIndex(
-                (_item) => itemId === this.getItemId(_item)
-            );
+        const index = this.data!.findIndex(
+            (_item) => itemId === this.getItemId(_item)
+        );
 
-            const removedItem = this.data![index];
+        const removedItem = this.data![index];
 
-            items!.splice(index, 1);
+        items!.splice(index, 1);
 
-            this.setNewValue(items);
+        this.setNewValue(items);
 
-            return removedItem;
-        });
+        return removedItem;
+    }
+
+    /**
+     * 	Update item in array by item identify param (using `compareItems` method).
+     *	@public
+    *	@param {Generic} itemToUpdate - item that will be update.
+    */
+	@Action
+    public updateItem(itemToUpdate: T): void {
+        const items = this.data;
+        itemToUpdate = { ...itemToUpdate };
+
+        const itemIndex = items!.findIndex((_currentItem) =>
+            this.compareItems(_currentItem, itemToUpdate)
+        );
+
+        items![itemIndex] = itemToUpdate;
+
+        this.setNewValue(items);
     }
 
     /**
      * 	Update item in array by index.
      *	@public
-    *	@param {Generic} itemToUpdate - item that will be update.
-    *	@param {Generic} index - index of item that need to update.
-    */
+     *	@param {Generic} itemToUpdate - item that will be update.
+     *	@param {Generic} index - index of item that need to update.
+     */
+	@Action
     public updateItemByIndex(itemToUpdate: T, index: number): void {
-        this.tryDoAction<void>(ArrayStateActionEnum.ChangeItemByIndex, () => {
-            const items = this.data;
+        const items = this.data;
 
-            items![index] = itemToUpdate;
+        items![index] = itemToUpdate;
 
-            this.setNewValue(items);
-        });
-    }
-
-    /**
-     * 	Update item in array by item identify param.
-     *	@public
-    *	@param {Generic} itemToUpdate - item that will be update.
-    */
-    public updateItem(itemToUpdate: T): void {
-        this.tryDoAction<void>(ArrayStateActionEnum.UpdateItem, () => {
-            const items = this.data;
-            itemToUpdate = { ...itemToUpdate };
-
-            const itemIndex = items!.findIndex((_currentItem) =>
-                this.compareItems(_currentItem, itemToUpdate)
-            );
-
-            items![itemIndex] = itemToUpdate;
-
-            this.setNewValue(items);
-        });
+        this.setNewValue(items);
     }
 
     /**

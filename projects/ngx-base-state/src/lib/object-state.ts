@@ -1,8 +1,5 @@
 import { BaseState } from './base-state';
-
-enum ObjectStateActionEnum {
-    UpdateWithPartial = 'update with partial'
-}
+import { ɵAction as Action } from './decorators';
 
 /**
  *	@class
@@ -14,10 +11,9 @@ export abstract class ObjectState<T> extends BaseState<T> {
      *  @public
      *  @param {T | null} value - the value that should be set to update `BehaviorSubject`.
 	 */
+	@Action
 	 public updateWithPartial(value: Partial<T>): void {
-		this.tryDoAction(ObjectStateActionEnum.UpdateWithPartial, () => {
-			this.set({ ...this.data!, ...value });
-		});
+		this.set({ ...this.data!, ...value });
 	}
 
 	/**
@@ -25,6 +21,7 @@ export abstract class ObjectState<T> extends BaseState<T> {
      *  @protected
      *  @param {T | null} value - the value that should be set to update `BehaviorSubject`.
 	 */
+	@Action
 	protected override setNewValue(value: T | null): void {
 		if (value) {
 			super.setNewValue({ ...value });

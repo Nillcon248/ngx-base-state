@@ -6,6 +6,7 @@ export interface ɵMetadataOperation {
     readonly className: string;
     readonly classContext: string | undefined;
     readonly classId: number;
+    readonly actionName: string;
     readonly data: unknown;
     readonly type: ɵMetadataOperationTypeEnum;
 }

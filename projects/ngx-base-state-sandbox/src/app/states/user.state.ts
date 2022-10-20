@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { ObjectState } from 'projects/ngx-base-state/src/lib';
+import { ObjectState, NgxState } from '@ngx-base-state';
 import { User } from '../interfaces';
 
+@NgxState()
 @Injectable({
     providedIn: 'root'
 })
@@ -64,5 +65,11 @@ export class UserState extends ObjectState<User> {
             "nat": "US",
             "age": 23
         });
+    }
+
+    public incrementAge(): void {
+        const data = this.data as User;
+
+        this.updateWithPartial({ age: (data.age + 1) });
     }
 }
