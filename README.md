@@ -11,7 +11,7 @@
 # Idea
 The main idea of this library is remove useless code from class.
 Usually state services violate [DRY pattern](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself)  
-This library will help to create state in 2 lines.
+This library will help to create state in 3 lines.
 
 # Installation
 
