@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { ArrayState } from '../array-state';
+import { NgxState } from '../decorators';
 
 interface ItemMock {
     readonly id: number;
     readonly data: string;
 }
 
+@NgxState()
 @Injectable()
 class ArrayStateMock extends ArrayState<ItemMock> {
     protected override getItemId(item: ItemMock): number {

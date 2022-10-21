@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { NgxState } from '../decorators';
 import { PrimitiveState } from '../primitive-state';
 
 interface ItemMock {
@@ -17,6 +18,7 @@ const itemDataMock2: ItemMock = {
 	data: 'Some info alala'
 };
 
+@NgxState()
 @Injectable()
 class PrimitiveStateMock extends PrimitiveState<ItemMock> {}
 

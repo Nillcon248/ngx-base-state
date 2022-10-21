@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { BaseState } from '../base-state';
+import { NgxState } from '../decorators';
 
 interface ItemMock {
 	readonly id: number;
@@ -17,9 +18,11 @@ const itemDataMock2: ItemMock = {
 	data: 'Some info alala'
 };
 
+@NgxState()
 @Injectable()
 class BaseStateMock extends BaseState<ItemMock> {}
 
+@NgxState()
 @Injectable()
 class BaseStateInitDataMock extends BaseState<ItemMock> {
 	constructor() {
