@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, HostBinding } from '@angular/core';
+import { ɵMetadataOperationTypeEnum } from '@ngx-base-state';
 import { OPERATION_TYPE_MAP } from '@extension-data';
 import { OperationType } from '@extension-interfaces';
-import { ɵMetadataOperationTypeEnum } from '@ngx-base-state/enums';
 
 @Component({
     selector: 'app-operation-type-chip',

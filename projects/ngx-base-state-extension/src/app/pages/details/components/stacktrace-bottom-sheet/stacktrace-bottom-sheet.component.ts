@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
-import { ɵMetadataOperation } from '@ngx-base-state/interfaces';
+import { ɵMetadataOperation } from '@ngx-base-state';
 
 @Component({
     selector: 'app-stacktrace-bottom-sheet',

@@ -1,6 +1,20 @@
+@keyframes highlight-animation {
+    from {
+        background-color: bisque;
+    }
+
+    to {
+        background-color: #fff;
+    }
+}
+
 body {
     width: 100%;
     display: block;
     margin: 0px;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+.highlight {
+    animation: highlight-animation 0.5s ease;
 }

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BaseState } from '@ngx-base-state';
-import { ɵMetadataOperation } from '@ngx-base-state/interfaces';
+import { BaseState, NgxState, ɵMetadataOperation } from '@ngx-base-state';
 
 /** Map contain key as `classId` */
+@NgxState()
 @Injectable({
     providedIn: 'root'
 })
@@ -21,7 +21,7 @@ export class MetadataOperationHistoryState extends BaseState<Map<number, ɵMetad
         }
 
         const lastOperations = this.getLastOperationsWithinClassId(classId);
-        const updatedOperations = [...lastOperations, operation];
+        const updatedOperations = [operation, ...lastOperations];
 
         data.set(classId, updatedOperations);
         this.set(data);
@@ -29,10 +29,7 @@ export class MetadataOperationHistoryState extends BaseState<Map<number, ɵMetad
 
     private getLastOperationsWithinClassId(classId: number): ɵMetadataOperation[] {
         const operations = this.data!.get(classId) ?? [];
-        const isArrayExceedsMaxAmount = (operations.length >= this.maxOperationAmount);
-        const amountOfOperationFromStart = (isArrayExceedsMaxAmount) ?
-            (operations.length - this.maxOperationAmount) : 0;
 
-        return operations.slice(amountOfOperationFromStart);
+        return operations.slice(0, this.maxOperationAmount);
     }
 }

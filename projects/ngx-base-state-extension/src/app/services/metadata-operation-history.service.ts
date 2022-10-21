@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { ɵMetadataOperation } from '@ngx-base-state/interfaces';
+import { ɵMetadataOperation } from '@ngx-base-state';
 import { ApplicationReloadEmitter, MetadataOperationEmitter } from '../emitters';
 import { MetadataOperationHistoryState } from '../states';
 

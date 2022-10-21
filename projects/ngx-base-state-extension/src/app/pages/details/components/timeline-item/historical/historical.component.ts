@@ -4,7 +4,7 @@ import {
     HostBinding,
     Input,
 } from '@angular/core';
-import { ɵMetadataOperation } from '@ngx-base-state/interfaces';
+import { ɵMetadataOperation } from '@ngx-base-state';
 import { OPERATION_TYPE_MAP } from '@extension-data';
 import { BaseTimelineItemComponent } from '../base.component';
 

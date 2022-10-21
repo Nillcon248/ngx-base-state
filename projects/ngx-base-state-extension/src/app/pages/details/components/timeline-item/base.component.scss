@@ -3,7 +3,7 @@ $height: 14px;
 
 @mixin base-timeline-item {
     min-width: $width;
-    width: $width;
+    width: auto;
     height: $height;
     display: flex;
     align-items: center;

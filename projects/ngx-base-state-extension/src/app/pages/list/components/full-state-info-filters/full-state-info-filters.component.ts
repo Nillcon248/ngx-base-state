@@ -6,12 +6,12 @@ import { SortOperation } from '../../interfaces';
 import { MetadataListFiltersService } from '../../services';
 
 @Component({
-    selector: 'app-filters',
-    templateUrl: './filters.component.html',
-    styleUrls: ['./filters.component.scss'],
+    selector: 'app-full-state-info-filters',
+    templateUrl: './full-state-info-filters.component.html',
+    styleUrls: ['./full-state-info-filters.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FiltersComponent {
+export class FullStateInfoFiltersComponent {
     public readonly dataTypeArray = [...DATA_TYPE_MAP.values()];
     public readonly sortOperationArray = [...SORT_OPERATION_ARRAY];
     public readonly filters$ = this.filtersService.data$;

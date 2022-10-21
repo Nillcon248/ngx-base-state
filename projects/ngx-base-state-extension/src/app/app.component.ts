@@ -3,7 +3,8 @@ import {
     DataTypeService,
     MetadataOperationHistoryService,
     MetadataOperationService,
-    ApplicationReloadService
+    ApplicationReloadService,
+    ActionsService
 } from '@extension-services';
 
 @Component({
@@ -17,13 +18,15 @@ export class AppComponent implements OnInit {
         private readonly applicationReloadService: ApplicationReloadService,
         private readonly metadataOperationHistoryService: MetadataOperationHistoryService,
         private readonly metadataOperationService: MetadataOperationService,
-        private readonly dataTypeService: DataTypeService
+        private readonly dataTypeService: DataTypeService,
+        private readonly actionsService: ActionsService
     ) {}
 
     public ngOnInit(): void {
         this.applicationReloadService.initObserver();
         this.metadataOperationService.initObserver();
         this.dataTypeService.initObserver();
+        this.actionsService.initObserver();
         this.metadataOperationHistoryService.initObserver();
     }
 }

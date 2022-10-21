@@ -1,0 +1,27 @@
+<mat-selection-list [multiple]="false">
+    <ng-container *ngFor="let action of (actions$ | async); trackBy: trackByFn">
+        <mat-list-option
+            *ngIf="action.actionName"
+            class="list-item"
+            (click)="onListItemClick(action.classId)">
+            <div matLine>
+                {{ action.className }}
+
+                <ng-container
+                    *ngIf="action.classContext">
+                    [{{ action.classContext }}]
+                </ng-container>
+
+                <span
+                    *ngIf="action.actionName"
+                    class="action-name">
+                    ({{ action.actionName }})
+                </span>
+
+                <span class="date">
+                    | invoked at: {{ action.date | date:'hh:mm:ss' }}
+                </span>
+            </div>
+        </mat-list-option>
+    </ng-container>
+</mat-selection-list>

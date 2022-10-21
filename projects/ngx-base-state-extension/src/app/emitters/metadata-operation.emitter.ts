@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
-import { ɵMetadataOperation } from '@ngx-base-state/interfaces';
+import { ɵMetadataOperation } from '@ngx-base-state';
 
 @Injectable({
     providedIn: 'root'

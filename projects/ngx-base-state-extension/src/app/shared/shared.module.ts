@@ -9,12 +9,14 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import {
     ValueViewerComponent,
     TitleComponent,
     OperationTypeChipComponent
 } from './components';
+import { HighlightWhenDataChangesDirective } from './directives';
 
 const sharedModules = [
     CommonModule,
@@ -26,11 +28,13 @@ const sharedModules = [
     MatIconModule,
     MatToolbarModule,
     MatTooltipModule,
-    MatBottomSheetModule
+    MatBottomSheetModule,
+    MatTabsModule
 ];
 
 @NgModule({
     declarations: [
+        HighlightWhenDataChangesDirective,
         ValueViewerComponent,
         TitleComponent,
         OperationTypeChipComponent
@@ -41,6 +45,7 @@ const sharedModules = [
     ],
     exports: [
         ...sharedModules,
+        HighlightWhenDataChangesDirective,
         ValueViewerComponent,
         TitleComponent,
         OperationTypeChipComponent

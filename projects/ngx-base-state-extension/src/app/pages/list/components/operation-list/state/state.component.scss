@@ -1,0 +1,20 @@
+:host {
+    .data-type {
+        font-weight: bold;
+    }
+    
+    .date {
+        color: gray;
+    }
+
+    &.destroyed {
+        .class-name {
+            text-decoration: line-through;
+            color: gray;
+        }
+
+        .data-type {
+            color: gray !important;
+        }
+    }
+}

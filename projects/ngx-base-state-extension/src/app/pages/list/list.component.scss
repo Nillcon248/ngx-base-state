@@ -8,25 +8,4 @@
     height: 100%;
     display: block;
     overflow-y: auto;
-
-    .data-type {
-        font-weight: bold;
-    }
-    
-    .date {
-        color: gray;
-    }
-    
-    .list-option {
-        &.destroyed {
-            .class-name {
-                text-decoration: line-through;
-                color: gray;
-            }
-    
-            .data-type {
-                color: gray !important;
-            }
-        }
-    }
 }

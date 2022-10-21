@@ -12,8 +12,7 @@
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "paths": {
-      "@ngx-base-state": ["projects/ngx-base-state/src/public-api"],
-      "@ngx-base-state/*": ["projects/ngx-base-state/src/lib/*"],
+      "@ngx-base-state": ["projects/ngx-base-state/src/lib"],
       "@extension-services": ["projects/ngx-base-state-extension/src/app/services"],
       "@extension-services/*": ["projects/ngx-base-state-extension/src/app/services/*"],
       "@extension-core": ["projects/ngx-base-state-extension/src/app/core"],

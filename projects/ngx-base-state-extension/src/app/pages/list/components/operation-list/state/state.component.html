@@ -1,0 +1,36 @@
+<mat-selection-list [multiple]="false">
+    <mat-list-option
+        *ngFor="let stateFullInfo of (stateFullInfoArray$ | async); trackBy: trackByFn"
+        [highlightWhenDataChanges]="stateFullInfo.operation"
+        (click)="onListItemClick(stateFullInfo.operation.classId)">
+        <div
+            mat-line
+            class="class-name">
+            {{ stateFullInfo.operation.className }}
+        
+            <ng-container
+                *ngIf="stateFullInfo.operation.classContext">
+                [{{ stateFullInfo.operation.classContext }}]
+            </ng-container>
+        
+            <app-operation-type-chip
+                class="operation-type-chip"
+                [operationTypeId]="stateFullInfo.operation.type">
+            </app-operation-type-chip>
+        </div>
+        
+        <div mat-line>
+            <span
+                class="data-type"
+                [style.color]="stateFullInfo.dataType.color">
+                {{ stateFullInfo.dataType.name }}
+            </span>|
+        
+            updated at:
+        
+            <span class="date">
+                {{ stateFullInfo.operation.date | date:'hh:mm:ss' }}
+            </span>
+        </div>
+    </mat-list-option>
+</mat-selection-list>

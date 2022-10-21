@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { combineLatest, map, shareReplay } from 'rxjs';
-import { ɵMetadataOperation } from '@ngx-base-state/interfaces';
+import { combineLatest, debounceTime, map, shareReplay } from 'rxjs';
+import { ɵMetadataOperation } from '@ngx-base-state';
 import { DataTypeService, MetadataService } from '@extension-services';
 import { StateDataTypeEnum } from '@extension-core';
 import { Filters, StateFullInfo } from '../interfaces';
@@ -8,6 +8,7 @@ import { StateDataType } from '../../../interfaces';
 import { DATA_TYPE_MAP } from '../../../data';
 import { MetadataListFiltersState } from '../states';
 
+// FIXME: Refactor. Move filtration logic to another service
 @Injectable()
 export class StateFullInfoService {
     public readonly data$ = combineLatest([
@@ -16,6 +17,7 @@ export class StateFullInfoService {
         this.filtersState.data$
     ])
         .pipe(
+            debounceTime(0),
             map(([metadata, dataTypeMap, filters]) => ({
                 stateFullInfoArray: this.adaptMetadata(metadata, dataTypeMap),
                 filters

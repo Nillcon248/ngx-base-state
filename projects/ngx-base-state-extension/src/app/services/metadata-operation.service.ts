@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ɵMetadataOperation } from '@ngx-base-state/interfaces';
+import { ɵMetadataOperation } from '@ngx-base-state';
 import { switchMap, map } from 'rxjs';
 import {
     ChromeTabsService,

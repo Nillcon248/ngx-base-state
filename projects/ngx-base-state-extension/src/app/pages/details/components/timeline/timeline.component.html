@@ -1,18 +1,18 @@
 <h4 class="title">TIMELINE (last 10 changes)</h4>
 
 <div class="timeline">
-    <app-historical-timeline-item
-        *ngFor="let operation of (operationHistory$ | async)"
-        class="timeline-item"
-        [operation]="operation"
-        [matTooltip]="(operation.date | date:'hh:mm:ss')!"
-        (click)="onTimelineItemClick(timelineItemTypeEnum.Historical, operation)">
-    </app-historical-timeline-item>
-
     <app-realtime-timeline-item
         class="timeline-item"
         [matTooltip]="'Realtime'"
         [isSelected]="true"
         (click)="onTimelineItemClick(timelineItemTypeEnum.Realtime)">
     </app-realtime-timeline-item>
+
+    <app-historical-timeline-item
+        *ngFor="let operation of (operationHistory$ | async); trackBy: trackByHistoricalOperation"
+        class="timeline-item"
+        [operation]="operation"
+        [matTooltip]="(operation.date | date:'hh:mm:ss')!"
+        (click)="onTimelineItemClick(timelineItemTypeEnum.Historical, operation)">
+    </app-historical-timeline-item>
 </div>

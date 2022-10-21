@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { BaseState } from '@ngx-base-state';
+import { BaseState, NgxState } from '@ngx-base-state';
 import { StateDataTypeEnum } from '@extension-core';
 
 /** Map contain key as `classId` */
+@NgxState()
 @Injectable({
     providedIn: 'root'
 })

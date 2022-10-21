@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { map, shareReplay, Observable } from 'rxjs';
-import { ɵMetadataOperation } from '@ngx-base-state/interfaces';
+import { ɵMetadataOperation } from '@ngx-base-state';
 import { MetadataOperationHistoryState } from '../states';
 
 @Injectable({
@@ -13,7 +13,7 @@ export class MetadataService {
                 const metadataMap = new Map<number, ɵMetadataOperation>();
 
                 historyMap!.forEach((operations, classId) => {
-                    metadataMap.set(classId, operations[operations.length - 1]);
+                    metadataMap.set(classId, operations[0]);
                 });
 
                 return metadataMap;
