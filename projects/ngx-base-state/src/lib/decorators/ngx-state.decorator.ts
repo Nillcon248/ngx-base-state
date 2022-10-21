@@ -1,5 +1,5 @@
 import { ɵTryDoActionFunction } from '../types';
-import { ɵTRY_DO_ACTION_METHOD_NAME } from '../data';
+import { ɵNGX_STATE_DECORATOR_METADATA_FIELD, ɵTRY_DO_ACTION_METHOD_NAME } from '../constants';
 
 const forbiddenMethodNamesToPatch = [
     'constructor',
@@ -10,6 +10,8 @@ export function NgxState(): any {
     return function InnerFunction(targetClass: any, fieldName: string, descriptor: any): any {
         const prototype = targetClass.prototype;
 
+        markTargetClassWithMetadata(prototype);
+
         Object.getOwnPropertyNames(prototype).forEach((fieldName) => {
             const isFieldNameForbidden = forbiddenMethodNamesToPatch.includes(fieldName);
 
@@ -18,6 +20,10 @@ export function NgxState(): any {
             }
         });
     };
+}
+
+function markTargetClassWithMetadata(stateClass: any): void {
+    stateClass[ɵNGX_STATE_DECORATOR_METADATA_FIELD] = true;
 }
 
 function markMethodOfStateAsAction(stateClass: any, fieldName: string, originalMethod: Function): void {

@@ -7,8 +7,7 @@ export class HighlightWhenDataChangesDirective<T = unknown> {
     @Input('highlightWhenDataChanges')
     public set data(data: T) {
         if (this._previousData !== data) {
-            console.log(this._previousData, data);
-            this.highlight();
+            this.applyHighlightClass();
         }
 
         this._previousData = data;
@@ -23,7 +22,7 @@ export class HighlightWhenDataChangesDirective<T = unknown> {
         private readonly hostElementRef: ElementRef<HTMLElement>
     ) {}
 
-    private highlight(): void {
+    private applyHighlightClass(): void {
         this.hostElementRef.nativeElement.classList.remove(this.highlightClassName);
 
         setTimeout(

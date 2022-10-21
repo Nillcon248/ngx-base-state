@@ -2,6 +2,12 @@
     <mat-icon title-icon>event</mat-icon>
 
     <span>{{ operation.date | date:'hh:mm:ss' }}</span>
+
+    <span
+        *ngIf="operation.actionName"
+        class="action-name">
+        [{{ operation.actionName }}]
+    </span>
     
     <app-operation-type-chip
         class="chip"

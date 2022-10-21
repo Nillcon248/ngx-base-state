@@ -7,6 +7,12 @@
         </mat-icon>
     
         <span>Realtime</span>
+
+        <span
+            *ngIf="lastOperation.actionName"
+            class="action-name">
+            [{{ lastOperation.actionName }}]
+        </span>
     
         <app-operation-type-chip
             class="chip"

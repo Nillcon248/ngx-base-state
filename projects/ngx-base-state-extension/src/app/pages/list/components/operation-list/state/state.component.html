@@ -1,7 +1,9 @@
 <mat-selection-list [multiple]="false">
     <mat-list-option
         *ngFor="let stateFullInfo of (stateFullInfoArray$ | async); trackBy: trackByFn"
+        class="list-item"
         [highlightWhenDataChanges]="stateFullInfo.operation"
+        [class]="getListItemClass(stateFullInfo.operation)"
         (click)="onListItemClick(stateFullInfo.operation.classId)">
         <div
             mat-line

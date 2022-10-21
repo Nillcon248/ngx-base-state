@@ -5,6 +5,7 @@ import { ɵMetadataKeyEnum, ɵMetadataOperationTypeEnum } from './enums';
 import { ɵMetadataStorage, ɵStackTrace } from './helpers';
 import { NGX_BASE_STATE_DEVTOOLS_CONFIG } from './tokens';
 import { ɵAction as Action } from './decorators';
+import { ɵNGX_STATE_DECORATOR_METADATA_FIELD } from './constants';
 
 const INITIAL_DATA = new InjectionToken('__NGX_BASE_STATE_INITIAL_DATA');
 const INITIAL_CONFIG = new InjectionToken('__NGX_BASE_STATE_INITIAL_CONFIG');
@@ -61,7 +62,8 @@ export abstract class BaseState<T> implements OnDestroy {
 	) {
 		this._data$ = new BehaviorSubject(this.initialData);
 
-		this.ɵInitClassIdIfAbsent();
+		this.initClassIdIfAbsent();
+		this.createConsoleWarningIfStateHaveNotDecorator();
 		this.emitMetadataOperation(ɵMetadataOperationTypeEnum.Init);
 	}
 
@@ -144,7 +146,15 @@ export abstract class BaseState<T> implements OnDestroy {
 		throw new Error(`Error at ${this.selfConstructor.name}: '${error.message}' in action '${actionName}'`);
 	}
 
-	private ɵInitClassIdIfAbsent(): void {
+	private createConsoleWarningIfStateHaveNotDecorator(): void {
+		const self = (this as any);
+
+		if (this._devtoolsConfig.isEnabled && !self[ɵNGX_STATE_DECORATOR_METADATA_FIELD]) {
+			console.warn(`${this.selfConstructor.name} class is missed @NgxState() decorator. Some features of DevTools will work incorrectly!`);
+		}
+	}
+
+	private initClassIdIfAbsent(): void {
 		if (!this.selfConstructor[CLASS_ID_FIELD]) {
 			this.selfConstructor[CLASS_ID_FIELD] = Math.random();
 		}

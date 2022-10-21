@@ -1,10 +1,10 @@
-:host {
-    .data-type {
-        font-weight: bold;
-    }
-    
+.list-item {
     .date {
         color: gray;
+    }
+
+    .data-type {
+        font-weight: bold;
     }
 
     &.destroyed {

@@ -13,6 +13,10 @@
 .title {
     color: #d61c3b;
 
+    .action-name {
+        margin-left: 5px;
+    }
+
     .icon {
         animation: flickerAnimation 1.5s infinite;
     }

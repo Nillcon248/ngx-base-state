@@ -1,4 +1,4 @@
-import { ɵTRY_DO_ACTION_METHOD_NAME } from '../data';
+import { ɵTRY_DO_ACTION_METHOD_NAME } from '../constants';
 import { ɵTryDoActionFunction } from '../types';
 
 export function ɵAction(targetClass: any, fieldName: string, descriptor: any): any {
