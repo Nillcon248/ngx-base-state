@@ -125,15 +125,12 @@ export abstract class ArrayState<T> extends BaseState<T[]> {
         }
     }
 
-    /**
-	 *  Method that	processed error for user friendly error messages
-	 *  @protected
-     *	@param {Error | TypeError} error - Error.
-     *	@param {string} actionName - Name of the action where error happened.
-	 */
     protected override catchError(error: Error | TypeError, actionName: string): void {
 		if (error instanceof TypeError) {
-			throw new Error(`Can not ${actionName}. Firstly set array.`);
+            const self = (this as any);
+            const className = self.constructor.name;
+
+            throw new Error(`\n${className} [${actionName}]: Firstly set Array.\n\n${error.message}`);
 		}
 
 		super.catchError(error, actionName);

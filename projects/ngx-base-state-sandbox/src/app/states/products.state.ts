@@ -6,9 +6,8 @@ import { ArrayState, NgxState } from '@ngx-base-state';
 })
 export class ProductsState extends ArrayState<unknown> {
     constructor() {
-        super([
-            { id: 1, name: 'Product 1' },
-            { id: 2, name: 'Product 2' }
-        ]);
+        super();
+
+        this.pushItem(1);
     }
 }

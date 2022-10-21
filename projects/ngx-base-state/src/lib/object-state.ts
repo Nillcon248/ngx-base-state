@@ -29,4 +29,15 @@ export abstract class ObjectState<T> extends BaseState<T> {
 			super.setNewValue(null);
 		}
 	}
+
+	protected override catchError(error: Error | TypeError, actionName: string): void {
+		if (error instanceof TypeError) {
+            const self = (this as any);
+            const className = self.constructor.name;
+
+            throw new Error(`\n${className} [${actionName}]: Firstly set Object.\n\n${error.message}`);
+		}
+
+		super.catchError(error, actionName);
+	}
 }

@@ -63,7 +63,7 @@ export abstract class BaseState<T> implements OnDestroy {
 		this._data$ = new BehaviorSubject(this.initialData);
 
 		this.initClassIdIfAbsent();
-		this.createConsoleWarningIfStateHaveNotDecorator();
+		this.showConsoleWarningIfClassHaveNotDecorator();
 		this.emitMetadataOperation(ɵMetadataOperationTypeEnum.Init);
 	}
 
@@ -143,10 +143,10 @@ export abstract class BaseState<T> implements OnDestroy {
      *	@param {string} actionName - Name of the action where error happened.
 	 */
 	protected catchError(error: Error, actionName: string): void {
-		throw new Error(`Error at ${this.selfConstructor.name}: '${error.message}' in action '${actionName}'`);
+		throw new Error(`\n${this.selfConstructor.name} [${actionName}]: ${error.message}`);
 	}
 
-	private createConsoleWarningIfStateHaveNotDecorator(): void {
+	private showConsoleWarningIfClassHaveNotDecorator(): void {
 		const self = (this as any);
 
 		if (this._devtoolsConfig.isEnabled && !self[ɵNGX_STATE_DECORATOR_METADATA_FIELD]) {
