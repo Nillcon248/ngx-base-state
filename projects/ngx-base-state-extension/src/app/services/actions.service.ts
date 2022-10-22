@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, filter } from 'rxjs';
 import { ɵMetadataOperation } from '@ngx-base-state';
 import { ActionsState } from '../states';
 import { ApplicationReloadEmitter, MetadataOperationEmitter } from '../emitters';
@@ -20,11 +20,14 @@ export class ActionsService {
 
     public initObserver(): void {
         this.metadataOperationEmitter.data$
+            .pipe(
+                filter((operation) => !!operation.actionName)
+            )
             .subscribe((operation) => this.actionsState.register(operation));
     }
 
     private initApplicationReloadObserver(): void {
         this.applicationReloadEmitter.data$
-            .subscribe(() => this.actionsState.restoreInitialValue());
+            .subscribe(() => this.actionsState.restoreInitialData());
     }
 }

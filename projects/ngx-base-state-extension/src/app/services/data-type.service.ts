@@ -31,6 +31,6 @@ export class DataTypeService {
 
     private initApplicationReloadObserver(): void {
         this.applicationReloadEmitter.data$
-            .subscribe(() => this.dataTypeState.restoreInitialValue());
+            .subscribe(() => this.dataTypeState.restoreInitialData());
     }
 }

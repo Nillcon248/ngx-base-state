@@ -1,27 +1,37 @@
-<mat-selection-list [multiple]="false">
-    <ng-container *ngFor="let action of (actions$ | async); trackBy: trackByFn">
-        <mat-list-option
-            *ngIf="action.actionName"
-            class="list-item"
-            (click)="onListItemClick(action.classId)">
-            <div matLine>
-                {{ action.className }}
+<ng-container *ngIf="(actions$ | async) as actions">
+    <mat-selection-list
+        *ngIf="actions.length; else emptyActionsListTemplate"
+        [multiple]="false">
+        <ng-container *ngFor="let action of actions; trackBy: trackByFn">
+            <mat-list-option
+                *ngIf="action.actionName"
+                class="list-item"
+                (click)="onListItemClick(action.classId)">
+                <div matLine>
+                    {{ action.className }}
 
-                <ng-container
-                    *ngIf="action.classContext">
-                    [{{ action.classContext }}]
-                </ng-container>
+                    <ng-container
+                        *ngIf="action.classContext">
+                        [{{ action.classContext }}]
+                    </ng-container>
 
-                <span
-                    *ngIf="action.actionName"
-                    class="action-name">
-                    ({{ action.actionName }})
-                </span>
+                    <span
+                        *ngIf="action.actionName"
+                        class="action-name">
+                        ({{ action.actionName }})
+                    </span>
 
-                <span class="date">
-                    | invoked at: {{ action.date | date:'hh:mm:ss' }}
-                </span>
-            </div>
-        </mat-list-option>
-    </ng-container>
-</mat-selection-list>
+                    <span class="date">
+                        | invoked at: {{ action.date | date:'hh:mm:ss' }}
+                    </span>
+                </div>
+            </mat-list-option>
+        </ng-container>
+    </mat-selection-list>
+</ng-container>
+
+<ng-template #emptyActionsListTemplate>
+    <div class="empty-actions">
+        There are no actions have been invoked yet.
+    </div>
+</ng-template>

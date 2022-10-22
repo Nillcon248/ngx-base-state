@@ -44,7 +44,7 @@ export class StateFullInfoFilteringService {
                 .includes(searchString);
         }
         
-        return true;
+        return false;
     }
 
     private filterItemByDataType(stateFullInfo: StateFullInfo, dataType: StateDataTypeEnum | null): boolean {

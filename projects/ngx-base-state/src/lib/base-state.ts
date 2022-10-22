@@ -41,10 +41,11 @@ export abstract class BaseState<T> implements OnDestroy {
      */
 	private readonly _data$: BehaviorSubject<T | null>;
 
-	private _currentlyInvokedAction: string | null = null;
-
 	private readonly _devtoolsConfig = inject(NGX_BASE_STATE_DEVTOOLS_CONFIG);
 	private readonly _metadataStorage = inject(ɵMetadataStorage);
+
+	private _currentlyInvokedAction: string | null = null;
+	private _stackTraceOfCurrentlyInvokedAction: string[] | null = null;
 
 	private get self(): Object {
 		return (this as Object);
@@ -96,11 +97,11 @@ export abstract class BaseState<T> implements OnDestroy {
 	}
 
 	/**
-	 *  Restore initial value from constructor.
+	 *  Restore initial data from constructor.
 	 *  @public
 	 */
 	@Action
-	public restoreInitialValue(): void {
+	public restoreInitialData(): void {
 		this.setNewValue(this.initialData);
 	}
 
@@ -123,8 +124,9 @@ export abstract class BaseState<T> implements OnDestroy {
      *	@return {Generic} result of the callback call.
      */
 	protected tryDoAction<V>(actionName: string, actionFunc: () => any): V | undefined {
-		if (!this._currentlyInvokedAction) {
+		if (this._devtoolsConfig.isEnabled && !this._currentlyInvokedAction) {
 			this._currentlyInvokedAction = actionName;
+			this._stackTraceOfCurrentlyInvokedAction = ɵStackTrace.capture();
 		}
 
 		try {
@@ -178,10 +180,11 @@ export abstract class BaseState<T> implements OnDestroy {
 				actionName: this._currentlyInvokedAction!,
 				date: new Date().toJSON(),
 				data: this.data,
-				stackTrace: ɵStackTrace.capture()
+				stackTrace: this._stackTraceOfCurrentlyInvokedAction!
 			});
-		}
 
-		this._currentlyInvokedAction = null;
+			this._currentlyInvokedAction = null;
+			this._stackTraceOfCurrentlyInvokedAction = null;
+		}
 	}
 }

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CounterState } from './states';
 
 @Component({
@@ -33,6 +33,6 @@ export class CounterComponent {
     }
 
     public onResetButtonClick(): void {
-        this.counterState.restoreInitialValue();
+        this.counterState.restoreInitialData();
     }
 }

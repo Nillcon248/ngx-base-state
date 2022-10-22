@@ -34,6 +34,6 @@ export class MetadataOperationHistoryService {
 
     private initApplicationReloadObserver(): void {
         this.applicationReloadEmitter.data$
-            .subscribe(() => this.operationHistoryState.restoreInitialValue());
+            .subscribe(() => this.operationHistoryState.restoreInitialData());
     }
 }

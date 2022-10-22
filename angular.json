@@ -56,6 +56,9 @@
             "polyfills": "projects/ngx-base-state-extension/src/polyfills.ts",
             "tsConfig": "projects/ngx-base-state-extension/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
+            "allowedCommonJsDependencies": [
+              "ngx-auto-unsubscribe-decorator"
+            ],
             "assets": [
               "projects/ngx-base-state-extension/src/favicon.ico",
               "projects/ngx-base-state-extension/src/assets",
