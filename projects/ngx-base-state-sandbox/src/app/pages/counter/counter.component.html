@@ -1,0 +1,30 @@
+<div class="row">
+    <button
+        mat-button
+        (click)="onIncrementButtonClick()">
+        Increment
+    </button>
+
+    <button
+        mat-button
+        (click)="onDecrementButtonClick()">
+        Decrement
+    </button>
+
+    <button
+        mat-button
+        (click)="onResetButtonClick()">
+        Reset
+    </button>
+</div>
+
+<div class="row">
+    <mat-form-field [appearance]="'fill'">
+        <input
+            matInput
+            class="input"
+            type="number"
+            [value]="(counterValue$ | async)"
+            (input)="onInputValueChange($event)" />
+    </mat-form-field>
+</div>

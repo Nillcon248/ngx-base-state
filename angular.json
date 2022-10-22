@@ -156,7 +156,9 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss"
+          "style": "scss",
+          "changeDetection": "OnPush",
+          "skipTests": true
         }
       },
       "root": "projects/ngx-base-state-sandbox",
@@ -177,6 +179,7 @@
               "projects/ngx-base-state-sandbox/src/assets"
             ],
             "styles": [
+              "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "projects/ngx-base-state-sandbox/src/styles.scss"
             ],
             "scripts": []

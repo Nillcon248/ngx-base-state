@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
     NgxBaseStateDevtoolsModule,
     NgxBaseStateDevtoolsConfig,
@@ -7,20 +8,19 @@ import {
 } from '@ngx-base-state';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
-import { VideosState } from './states';
-import { UfoTableComponent } from './components';
+import { AppRoutingModule } from './app.routing';
 
 @NgModule({
     declarations: [
-        AppComponent,
-        UfoTableComponent
+        AppComponent
     ],
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
         NgxBaseStateDevtoolsModule
     ],
     providers: [
-        VideosState,
         {
             provide: NGX_BASE_STATE_DEVTOOLS_CONFIG,
             useValue: new NgxBaseStateDevtoolsConfig({

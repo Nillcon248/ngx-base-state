@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { combineLatest, debounceTime, map, shareReplay, tap } from 'rxjs';
+import { combineLatest, debounceTime, map, shareReplay } from 'rxjs';
 import { ɵMetadataOperation } from '@ngx-base-state';
 import { DataTypeService, MetadataService } from '@extension-services';
 import { StateDataTypeEnum } from '@extension-enums';
@@ -24,9 +24,7 @@ export class StateFullInfoService {
                 data: this.adaptFromOperations(operations, dataTypeMap),
                 filters
             })),
-            tap(console.log),
             map(({ data, filters }) => this.stateFullInfoFilteringService.process(data, filters!)),
-            tap(console.log),
             shareReplay(1)
         );
 

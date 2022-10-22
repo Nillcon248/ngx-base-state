@@ -1,0 +1,22 @@
+:host {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    
+    > * {
+        margin: 0px 5px;
+    }
+}
+
+.input {
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.row {
+    margin: 5px;
+}
