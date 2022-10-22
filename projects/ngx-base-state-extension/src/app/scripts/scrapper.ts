@@ -1,4 +1,4 @@
-// Need to avoid index.ts files,
+// Need to avoid index.ts files & path aliases,
 // or investigate how to setup webpack
 // to avoid huge bundle sizes while using index.ts files.
 import { Observable } from 'rxjs';

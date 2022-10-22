@@ -17,7 +17,7 @@ export class MetadataOperationService {
     ) {}
 
     public initObserver(): void {
-        this.chromeTabsService.watchForActive()
+        this.chromeTabsService.getActive()
             .pipe(
                 map((tab) => tab.id as number),
                 switchMap((tabId) => this.chromeTabsService.connect<ɵMetadataOperation>(tabId, ConnectionEnum.Operation))

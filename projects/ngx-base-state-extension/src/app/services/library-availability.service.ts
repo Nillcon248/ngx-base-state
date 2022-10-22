@@ -11,7 +11,7 @@ export class LibraryAvailabilityService {
     ) {}
 
     public check(): Observable<boolean> {
-        return this.chromeTabsService.watchForActive()
+        return this.chromeTabsService.getActive()
             .pipe(
                 map((tab) => tab.id as number),
                 switchMap((tabId) => this.chromeTabsService.sendMessage<boolean>(tabId, { type: RuntimeMessageEnum.RequestIsLibraryAvailable }))

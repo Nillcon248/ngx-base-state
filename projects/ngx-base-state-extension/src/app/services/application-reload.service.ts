@@ -18,11 +18,11 @@ export class ApplicationReloadService {
     ) {}
 
     public initObserver(): void {
-        this.chromeTabsService.watchForActive()
+        this.chromeTabsService.getActive()
             .pipe(
                 map((tab) => tab.id as number),
                 switchMap((tabId) => this.chromeTabsService.connect(tabId, ConnectionEnum.AppInit))
             )
-            .subscribe(() => this.applicationReloadEmitter.emit());
+            .subscribe(() => this.applicationReloadEmitter.emit(true));
     }
 }

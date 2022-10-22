@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BaseState, NgxState } from '@ngx-base-state';
-import { StateDataTypeEnum } from '@extension-core';
+import { StateDataTypeEnum } from '@extension-enums';
 
 /** Map contain key as `classId` */
 @NgxState()

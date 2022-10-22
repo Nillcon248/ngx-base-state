@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { MetadataListFiltersState, SelectedOperationItemViewTabIndexState } from './states';
-import { StateFullInfoService, MetadataListFiltersService } from './services';
+import { StateFullInfoService, StateFullInfoFilteringService } from './services';
 
 @Component({
     selector: 'app-list',
@@ -10,7 +10,7 @@ import { StateFullInfoService, MetadataListFiltersService } from './services';
     providers: [
         MetadataListFiltersState,
         StateFullInfoService,
-        MetadataListFiltersService
+        StateFullInfoFilteringService
     ]
 })
 export class ListComponent {

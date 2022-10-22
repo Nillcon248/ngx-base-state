@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { combineLatest, debounceTime, map, shareReplay } from 'rxjs';
+import { combineLatest, debounceTime, map, shareReplay, tap } from 'rxjs';
 import { ɵMetadataOperation } from '@ngx-base-state';
 import { DataTypeService, MetadataService } from '@extension-services';
-import { StateDataTypeEnum } from '@extension-core';
-import { Filters, StateFullInfo } from '../interfaces';
+import { StateDataTypeEnum } from '@extension-enums';
+import { StateFullInfo } from '../interfaces';
 import { StateDataType } from '../../../interfaces';
 import { DATA_TYPE_MAP } from '../../../data';
 import { MetadataListFiltersState } from '../states';
+import { StateFullInfoFilteringService } from './state-full-info-filtering.service';
 
-// FIXME: Refactor. Move filtration logic to another service
 @Injectable()
 export class StateFullInfoService {
     public readonly data$ = combineLatest([
@@ -17,53 +17,41 @@ export class StateFullInfoService {
         this.filtersState.data$
     ])
         .pipe(
+            // Metadata & DataType change those value together,
+            // debounceTime helps to avoid double firing logic below
             debounceTime(0),
-            map(([metadata, dataTypeMap, filters]) => ({
-                stateFullInfoArray: this.adaptMetadata(metadata, dataTypeMap),
+            map(([operations, dataTypeMap, filters]) => ({
+                data: this.adaptFromOperations(operations, dataTypeMap),
                 filters
             })),
-            map(({ stateFullInfoArray, filters }) => this.filterOperations(filters!, stateFullInfoArray)),
+            tap(console.log),
+            map(({ data, filters }) => this.stateFullInfoFilteringService.process(data, filters!)),
+            tap(console.log),
             shareReplay(1)
         );
 
     constructor(
         private readonly metadataService: MetadataService,
         private readonly dataTypeService: DataTypeService,
+        private readonly stateFullInfoFilteringService: StateFullInfoFilteringService,
         private readonly filtersState: MetadataListFiltersState
     ) {}
 
-    private adaptMetadata(
+    private adaptFromOperations(
         operations: ɵMetadataOperation[],
         dataTypeMap: Map<number, StateDataTypeEnum>
     ): StateFullInfo[] {
-        return operations
-            .map((operation) => {
-                const dataTypeId = dataTypeMap.get(operation.classId)!;
+        return operations.map((operation) => {
+            const dataTypeId = dataTypeMap.get(operation.classId)!;
 
-                return <StateFullInfo>{
-                    operation,
-                    dataType: this.getDataTypeById(dataTypeId)
-                };
-            });
+            return <StateFullInfo>{
+                operation,
+                dataType: this.getDataTypeById(dataTypeId)
+            };
+        });
     }
 
     private getDataTypeById(id: StateDataTypeEnum): StateDataType {
         return DATA_TYPE_MAP.get(id) as StateDataType;
-    }
-
-    private filterOperations(filters: Filters, stateFullInfoArray: StateFullInfo[]): StateFullInfo[] {
-        const searchString = filters.searchString.toLowerCase();
-
-        return stateFullInfoArray
-            .filter((stateFullInfo) => {
-                return (
-                    (
-                        stateFullInfo.operation.className.toLowerCase().includes(searchString) ||
-                        stateFullInfo.operation.classContext?.toLowerCase().includes(searchString)
-                    ) &&
-                    ((filters.dataType) ? (stateFullInfo.dataType.id === filters.dataType) : true)
-                );
-            })
-            .sort(filters.sortBy.compareFn);
     }
 }

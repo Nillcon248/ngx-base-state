@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { StateDataTypeEnum } from '@extension-core';
+import { StateDataTypeEnum } from '@extension-enums';
 
 @Injectable({
     providedIn: 'root'

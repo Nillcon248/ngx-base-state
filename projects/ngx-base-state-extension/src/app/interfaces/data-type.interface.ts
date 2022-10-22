@@ -1,4 +1,4 @@
-import { StateDataTypeEnum } from '@extension-core';
+import { StateDataTypeEnum } from '@extension-enums';
 
 export interface StateDataType {
     readonly id: StateDataTypeEnum;

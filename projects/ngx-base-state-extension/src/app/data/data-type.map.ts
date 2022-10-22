@@ -1,4 +1,4 @@
-import { StateDataTypeEnum } from '@extension-core';
+import { StateDataTypeEnum } from '@extension-enums';
 import { StateDataType } from '../interfaces';
 
 export const DATA_TYPE_MAP = new Map<StateDataTypeEnum, StateDataType>([

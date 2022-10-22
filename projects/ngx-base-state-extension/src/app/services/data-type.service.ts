@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { StateDataTypeEnum } from '@extension-core';
+import { StateDataTypeEnum } from '@extension-enums';
 import { DataTypeState } from '../states';
 import { DataToTypeAdapter } from '../adapters';
 import { ApplicationReloadEmitter, MetadataOperationEmitter } from '../emitters';

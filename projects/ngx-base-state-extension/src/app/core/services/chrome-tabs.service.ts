@@ -11,10 +11,15 @@ export class ChromeTabsService {
         private readonly ngZone: NgZone
     ) {}
 
-    public watchForActive(): Observable<chrome.tabs.Tab> {
+    public getActive(): Observable<chrome.tabs.Tab> {
         return new Observable((subscriber) => {
             chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-                this.ngZone.run(() => subscriber.next(tabs[0]));
+                const activeTab = tabs[0];
+
+                this.ngZone.run(() => {
+                    subscriber.next(activeTab);
+                    subscriber.complete();
+                });
             });
         });
     }

@@ -1,2 +1,2 @@
 export * from './state-full-info.service';
-export * from './filters.service';
+export * from './state-full-info-filtering.service';

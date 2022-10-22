@@ -1,4 +1,4 @@
-import { StateDataTypeEnum } from '@extension-core';
+import { StateDataTypeEnum } from '@extension-enums';
 import { SortOperation } from './sort-operation.interface';
 
 export interface Filters {
