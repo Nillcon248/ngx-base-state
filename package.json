@@ -10,11 +10,9 @@
     "publish:minor": "npm test && npm run build && npm version minor && npm publish",
     "publish:major": "npm test && npm run build && npm version major && npm publish"
   },
-  "dependencies": {
-    "rxjs": "^6.0.0",
-    "tslib": "^2.1.0"
-  },
   "devDependencies": {
+    "rxjs": "^6.0.0",
+    "tslib": "^2.1.0",
     "@types/jasmine": "^3.6.9",
     "@types/node": "^12.11.1",
     "@typescript-eslint/eslint-plugin": "^4.19.0",
