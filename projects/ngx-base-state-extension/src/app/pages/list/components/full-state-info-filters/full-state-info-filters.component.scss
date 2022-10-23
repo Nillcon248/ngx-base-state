@@ -6,7 +6,9 @@
     box-shadow: rgba(0, 0, 0, 0.4) 0px 1px 4px;
 
     > * {
-        width: 135px;
+        width: fit-content;
+        max-width: 135px;
+        min-width: 100px;
         margin: 0px 5px;
     }
 }
