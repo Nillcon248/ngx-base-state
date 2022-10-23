@@ -15,6 +15,8 @@ This library will help to create state in 3 lines.
 
 # Installation
 
+# NEW VERSION ISN'T PUBLISHED YET!
+
 `npm install ngx-base-state --save`
 
 **OPTIONAL: If you want to use Devtools to explore your state via Chrome Extension:**
