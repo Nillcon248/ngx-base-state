@@ -63,6 +63,9 @@ List of States                                                                 |
 
 ### *BaseState*
 
+Base class for all kinds of states. You can create your abstract class
+based on `BaseState` to store the necessary custom data.
+
 | Name               | Type                       |  Description                                                        |
 |:-------------------|:---------------------------|:--------------------------------------------------------------------|
 | data$              | Observable<T \| null>      | state data stream                                                   |
@@ -73,11 +76,19 @@ List of States                                                                 |
 
 ### *ObjectState*
 
+Extend your class from `ObjectState` to store the object.
+
+Contains all fields and methods like at `BaseState`, and also:
+
 | Name              | Arguments                  | Description                                                         |
 |:----------------- |:---------------------------|:--------------------------------------------------------------------|
 | updateWithPartial | value: Partial\<T\>        | update state by merging current state with new partial object       |
 
 ### *ArrayState*
+
+Extend your class from `ArrayState` to store the array.
+
+Contains all fields and methods like at `BaseState`, and also:
 
 | Name              | Arguments                   | Description                                                                      |
 |:------------------|:----------------------------|:-------------------------------------------------------------------------------- |
@@ -89,6 +100,12 @@ List of States                                                                 |
 | removeItemById    | itemId: unknown             | remove item from array by id (define id by overriding `getItemId` method)        |
 | updateItem        | itemToUpdate: T             | update item in array                                                             |
 | updateItemByIndex | item: T, index: number      | update item in array by index                                                    |
+
+### *PrimitiveState*
+
+Extend your class from `PrimitiveState` to store the: `number`, `string`, `boolean`, `enum`, `type` etc...
+
+Contains all fields and methods like at `BaseState` and currently nothing else.
 
 ## Example with ObjectState
 
