@@ -19,8 +19,9 @@
             [operationTypeId]="lastOperation.type">
         </app-operation-type-chip>
     </app-title>
-    
+
     <app-stacktrace-button
+        *ngIf="lastOperation.stackTrace"
         class="stacktrace-button"
         [operation]="lastOperation">
     </app-stacktrace-button>
