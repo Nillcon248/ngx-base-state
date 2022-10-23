@@ -1,7 +1,7 @@
 export abstract class ɵStackTrace {
     public static capture(): string[] {
         // FIXME: Refactor and investigate
-        const amountOfInternalMethodCall = 3;
+        const amountOfInternalMethodCall = 4;
         const stackTrace = new Error().stack!;
         const rawMethods = stackTrace.split('at ');
         const methods = rawMethods
