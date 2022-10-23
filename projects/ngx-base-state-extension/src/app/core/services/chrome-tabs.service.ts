@@ -46,7 +46,6 @@ export class ChromeTabsService {
             });
 
             port.onDisconnect.addListener(() => {
-                console.warn(`Connection to the tab dropped...`);
                 this.ngZone.run(() => subscriber.error());
             });
 
