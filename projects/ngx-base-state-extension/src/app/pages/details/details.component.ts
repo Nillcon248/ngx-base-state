@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
-import { Subscription, finalize } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { ApplicationReloadService } from '@extension-services';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe-decorator';
 import { OPENED_CLASS_NAME_PROVIDER } from './consts';
@@ -35,7 +35,6 @@ export class DetailsComponent implements OnInit {
     @AutoUnsubscribe()
     private initApplicationReloadObserver(): Subscription {
         return this.applicationReloadService.onReload$
-            .pipe(finalize(() => console.log('final')))
             .subscribe(() => this.router.navigateByUrl(`/${AppRouteEnum.List}`));
     }
 }

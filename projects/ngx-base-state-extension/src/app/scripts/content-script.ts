@@ -6,17 +6,13 @@ import { ɵMetadataOperation } from 'projects/ngx-base-state/src/lib/interfaces/
 import { ContentScriptConnectionEnum as ConnectionEnum } from '../core/enums/content-script-connection.enum';
 import { RuntimeMessageEnum } from '../core/enums/runtime-message.enum';
 import { CustomEventEnum } from './enums/custom-event.enum';
+import { emitCustomEvent } from './functions/emit-custom-event.function';
 
 const scrapperScriptName = 'scrapper.js';
 const scrapperScriptPath = chrome.runtime.getURL(scrapperScriptName);
-// FIXME: Investigate how to pass ReplaySubject from the window to content-script
-// Right now here creating another ReplaySubject which contain exact buffer that contain
-// ReplaySubject in the window.
-const operationEmitterEvent$ = new ReplaySubject<ɵMetadataOperation>();
 let isDevtoolsEnabled = false;
 
 initIsDevtoolsEnabledObserver();
-initMetadataOperationObserver();
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.type === RuntimeMessageEnum.RequestIsLibraryAvailable) {
@@ -37,17 +33,20 @@ function onAppInitConnectionEstablished(port: chrome.runtime.Port): void {
 }
 
 function onOperationConnectionEstablished(port: chrome.runtime.Port): void {
-    const operationEmitterSubscription = operationEmitterEvent$
+    const operationEmitterSubscription = fromEvent<CustomEvent<ɵMetadataOperation>>(
+        document,
+        CustomEventEnum.MetadataOperation
+    )
+        .pipe(map((event) => event.detail))
         .subscribe((metadataOperation) => port.postMessage(metadataOperation));
 
-    port.onDisconnect
-        .addListener(() => operationEmitterSubscription.unsubscribe());
-}
+    emitCustomEvent(CustomEventEnum.RequestMetadataOperation);
 
-function initMetadataOperationObserver(): void {
-    fromEvent<CustomEvent<ɵMetadataOperation>>(document, CustomEventEnum.MetadataOperation)
-        .pipe(map((event) => event.detail))
-        .subscribe((metadataOperation) => operationEmitterEvent$.next(metadataOperation));
+    port.onDisconnect
+        .addListener(() => {
+            emitCustomEvent(CustomEventEnum.StopRequestMetadataOperation);
+            operationEmitterSubscription.unsubscribe();
+        });
 }
 
 function initIsDevtoolsEnabledObserver(): void {
