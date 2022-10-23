@@ -76,7 +76,7 @@ based on `BaseState` to store the necessary custom data.
 
 ### *ObjectState*
 
-Extend your class from `ObjectState` to store the object.
+Extend your class from `ObjectState` to store the `object`.
 
 Contains all fields and methods like at `BaseState`, and also:
 
@@ -86,7 +86,7 @@ Contains all fields and methods like at `BaseState`, and also:
 
 ### *ArrayState*
 
-Extend your class from `ArrayState` to store the array.
+Extend your class from `ArrayState` to store the `array`.
 
 Contains all fields and methods like at `BaseState`, and also:
 
