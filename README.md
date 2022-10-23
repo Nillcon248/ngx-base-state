@@ -61,32 +61,37 @@ List of States                                                                 |
 
 ## Properties
 
-### *State properties*
+## Methods and Fields
 
-| Name            | Type                       |  Description                                                        |
-|:----------------|:---------------------------|:--------------------------------------------------------------------|
-| data$           | Observable<T \| null>      | state data stream                                                   |
-| data            | T                          | state data                                                          |
+### *BaseState*
 
-## Methods
+| Name               | Type                       |  Description                                                        |
+|:-------------------|:---------------------------|:--------------------------------------------------------------------|
+| data$              | Observable<T \| null>      | state data stream                                                   |
+| data               | T                          | state data                                                          |
+| set                | value: T (generic type)    | set new value for state                                             |
+| clear              |                            | clear value in the state                                            |
+| restoreInitialData |                            | restore initial data from constructor.                              |
 
 ### *ObjectState*
 
 | Name              | Arguments                  | Description                                                         |
 |:----------------- |:---------------------------|:--------------------------------------------------------------------|
-| set               | value: T (generic type)    | set new value for state                                             |
-| clear             |                            | clear value for state                                               |
-| updateWithPartial | value: Partial\<T\>          | update state by merging current state with new partial value        |
+| set               | value: T (generic type)    | set new value in the state                                          |
+| updateWithPartial | value: Partial\<T\>        | update state by merging current state with new partial object       |
 
 ### *ArrayState*
 
-| Name            | Arguments                   | Description                                                                |
-|:----------------|:----------------------------|:-------------------------------------------------------------------------- |
-| getItemId       | item: T                     | **method might be overridden, it used for comparing items in array**       |
-| set             | value: T[]                  | set new array for state                                                    |
-| pushItem        | item: T                     | push new item to array                                                     |
-| removeItem      | item: T                     | remove item from array                                                     |
-| updateItem      | itemToUpdate: T             | update item in array                                                       |
+| Name              | Arguments                   | Description                                                                      |
+|:------------------|:----------------------------|:-------------------------------------------------------------------------------- |
+| getItemId         | item: T                     | `protected` **method might be overridden, it used for comparing items in array** |
+| set               | value: T[]                  | set new array for state                                                          |
+| getByIndex        | index: number               | get item from array by it's index                                                |
+| pushItem          | item: T                     | push new item to array                                                           |
+| removeItem        | item: T                     | remove item from array                                                           |
+| removeItemById    | itemId: unknown             | remove item from array by id (define id by overriding `getItemId` method)        |
+| updateItem        | itemToUpdate: T             | update item in array                                                             |
+| updateItemByIndex | item: T, index: number      | update item in array by index                                                    |
 
 ## Example with ObjectState
 
