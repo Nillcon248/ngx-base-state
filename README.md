@@ -75,7 +75,6 @@ List of States                                                                 |
 
 | Name              | Arguments                  | Description                                                         |
 |:----------------- |:---------------------------|:--------------------------------------------------------------------|
-| set               | value: T (generic type)    | set new value in the state                                          |
 | updateWithPartial | value: Partial\<T\>        | update state by merging current state with new partial object       |
 
 ### *ArrayState*
