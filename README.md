@@ -82,7 +82,7 @@ List of States                                                                 |
 
 | Name            | Arguments                   | Description                                                                |
 |:----------------|:----------------------------|:-------------------------------------------------------------------------- |
-| compareItems    | firstItem: T, secondItem: T | **method might be overridden, it used for comparing items in array**       |
+| getItemId       | item: T                     | **method might be overridden, it used for comparing items in array**       |
 | set             | value: T[]                  | set new array for state                                                    |
 | pushItem        | item: T                     | push new item to array                                                     |
 | removeItem      | item: T                     | remove item from array                                                     |
