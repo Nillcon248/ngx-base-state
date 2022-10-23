@@ -55,9 +55,9 @@ This tool allows you to see data in your states based on ngx-base-state.
 Main page will contain list of all your states.
 Click to some state and will opened "details page" with state changes history.
 
-List of States                                                                    | Details of concrete State                                                             |
-:--------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------: |
-![](projects/ngx-base-state-extension/src/assets/images/extension-list-page.png)  | ![](projects/ngx-base-state-extension/src/assets/images/extension-details-page.png)   |
+List of States                                                                 | List of Actions                                                                | State details                                                                         |
+:-----------------------------------------------------------------------------:|:-------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------:|
+![](projects/ngx-base-state-extension/src/assets/images/extension-states.png)  | ![](projects/ngx-base-state-extension/src/assets/images/extension-actions.png) | ![](projects/ngx-base-state-extension/src/assets/images/extension-state-details.png)  |
 
 ## Properties
 
