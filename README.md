@@ -59,9 +59,7 @@ List of States                                                                 |
 :-----------------------------------------------------------------------------:|:------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------:|
 ![](projects/ngx-base-state-extension/src/assets/images/extension-states.png)  | ![](projects/ngx-base-state-extension/src/assets/images/extension-actions.png) | ![](projects/ngx-base-state-extension/src/assets/images/extension-state-details.png)  |
 
-## Properties
-
-## Methods and Fields
+## Properties & Methods
 
 ### *BaseState*
 
