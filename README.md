@@ -202,7 +202,7 @@ class UserComponent implements OnInit {
 ## Example with ArrayState
 
 *users.state.ts*
-```js
+``` typescript
 import { ArrayState, NgxState } from 'ngx-base-state';
 import { UserFilters } from '../interfaces';
 
