@@ -96,12 +96,18 @@ Contains all fields and methods like at `BaseState`, and also:
 |:------------------|:----------------------------|:-------------------------------------------------------------------------------- |
 | getItemId         | item: T                     | `protected` **method might be overridden, it used for comparing items in array** |
 | set               | value: T[]                  | set new array for state                                                          |
-| getByIndex        | index: number               | get item from array by it's index                                                |
+| getItemByIndex    | index: number               | get item from array by it's index                                                |
 | pushItem          | item: T                     | push new item to array                                                           |
-| removeItem        | item: T                     | remove item from array                                                           |
-| removeItemById    | itemId: unknown             | remove item from array by id (define id by overriding `getItemId` method)        |
+| unshiftItem       | item: T                     | unshift item to array                                                            |
+| shift             |                             | shift array                                                                      |
+| pop               |                             | pop array                                                                        |
+| insertItemByIndex | index: number, item: T      | insert item in array by index.                                                   |
 | updateItem        | itemToUpdate: T             | update item in array                                                             |
 | updateItemByIndex | item: T, index: number      | update item in array by index                                                    |
+| concatWith        | array: T[]                  | concat current state with another array                                          |
+| removeItem        | item: T                     | remove item from array                                                           |
+| removeItemById    | itemId: unknown             | remove item from array by id (define id by overriding `getItemId` method)        |
+| removeItemByIndex | index: number               | remove item from array by index                                                  |
 
 ### *PrimitiveState*
 

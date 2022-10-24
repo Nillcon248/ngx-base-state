@@ -66,12 +66,20 @@ describe('ArrayState', () => {
         expect(spy).toHaveBeenCalled();
     });
 
-    it('should return item by quired index', () => {
+    it('should return item by quired index (deprecated getByIndex method)', () => {
         const index = 0;
 
         arrayState.set(itemArrayDataMock);
 
         expect(arrayState.getByIndex(index)).toEqual(arrayState.data![index]);
+    });
+
+    it('should return item by quired index', () => {
+        const index = 0;
+
+        arrayState.set(itemArrayDataMock);
+
+        expect(arrayState.getItemByIndex(index)).toEqual(arrayState.data![index]);
     });
 
     it('should push item to array', () => {
@@ -99,6 +107,74 @@ describe('ArrayState', () => {
         arrayState.removeItem(newItem);
 
         expect(arrayState.data!.pop()).not.toEqual(newItem);
+    });
+
+    it('should remove item from array by index', () => {
+        const newItem: ItemMock = {
+            id: Math.random(),
+            data: 'new data',
+        };
+
+        arrayState.set(itemArrayDataMock);
+        arrayState.pushItem(newItem);
+        const lastItemIndex = (arrayState.data!.length - 1);
+
+        arrayState.removeItemByIndex(lastItemIndex);
+
+        expect(arrayState.data!.pop()).not.toEqual(newItem);
+    });
+
+    it('should pop array', () => {
+        arrayState.set(itemArrayDataMock);
+        const lastItemBeforePop = arrayState.data![arrayState.data!.length - 1];
+        arrayState.pop();
+        const currentLastItem = arrayState.data![arrayState.data!.length - 1];
+
+        expect(lastItemBeforePop).not.toEqual(currentLastItem);
+    });
+
+    it('should shift array', () => {
+        arrayState.set(itemArrayDataMock);
+        const firstItemBeforeShift = arrayState.data![0];
+        arrayState.shift();
+        const currentFirstItem = arrayState.data![0];
+
+        expect(firstItemBeforeShift).not.toEqual(currentFirstItem);
+    });
+
+    it('should unshiftItem into array', () => {
+        const newItem: ItemMock = {
+            id: Math.random(),
+            data: 'new data',
+        };
+        arrayState.set(itemArrayDataMock);
+        arrayState.unshiftItem(newItem);
+
+        expect(arrayState.data![0]).toEqual(newItem);
+    });
+
+    it('should insertItemByIndex into array', () => {
+        const newItem: ItemMock = {
+            id: Math.random(),
+            data: 'new data',
+        };
+        arrayState.set(itemArrayDataMock);
+        arrayState.insertItemByIndex(1, newItem);
+
+        expect(arrayState.data![1]).toEqual(newItem);
+    });
+
+    it('should concatWith another array', () => {
+        const newItem: ItemMock = {
+            id: Math.random(),
+            data: 'new data',
+        };
+        const anotherArray = [newItem];
+        arrayState.set(itemArrayDataMock);
+        arrayState.concatWith(anotherArray);
+        const lastItem = arrayState.data![arrayState.data!.length - 1];
+
+        expect(lastItem).toEqual(newItem);
     });
 
     it('should return removed item after remove', () => {

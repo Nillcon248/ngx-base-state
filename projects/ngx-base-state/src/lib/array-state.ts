@@ -10,20 +10,85 @@ export abstract class ArrayState<T> extends BaseState<T[]> {
     /**
      * 	Return item by quired index.
      *	@public
-     *	@param {Number} index - quired index
-     *	@return {Generic} quired item.
+     *	@param {Number} index - Quired index
+     *	@return {Generic} Quired item.
      */
 	@Action
-    public getByIndex(index: number): T | undefined {
+    public getItemByIndex(index: number): T | undefined {
         const items = this.data;
 
         return items![index];
     }
 
     /**
+     * 	Return item by quired index.
+     *	@public
+     *	@param {Number} index - Quired index
+     *  @deprecated use `getItemByIndex` instead
+     *	@return {Generic} quired item.
+     */
+	@Action
+    public getByIndex(index: number): T | undefined {
+        return this.getItemByIndex(index);
+    }
+
+    /**
+     * 	Unshift item to array in state.
+     *	@public
+     *	@param {Generic} item - Item needs to unshift.
+     */
+	@Action
+    public unshiftItem(item: T): void {
+        const items = this.data;
+
+        items!.unshift(item);
+
+        this.setNewValue(items);
+    }
+
+    /**
+     * 	Shift array in state.
+     *	@public
+     */
+	@Action
+    public shift(): void {
+        const items = this.data;
+
+        items!.shift();
+
+        this.setNewValue(items);
+    }
+
+    /**
+     * 	Pop array in state.
+     *	@public
+     */
+	@Action
+    public pop(): void {
+        const items = this.data;
+
+        items!.pop();
+
+        this.setNewValue(items);
+    }
+
+    /**
+     * 	Concat current state with another array.
+     *	@param {T[]} array - Another array to concat with the current state.
+     *	@public
+     */
+	@Action
+    public concatWith(array: T[]): void {
+        const items = this.data;
+        const newItems = items!.concat(array);
+
+        this.setNewValue(newItems);
+    }
+
+    /**
      * 	Push item to array in state.
      *	@public
-     *	@param {Generic} item - item needs to push
+     *	@param {Generic} item - Item needs to push
      */
 	@Action
     public pushItem(item: T): void {
@@ -35,25 +100,31 @@ export abstract class ArrayState<T> extends BaseState<T[]> {
     }
 
     /**
+     * 	Insert item in array by index.
+     *	@public
+     *	@param {number} index - Index where to insert new item.
+     *	@param {Generic} item - Item need to insert.
+     */
+	@Action
+    public insertItemByIndex(index: number, item: T): void {
+        const items = this.data;
+
+        items!.splice(index, 0, item);
+        this.setNewValue(items);
+    }
+
+    /**
      * 	Remove item in array by item identify param (using `compareItems` method).
      *	@public
      *	@param {Generic} itemId - Id of item you want to remove.
      */
 	@Action
     public removeItem(item: T): T | undefined {
-        const items = this.data;
-
         const index = this.data!.findIndex((_item) =>
             this.compareItems(item, _item)
         );
 
-        const removedItem = this.data![index];
-
-        items!.splice(index, 1);
-
-        this.setNewValue(items);
-
-        return removedItem;
+        return this.removeItemByIndex(index);
     }
 
     /**
@@ -63,12 +134,21 @@ export abstract class ArrayState<T> extends BaseState<T[]> {
      */
 	@Action
     public removeItemById(itemId: unknown): T | undefined {
-        const items = this.data;
-
         const index = this.data!.findIndex(
             (_item) => itemId === this.getItemId(_item)
         );
 
+        return this.removeItemByIndex(index);
+    }
+
+    /**
+     * 	Remove item in array by index.
+     *	@public
+     *	@param {number} index - Index of item you want to remove.
+     */
+	@Action
+    public removeItemByIndex(index: number): T | undefined {
+        const items = this.data;
         const removedItem = this.data![index];
 
         items!.splice(index, 1);
