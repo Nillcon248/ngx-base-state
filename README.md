@@ -204,6 +204,7 @@ class UserComponent implements OnInit {
 *users.state.ts*
 ```js
 import { ArrayState, NgxState } from 'ngx-base-state';
+import { UserFilters } from '../interfaces';
 
 @NgxState()
 @Injectable({
@@ -212,6 +213,13 @@ import { ArrayState, NgxState } from 'ngx-base-state';
 class UsersState extends ArrayState<User> {
   constructor() {
     super([]); // Here you can set initial data.
+  }
+
+  // Example of "custom action"
+  public filter(filters: UserFilters): void {
+    const newUsers = this.data!.filter((user) => user.name.includes(filters.searchString));
+
+    this.set(newUsers);
   }
 
   // ArrayState have base methods to work with array, like: removeItem, updateItem
