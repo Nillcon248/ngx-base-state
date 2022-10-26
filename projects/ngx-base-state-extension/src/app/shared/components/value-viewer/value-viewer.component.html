@@ -1,17 +1,14 @@
 <ngx-json-viewer
-    *ngIf="isDataValidForJsonViewer"
+    *ngIf="isDataValidForJsonViewer(data); else unsupportedValueTemplate"
     [expanded]="false"
     [json]="data">
 </ngx-json-viewer>
 
-<b
-    *ngIf="isDataUndefined"
-    class="non-json-value">
-    undefined
-</b>
-
-<b
-    *ngIf="isDataNull"
-    class="non-json-value">
-    null
-</b>
+<ng-template #unsupportedValueTemplate>
+    <b class="unsupported-json-viewer-value">
+        <span *ngIf="isDataEmptyObject(data)" [innerText]="'{ EMPTY_OBJECT }'"></span>
+        <ng-container *ngIf="isDataEmptyArray(data)">[ EMPTY_ARRAY ]</ng-container>
+        <ng-container *ngIf="isDataUndefined(data)">undefined</ng-container>
+        <ng-container *ngIf="isDataNull(data)">null</ng-container>
+    </b>
+</ng-template>

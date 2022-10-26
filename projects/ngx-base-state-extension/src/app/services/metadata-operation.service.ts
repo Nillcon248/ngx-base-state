@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ɵMetadataOperation } from '@ngx-base-state';
+import { MetadataOperation } from '@extension-interfaces';
 import { switchMap, map } from 'rxjs';
 import {
     ChromeTabsService,
@@ -20,7 +20,7 @@ export class MetadataOperationService {
         this.chromeTabsService.getActive()
             .pipe(
                 map((tab) => tab.id as number),
-                switchMap((tabId) => this.chromeTabsService.connect<ɵMetadataOperation>(tabId, ConnectionEnum.Operation))
+                switchMap((tabId) => this.chromeTabsService.connect<MetadataOperation>(tabId, ConnectionEnum.Operation))
             )
             .subscribe((operation) => this.metadataOperationEmitter.emit(operation));
     }

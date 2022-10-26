@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { tap } from 'rxjs';
 import { AppRouteEnum } from '@extension-core';
-import { ɵMetadataOperationTypeEnum, ɵMetadataOperation } from '@ngx-base-state';
-import { StateFullInfo } from '../../../interfaces';
-import { StateFullInfoService } from '../../../services';
+import { MetadataOperation } from '@extension-interfaces';
+import { ɵMetadataOperationTypeEnum } from '@ngx-base-state';
+import { DataType } from '@extension-classes';
+import { DataTypeService } from '@extension-services';
+import { FilteredOperationsService } from '../../../services';
 
 @Component({
     selector: 'app-state-list',
@@ -13,22 +14,27 @@ import { StateFullInfoService } from '../../../services';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StateListComponent {
-    public readonly stateFullInfoArray$ = this.stateFullInfoService.data$;
+    public readonly filteredOperations$ = this.filteredOperationsService.data$;
 
     constructor(
         private readonly router: Router,
-        private readonly stateFullInfoService: StateFullInfoService
+        private readonly filteredOperationsService: FilteredOperationsService,
+        private readonly dataTypeService: DataTypeService
     ) {}
 
     public onListItemClick(stateClassId: number): void {
         this.router.navigateByUrl(`/${AppRouteEnum.Details}/${stateClassId}`);
     }
 
-    public getListItemClass(operation: ɵMetadataOperation): string {
+    public getDataTypeByName(dataTypeName: string): DataType {
+        return this.dataTypeService.getByName(dataTypeName);
+    }
+
+    public getListItemClass(operation: MetadataOperation): string {
         return (operation.type === ɵMetadataOperationTypeEnum.Destroy) ? 'destroyed' : '';
     }
 
-    public trackByFn(itemIndex: number, stateFullInfo: StateFullInfo): string {
-        return stateFullInfo.operation.className;
+    public trackByFn(itemIndex: number, operation: MetadataOperation): string {
+        return operation.className;
     }
 }

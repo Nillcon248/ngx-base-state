@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { ɵMetadataOperation } from '@ngx-base-state';
+import { MetadataOperation } from '@extension-interfaces';
 
 @Component({
     selector: 'app-historical-operation',
@@ -9,5 +9,5 @@ import { ɵMetadataOperation } from '@ngx-base-state';
 })
 export class HistoricalOperationComponent {
     @Input()
-    public operation!: ɵMetadataOperation;
+    public operation!: MetadataOperation;
 }

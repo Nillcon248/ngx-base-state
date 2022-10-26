@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
-import { ɵMetadataOperation } from '@ngx-base-state';
 import { MetadataOperationHistoryService } from '@extension-services';
 import { TimelineItemTypeEnum } from '../../enums';
 import { OPENED_CLASS_ID } from '../../consts';
 import { SelectedTimelineItemState } from '../../states';
+import { MetadataOperation } from '@extension-interfaces';
 
 @Component({
     selector: 'app-timeline',
@@ -23,11 +23,11 @@ export class TimelineComponent {
         private readonly metadataOperationHistoryService: MetadataOperationHistoryService
     ) {}
 
-    public onTimelineItemClick(type: TimelineItemTypeEnum, operation?: ɵMetadataOperation): void {
+    public onTimelineItemClick(type: TimelineItemTypeEnum, operation?: MetadataOperation): void {
         this.selectedTimelineItemState.set({ type, operation });
     }
 
-    public trackByHistoricalOperation(index: number, operation: ɵMetadataOperation): string {
+    public trackByHistoricalOperation(index: number, operation: MetadataOperation): string {
         return operation.date;
     }
 }

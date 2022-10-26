@@ -1,21 +1,30 @@
 import { Injectable } from '@angular/core';
+import { map, shareReplay } from 'rxjs';
 import { BaseState, NgxState } from '@ngx-base-state';
-import { StateDataTypeEnum } from '@extension-enums';
+import { DataType } from '../classes';
 
-/** Map contain key as `classId` */
 @NgxState()
 @Injectable({
     providedIn: 'root'
 })
-export class DataTypeState extends BaseState<Map<number, StateDataTypeEnum>> {
+export class DataTypeState extends BaseState<Map<string, DataType>> {
+    public readonly dataAsArray$ = this.data$
+        .pipe(
+            map((dataMap) => [...dataMap!.values()]),
+            shareReplay(1)
+        );
+
     constructor() {
         super(new Map());
     }
 
-    public setWithinClassId(classId: number, dataType: StateDataTypeEnum): void {
-        const data = new Map(this.data);
+    public registerIfAbsent(dataTypeName: string): void {
+        if (!this.data!.has(dataTypeName)) {
+            const data = new Map(this.data);
+            const dataType = new DataType(dataTypeName);
 
-        data.set(classId, dataType);
-        this.set(data);
+            data.set(dataTypeName, dataType);
+            this.set(data);
+        }
     }
 }

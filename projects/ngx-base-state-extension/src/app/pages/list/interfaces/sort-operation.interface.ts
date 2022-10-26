@@ -1,6 +1,6 @@
-import { StateFullInfo } from './state-full-info.interface';
+import { MetadataOperation } from '@extension-interfaces';
 
 export interface SortOperation {
     readonly name: string;
-    readonly compareFn: (operationA: StateFullInfo, operationB: StateFullInfo) => number;
+    readonly compareFn: (operationA: MetadataOperation, operationB: MetadataOperation) => number;
 }

@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { memoize, isObject } from '@extension-core';
 
 @Component({
     selector: 'app-value-viewer',
@@ -10,15 +11,33 @@ export class ValueViewerComponent {
     @Input()
     public data: unknown;
 
-    public get isDataUndefined(): boolean {
-        return (this.data === undefined);
+    @memoize
+    public isDataUndefined(data: unknown): boolean {
+        return (data === undefined);
     }
 
-    public get isDataNull(): boolean {
-        return (this.data === null);
+    @memoize
+    public isDataNull(data: unknown): boolean {
+        return (data === null);
     }
 
-    public get isDataValidForJsonViewer(): boolean {
-        return (!this.isDataUndefined && !this.isDataNull);
+    @memoize
+    public isDataEmptyObject(data: unknown): boolean {
+        return (isObject(data) && !Object.keys(data).length);
+    }
+
+    @memoize
+    public isDataEmptyArray(data: unknown): boolean {
+        return (Array.isArray(data) && !data.length);
+    }
+
+    @memoize
+    public isDataValidForJsonViewer(data: unknown): boolean {
+        return (
+            !this.isDataUndefined(data) &&
+            !this.isDataNull(data) &&
+            !this.isDataEmptyArray(data) &&
+            !this.isDataEmptyObject(data)
+        );
     }
 }

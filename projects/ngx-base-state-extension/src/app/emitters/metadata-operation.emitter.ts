@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { ɵMetadataOperation } from '@ngx-base-state';
 import { BaseEmitter } from '@extension-core';
+import { MetadataOperation } from '@extension-interfaces';
 
 @Injectable({
     providedIn: 'root'
 })
-export class MetadataOperationEmitter extends BaseEmitter<ɵMetadataOperation> {}
+export class MetadataOperationEmitter extends BaseEmitter<MetadataOperation> {}

@@ -3,7 +3,7 @@ import { ListComponent } from './list.component';
 import { ListRoutingModule } from './list.routing';
 import {
     ToolbarComponent,
-    FullStateInfoFiltersComponent,
+    StatesFiltersComponent,
     ActionListComponent,
     StateListComponent
 } from './components';
@@ -13,7 +13,7 @@ import { SharedModule } from '@extension-shared';
     declarations: [
         ToolbarComponent,
         ListComponent,
-        FullStateInfoFiltersComponent,
+        StatesFiltersComponent,
         ActionListComponent,
         StateListComponent
     ],

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, filter } from 'rxjs';
-import { ɵMetadataOperation } from '@ngx-base-state';
+import { MetadataOperation } from '@extension-interfaces';
 import { ActionsState } from '../states';
 import { ApplicationReloadEmitter, MetadataOperationEmitter } from '../emitters';
 
@@ -8,7 +8,7 @@ import { ApplicationReloadEmitter, MetadataOperationEmitter } from '../emitters'
     providedIn: 'root'
 })
 export class ActionsService {
-    public readonly data$ = (this.actionsState.data$ as Observable<ɵMetadataOperation[]>);
+    public readonly data$ = (this.actionsState.data$ as Observable<MetadataOperation[]>);
 
     constructor(
         private readonly applicationReloadEmitter: ApplicationReloadEmitter,

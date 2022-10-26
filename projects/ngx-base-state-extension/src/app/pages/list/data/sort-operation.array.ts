@@ -3,38 +3,38 @@ import { SortOperation } from '../interfaces';
 export const SORT_OPERATION_ARRAY: SortOperation[] = [
     {
         name: 'Date [DESC]',
-        compareFn: (stateInfoA, stateInfoB) => (
-            new Date(stateInfoB.operation.date).getTime() - new Date(stateInfoA.operation.date).getTime()
+        compareFn: (operationA, operationB) => (
+            new Date(operationB.date).getTime() - new Date(operationA.date).getTime()
         )
     },
     {
         name: 'Date [ASC]',
-        compareFn: (stateInfoA, stateInfoB) => (
-            new Date(stateInfoA.operation.date).getTime() - new Date(stateInfoB.operation.date).getTime()
+        compareFn: (operationA, operationB) => (
+            new Date(operationA.date).getTime() - new Date(operationB.date).getTime()
         )
     },
     {
         name: 'Name [ASC]',
-        compareFn: (stateInfoA, stateInfoB) => (
-            stateInfoA.operation.className.localeCompare(stateInfoB.operation.className)
+        compareFn: (operationA, operationB) => (
+            operationA.className.localeCompare(operationB.className)
         )
     },
     {
         name: 'Name [DESC]',
-        compareFn: (stateInfoA, stateInfoB) => (
-            stateInfoB.operation.className.localeCompare(stateInfoA.operation.className)
+        compareFn: (operationA, operationB) => (
+            operationB.className.localeCompare(operationA.className)
         )
     },
     {
         name: 'Operation type [ASC]',
-        compareFn: (stateInfoA, stateInfoB) => (
-            stateInfoA.operation.type - stateInfoB.operation.type
+        compareFn: (operationA, operationB) => (
+            operationA.type - operationB.type
         )
     },
     {
         name: 'Operation type [DESC]',
-        compareFn: (stateInfoA, stateInfoB) => (
-            stateInfoB.operation.type - stateInfoA.operation.type
+        compareFn: (operationA, operationB) => (
+            operationB.type - operationA.type
         )
     }
 ];

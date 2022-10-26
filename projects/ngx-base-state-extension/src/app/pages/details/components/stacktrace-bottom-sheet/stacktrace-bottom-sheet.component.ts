@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { Subscription } from 'rxjs';
-import { ApplicationReloadService } from '@extension-services';
-import { ɵMetadataOperation } from '@ngx-base-state';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe-decorator';
+import { ApplicationReloadService } from '@extension-services';
+import { MetadataOperation } from '@extension-interfaces';
 
 @Component({
     selector: 'app-stacktrace-bottom-sheet',
@@ -13,7 +13,7 @@ import { AutoUnsubscribe } from 'ngx-auto-unsubscribe-decorator';
 })
 export class StacktraceBottomSheetComponent implements OnInit {
     constructor(
-        @Inject(MAT_BOTTOM_SHEET_DATA) public readonly operation: ɵMetadataOperation,
+        @Inject(MAT_BOTTOM_SHEET_DATA) public readonly operation: MetadataOperation,
         private readonly applicationReloadService: ApplicationReloadService,
         private readonly bottomSheetRef: MatBottomSheetRef
     ) {}

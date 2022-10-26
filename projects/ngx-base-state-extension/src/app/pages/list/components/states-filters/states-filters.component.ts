@@ -1,22 +1,22 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { StateDataTypeEnum } from '@extension-enums';
-import { DATA_TYPE_MAP } from '@extension-data';
+import { DataTypeService } from '@extension-services';
 import { SORT_OPERATION_ARRAY } from '../../data';
 import { SortOperation } from '../../interfaces';
 import { MetadataListFiltersState } from '../../states';
 
 @Component({
-    selector: 'app-full-state-info-filters',
-    templateUrl: './full-state-info-filters.component.html',
-    styleUrls: ['./full-state-info-filters.component.scss'],
+    selector: 'app-states-filters',
+    templateUrl: './states-filters.component.html',
+    styleUrls: ['./states-filters.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FullStateInfoFiltersComponent {
-    public readonly dataTypeArray = [...DATA_TYPE_MAP.values()];
+export class StatesFiltersComponent {
+    public readonly dataTypeArray$ = this.dataTypeService.data$;
     public readonly sortOperationArray = [...SORT_OPERATION_ARRAY];
     public readonly filters$ = this.filtersService.data$;
 
     constructor(
+        private readonly dataTypeService: DataTypeService,
         private readonly filtersService: MetadataListFiltersState
     ) {}
 
@@ -26,7 +26,7 @@ export class FullStateInfoFiltersComponent {
         this.filtersService.updateWithPartial({ searchString: inputElement.value });
     }
 
-    public onOperationSelectValueChange(dataType: StateDataTypeEnum): void {
+    public onDataTypeSelectValueChange(dataType: string): void {
         this.filtersService.updateWithPartial({ dataType });
     }
 

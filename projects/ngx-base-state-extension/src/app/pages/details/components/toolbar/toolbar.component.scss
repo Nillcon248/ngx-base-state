@@ -1,5 +1,10 @@
 :host {
-    display: block;
+    height: 56px;
+    display: flex;
+}
+
+.toolbar {
+    height: 56px;
 }
 
 .back-button {

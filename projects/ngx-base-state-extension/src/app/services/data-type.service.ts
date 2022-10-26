@@ -1,18 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { StateDataTypeEnum } from '@extension-enums';
 import { DataTypeState } from '../states';
-import { DataToTypeAdapter } from '../adapters';
 import { ApplicationReloadEmitter, MetadataOperationEmitter } from '../emitters';
+import { DataType } from '../classes';
 
 @Injectable({
     providedIn: 'root'
 })
 export class DataTypeService {
-    public readonly data$ = this.dataTypeState.data$ as Observable<Map<number, StateDataTypeEnum>>;
+    public readonly data$ = this.dataTypeState.dataAsArray$;
 
     constructor(
-        private readonly dataToTypeAdapter: DataToTypeAdapter,
         private readonly applicationReloadEmitter: ApplicationReloadEmitter,
         private readonly metadataOperationEmitter: MetadataOperationEmitter,
         private readonly dataTypeState: DataTypeState
@@ -20,13 +17,13 @@ export class DataTypeService {
         this.initApplicationReloadObserver();
     }
 
+    public getByName(dataTypeName: string): DataType {
+        return this.dataTypeState.data!.get(dataTypeName)!;
+    }
+
     public initObserver(): void {
         this.metadataOperationEmitter.data$
-            .subscribe((operation) => {
-                const dataType = this.dataToTypeAdapter.adapt(operation.data);
-
-                this.dataTypeState.setWithinClassId(operation.classId, dataType);
-            });
+            .subscribe((operation) => this.dataTypeState.registerIfAbsent(operation.dataType));
     }
 
     private initApplicationReloadObserver(): void {
