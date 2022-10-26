@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { ReplaySubject } from 'rxjs';
-import { BaseState } from '../base.state';
-import { NgxBaseStateDevtoolsConfig } from '../classes';
-import { NgxState } from '../decorators';
-import { NgxBaseStateDevtoolsModule } from '../devtools.module';
-import { ɵMetadataKeyEnum } from '../enums';
-import { ɵMetadataStorage } from '../helpers';
-import { ɵNgxBaseStateConfigParams } from '../interfaces';
-import { NGX_BASE_STATE_DEVTOOLS_CONFIG } from '../tokens';
+import { BaseState } from './states';
+import { NgxBaseStateDevtoolsConfig } from './classes';
+import { NgxState } from './decorators';
+import { NgxBaseStateDevtoolsModule } from './devtools.module';
+import { ɵMetadataKeyEnum } from './enums';
+import { ɵMetadataStorage } from './helpers';
+import { ɵNgxBaseStateConfigParams } from './interfaces';
+import { NGX_BASE_STATE_DEVTOOLS_CONFIG } from './tokens';
 
 @NgxState()
 @Injectable()

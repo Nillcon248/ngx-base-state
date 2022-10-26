@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { BaseState } from '../base.state';
+import { BaseState } from './base.state';
 import { NgxState } from '../decorators';
 
 interface ItemMock {

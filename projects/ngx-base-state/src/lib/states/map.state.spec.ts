@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { NgxState } from '../decorators';
-import { MapState } from '../map.state';
+import { MapState } from './map.state';
 
 interface ItemMock {
     readonly id: number;

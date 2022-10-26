@@ -8,7 +8,8 @@
     "start:sandbox": "ng serve ngx-base-state-sandbox",
     "build:sandbox": "ng build ngx-base-state-sandbox",
     "build:library": "ng build ngx-base-state --configuration production",
-    "test:library": "ng test ngx-base-state"
+    "test:library": "ng test ngx-base-state",
+    "test-coverage:library": "ng test ngx-base-state --code-coverage"
   },
   "private": true,
   "dependencies": {

@@ -1,5 +1,5 @@
 import { BaseState } from './base.state';
-import { ɵAction as Action } from './decorators';
+import { ɵAction as Action } from '../decorators';
 
 /**
  *	@class
