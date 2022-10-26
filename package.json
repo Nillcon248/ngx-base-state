@@ -37,7 +37,6 @@
     "@types/chrome": "^0.0.197",
     "@types/jasmine": "~4.0.0",
     "@types/object-inspect": "^1.8.1",
-    "@types/serialize-javascript": "^5.0.2",
     "jasmine-core": "~4.3.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.1.0",
