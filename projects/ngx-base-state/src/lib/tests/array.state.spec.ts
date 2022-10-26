@@ -212,4 +212,13 @@ describe('ArrayState', () => {
 
         expect(arrayState.data![indexOfItem]).toEqual(itemToUpdate);
     });
+
+    it('should throw error with specific message when array doesn\'t set', () => {
+        try {
+            arrayState.pushItem(itemDataMock1);
+        } catch (error) {
+            const errorMessage = (error as TypeError).message;
+            expect(errorMessage).toContain('Firstly set Array.');
+        }
+    });
 });
