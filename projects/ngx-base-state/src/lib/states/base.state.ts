@@ -47,14 +47,6 @@ export abstract class BaseState<T> implements OnDestroy {
 	private _currentlyInvokedAction: string | null = null;
 	private _stackTraceOfCurrentlyInvokedAction: string[] | null = null;
 
-	private get self(): Object {
-		return (this as Object);
-	}
-
-	private get selfConstructor(): any {
-		return this.self.constructor;
-	}
-
 	constructor(
 		/** Initial data should be passed via the `super` method call. */
 		@Inject(INITIAL_DATA) @Optional() protected readonly initialData: T | null = null,
@@ -126,7 +118,6 @@ export abstract class BaseState<T> implements OnDestroy {
 	protected tryDoAction<V>(actionName: string, actionFunc: () => any): V | undefined {
 		if (this._devtoolsConfig.isEnabled && !this._currentlyInvokedAction) {
 			this._currentlyInvokedAction = actionName;
-			this._stackTraceOfCurrentlyInvokedAction = ɵStackTrace.capture();
 		}
 
 		try {
@@ -145,20 +136,18 @@ export abstract class BaseState<T> implements OnDestroy {
      *	@param {string} actionName - Name of the action where error happened.
 	 */
 	protected catchError(error: Error, actionName: string): void {
-		throw new Error(`\n${this.selfConstructor.name} [${actionName}]: ${error.message}`);
+		throw new Error(`\n${this.constructor.name} [${actionName}]: ${error.message}`);
 	}
 
 	private showConsoleWarningIfClassHaveNotDecorator(): void {
-		const self = (this as any);
-
-		if (this._devtoolsConfig.isEnabled && !self[ɵNGX_STATE_DECORATOR_METADATA_FIELD]) {
-			console.warn(`${this.selfConstructor.name} class is missed @NgxState() decorator. Some features of DevTools will work incorrectly!`);
+		if (this._devtoolsConfig.isEnabled && !this[ɵNGX_STATE_DECORATOR_METADATA_FIELD]) {
+			console.warn(`${this.constructor.name} class is missed @NgxState() decorator. Some features of DevTools will work incorrectly!`);
 		}
 	}
 
 	private initClassIdIfAbsent(): void {
-		if (!this.selfConstructor[CLASS_ID_FIELD]) {
-			this.selfConstructor[CLASS_ID_FIELD] = Math.random();
+		if (!this.constructor[CLASS_ID_FIELD]) {
+			this.constructor[CLASS_ID_FIELD] = Math.random();
 		}
 	}
 
@@ -174,8 +163,8 @@ export abstract class BaseState<T> implements OnDestroy {
 
 			operationEmitter$.next({
 				type,
-				classId: this.selfConstructor[CLASS_ID_FIELD],
-				className: this.selfConstructor.name,
+				classId: this.constructor[CLASS_ID_FIELD],
+				className: this.constructor.name,
 				classContext: this.initialConfig?.context,
 				actionName: this._currentlyInvokedAction!,
 				date: new Date().toJSON(),

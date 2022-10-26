@@ -207,10 +207,7 @@ export abstract class ArrayState<T> extends BaseState<T[]> {
 
     protected override catchError(error: Error | TypeError, actionName: string): void {
 		if (error instanceof TypeError) {
-            const self = (this as any);
-            const className = self.constructor.name;
-
-            throw new Error(`\n${className} [${actionName}]: Firstly set Array.\n\n${error.message}`);
+            throw new Error(`\n${this.constructor.name} [${actionName}]: Firstly set Array.\n\n${error.message}`);
 		}
 
 		super.catchError(error, actionName);
