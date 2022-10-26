@@ -109,6 +109,20 @@ Contains all fields and methods like at `BaseState`, and also:
 | removeItemById    | itemId: unknown             | remove item from array by id (define id by overriding `getItemId` method)        |
 | removeItemByIndex | index: number               | remove item from array by index                                                  |
 
+### *MapState*
+
+Extend your class from `MapState` to store the `Map`.
+
+Contains all fields and methods like at `BaseState`, and also:
+
+| Name              | Arguments                  | Description                                                         |
+|:----------------- |:---------------------------|:--------------------------------------------------------------------|
+| dataAsArray       |                            | state data in the array format with all values of the Map           |
+| dataAsArray$      |                            | state data stream in the array format with all values of the Map    |
+| setItem           | key: TKey, value: TValue   | set item into the map by key                                        |
+| deleteItem        | key: TKey                  | delete item from the map by key                                     |
+| clearItems        |                            | clear all items from the map                                        |
+
 ### *PrimitiveState*
 
 Extend your class from `PrimitiveState` to store the: `number`, `string`, `boolean`, `enum`, `type` etc...
