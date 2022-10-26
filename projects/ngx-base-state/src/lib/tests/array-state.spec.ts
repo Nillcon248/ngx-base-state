@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { ArrayState } from '../array-state';
+import { ArrayState } from '../array.state';
 import { NgxState } from '../decorators';
 
 interface ItemMock {

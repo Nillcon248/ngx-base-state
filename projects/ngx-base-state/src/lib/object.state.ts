@@ -1,4 +1,4 @@
-import { BaseState } from './base-state';
+import { BaseState } from './base.state';
 import { ɵAction as Action } from './decorators';
 
 /**
