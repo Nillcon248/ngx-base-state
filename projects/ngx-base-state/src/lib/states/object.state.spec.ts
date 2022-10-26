@@ -6,6 +6,7 @@ import { ObjectState } from './object.state';
 interface ItemMock {
 	readonly id: number;
 	readonly data: string;
+	strangeField?: number;
 }
 
 const itemDataMock1: ItemMock = {
@@ -20,7 +21,11 @@ const itemDataMock2: ItemMock = {
 
 @NgxState()
 @Injectable()
-class ObjectStateMock extends ObjectState<ItemMock> {}
+class ObjectStateMock extends ObjectState<ItemMock> {
+	public setStrangeField(value: number): void {
+		this.data!.strangeField = value;
+	}
+}
 
 describe('Object state', () => {
 	let objectState: ObjectStateMock;
@@ -58,5 +63,22 @@ describe('Object state', () => {
 		objectState.clear();
 
 		expect(objectState.data).not.toBeTruthy();
+	});
+
+	it('should updateWithPartial', () => {
+		objectState.set(itemDataMock1);
+
+		objectState.updateWithPartial({ id: 333 });
+
+		expect(objectState.data).toEqual({ ...itemDataMock1, id: 333 });
+	});
+
+	it('should throw error with specific message when object doesn\'t set', () => {
+		try {
+			objectState.setStrangeField(333);
+        } catch (error) {
+            const errorMessage = (error as TypeError).message;
+            expect(errorMessage).toContain('Firstly set Object.');
+        }
 	});
 });

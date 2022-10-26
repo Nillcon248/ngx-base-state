@@ -124,6 +124,18 @@ describe('ArrayState', () => {
         expect(arrayState.data!.pop()).not.toEqual(newItem);
     });
 
+    it('should removeItemById', () => {
+        const newItem: ItemMock = {
+            id: 333,
+            data: 'new data',
+        };
+
+        arrayState.set([...itemArrayDataMock, newItem]);
+        arrayState.removeItemById(333);
+
+        expect(arrayState.data).toEqual(itemArrayDataMock);
+    });
+
     it('should pop array', () => {
         arrayState.set(itemArrayDataMock);
         const lastItemBeforePop = arrayState.data![arrayState.data!.length - 1];
