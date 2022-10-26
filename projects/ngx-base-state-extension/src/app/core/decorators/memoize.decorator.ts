@@ -1,3 +1,4 @@
+// Based on https://github.com/Tinkoff/taiga-ui/blob/main/projects/cdk/decorators/pure.ts
 export function memoize<T>(
     _target: object,
     propertyKey: string,
