@@ -3,12 +3,18 @@ import { MatDialog } from '@angular/material/dialog';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe-decorator';
 import { Subscription } from 'rxjs';
 import { TodoCreationWindowComponent } from './components';
+import { TodosService } from './services';
+import { TodosState } from './states';
 
 @Component({
     selector: 'app-todos',
     templateUrl: './todos.component.html',
     styleUrls: ['./todos.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        TodosService,
+        TodosState
+    ]
 })
 export class TodosComponent {
     constructor(

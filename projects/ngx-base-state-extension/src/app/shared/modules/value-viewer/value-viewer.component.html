@@ -1,8 +1,7 @@
-<ngx-json-viewer
+<app-json-viewer
     *ngIf="isDataValidForJsonViewer(data); else unsupportedValueTemplate"
-    [expanded]="false"
-    [json]="data">
-</ngx-json-viewer>
+    [data]="data">
+</app-json-viewer>
 
 <ng-template #unsupportedValueTemplate>
     <b class="unsupported-json-viewer-value">
