@@ -1,11 +1,11 @@
-import { Inject, Injectable, OnDestroy, Optional, inject, InjectionToken } from '@angular/core';
-import { ReplaySubject, BehaviorSubject, Observable } from 'rxjs';
-import { ɵInitialConfig, ɵMetadataOperation } from '../interfaces';
+import { Inject, inject, Injectable, InjectionToken, OnDestroy, Optional } from '@angular/core';
+import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
+import { ɵNGX_STATE_DECORATOR_METADATA_FIELD } from '../constants';
+import { ɵAction as Action } from '../decorators';
 import { ɵMetadataKeyEnum, ɵMetadataOperationTypeEnum } from '../enums';
 import { ɵMetadataStorage, ɵStackTrace } from '../helpers';
+import { ɵInitialConfig, ɵMetadataOperation } from '../interfaces';
 import { NGX_BASE_STATE_DEVTOOLS_CONFIG } from '../tokens';
-import { ɵAction as Action } from '../decorators';
-import { ɵNGX_STATE_DECORATOR_METADATA_FIELD } from '../constants';
 
 const INITIAL_DATA = new InjectionToken('__NGX_BASE_STATE_INITIAL_DATA');
 const INITIAL_CONFIG = new InjectionToken('__NGX_BASE_STATE_INITIAL_CONFIG');
@@ -118,6 +118,7 @@ export abstract class BaseState<T> implements OnDestroy {
 	protected tryDoAction<V>(actionName: string, actionFunc: () => any): V | undefined {
 		if (this._devtoolsConfig.isEnabled && !this._currentlyInvokedAction) {
 			this._currentlyInvokedAction = actionName;
+            this._stackTraceOfCurrentlyInvokedAction = ɵStackTrace.capture();
 		}
 
 		try {
