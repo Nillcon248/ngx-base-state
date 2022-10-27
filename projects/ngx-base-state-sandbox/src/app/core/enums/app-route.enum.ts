@@ -1,3 +1,4 @@
 export enum AppRouteEnum {
-    Counter = 'counter'
+    Counter = 'counter',
+    Todos = 'todos'
 }

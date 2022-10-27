@@ -1,0 +1,9 @@
+<mat-toolbar class="toolbar">
+    <button
+        *ngFor="let page of pages"
+        mat-raised-button
+        [routerLink]="page.path"
+        [routerLinkActive]="'mat-primary'">
+        {{ page.name }}
+    </button>
+</mat-toolbar>

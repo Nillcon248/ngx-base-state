@@ -1,0 +1,11 @@
+<form [formGroup]="formGroup">
+    <mat-form-field [appearance]="'fill'">
+        <mat-label>Name</mat-label>
+    
+        <input
+            matInput
+            type="text"
+            autocomplete="off"
+            [formControl]="formGroup.controls.name!" />
+    </mat-form-field>
+</form>

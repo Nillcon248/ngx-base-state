@@ -1,0 +1,19 @@
+.todo-list {
+    max-width: 600px;
+    margin: auto;
+    border: solid 1px #f5f5f5;
+}
+
+.todo-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.empty-todos-text {
+    margin: auto;
+    text-align: center;
+    font-weight: bold;
+    margin: 15px;
+}

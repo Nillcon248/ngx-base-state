@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BaseState, NgxState } from '@ngx-base-state';
+import { MapState, NgxState } from '@ngx-base-state';
 import { MetadataOperation } from '@extension-interfaces';
 
 /** Map contain key as `classId` */
@@ -7,7 +7,7 @@ import { MetadataOperation } from '@extension-interfaces';
 @Injectable({
     providedIn: 'root'
 })
-export class MetadataOperationHistoryState extends BaseState<Map<number, MetadataOperation[]>> {
+export class MetadataOperationHistoryState extends MapState<number, MetadataOperation[]> {
     private readonly maxOperationAmount = 10;
 
     constructor() {
@@ -15,17 +15,10 @@ export class MetadataOperationHistoryState extends BaseState<Map<number, Metadat
     }
 
     public pushWithinClassId(classId: number, operation: MetadataOperation): void {
-        const data = new Map(this.data);
-
-        if (!data.has(classId)) {
-            data.set(classId, []);
-        }
-
         const lastOperations = this.getLastOperationsWithinClassId(classId);
         const updatedOperations = [operation, ...lastOperations];
 
-        data.set(classId, updatedOperations);
-        this.set(data);
+        this.setItem(classId, updatedOperations);
     }
 
     private getLastOperationsWithinClassId(classId: number): MetadataOperation[] {

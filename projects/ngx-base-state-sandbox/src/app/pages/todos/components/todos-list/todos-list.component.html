@@ -1,0 +1,26 @@
+<ng-container *ngIf="(todos$ | async) as todos">
+    <mat-list
+        *ngIf="todos?.length; else emptyTodosTemplate"
+        class="todo-list">
+        <mat-list-item *ngFor="let todo of todos">
+            <div class="todo-item">
+                {{ todo.name }}
+
+                <div class="action-buttons">
+                    <button
+                        mat-icon-button
+                        [color]="'warn'"
+                        (click)="onTodoDeleteButtonClick(todo)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </mat-list-item>
+    </mat-list>
+</ng-container>
+
+<ng-template #emptyTodosTemplate>
+    <div class="empty-todos-text">
+        NO TODOS
+    </div>
+</ng-template>
