@@ -22,7 +22,7 @@ const itemDataMock2: ItemMock = {
 @Injectable()
 class PrimitiveStateMock extends PrimitiveState<ItemMock> {}
 
-describe('Primitive state', () => {
+describe('PrimitiveState', () => {
 	let primitiveState: PrimitiveStateMock;
 
 	beforeEach(() => {

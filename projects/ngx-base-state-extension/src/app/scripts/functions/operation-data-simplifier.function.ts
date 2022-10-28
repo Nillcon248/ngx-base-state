@@ -3,7 +3,7 @@
 import { adaptDataToStringPreview } from '../../core/helpers/adapt-data-to-string-preview.helper';
 import { isObject } from '../../core/helpers/methods.helpers';
 
-export function processUnknownData(data: unknown): unknown {
+export function simplifyUnknownData(data: unknown): unknown {
     if (Array.isArray(data)) {
         return proccessArray(data);
     } else if (isObject(data)) {
@@ -16,7 +16,7 @@ export function processUnknownData(data: unknown): unknown {
 }
 
 function proccessArray(array: unknown[]): unknown {
-    return array.map((item) => processUnknownData(item));
+    return array.map((item) => simplifyUnknownData(item));
 }
 
 function processObject(data: object): unknown {
@@ -29,7 +29,7 @@ function processObject(data: object): unknown {
 
 function simplifyObject(data: object): object {
     return Object.entries(data).reduce((output, [key, value]) => {
-        output[key] = processUnknownData(value);
+        output[key] = simplifyUnknownData(value);
 
         return output;
     }, {} as any);

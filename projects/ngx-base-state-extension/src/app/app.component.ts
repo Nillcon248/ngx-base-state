@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import {
+    ActionsService,
+    ApplicationReloadService,
     DataTypeService,
     MetadataOperationHistoryService,
-    MetadataOperationService,
-    ApplicationReloadService,
-    ActionsService
+    MetadataOperationService
 } from '@extension-services';
 
 @Component({

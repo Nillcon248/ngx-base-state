@@ -27,7 +27,7 @@ class ObjectStateMock extends ObjectState<ItemMock> {
 	}
 }
 
-describe('Object state', () => {
+describe('ObjectState', () => {
 	let objectState: ObjectStateMock;
 
 	beforeEach(() => {

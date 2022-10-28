@@ -1,20 +1,14 @@
+// Based on https://github.com/joaopmi/circular-reference-remover/blob/main/src/app-ts/circular-remover.ts
 import { adaptDataToStringPreview } from './adapt-data-to-string-preview.helper';
 
-// Based on https://github.com/joaopmi/circular-reference-remover/blob/main/src/app-ts/circular-remover.ts
-export function removeCircularReferences(src: any): any {
-    if (src === undefined || src === null) {
-        return src;
-    }
+export function removeCircularReferences(src: object | unknown[]): any {
+    const initialNewTarget = (Array.isArray(src)) ? [] : {};
 
-    return referenceRemover(src);
-}
-
-function referenceRemover(src: any): any {
     function internalRemover(target: any, src: any, references: any[]) {
         for (const key in src) {
             const srcValue = src[key];
 
-            if ('object' !== typeof srcValue) {
+            if (typeof srcValue !== 'object') {
                 target[key] = srcValue;
 
                 continue;
@@ -31,7 +25,7 @@ function referenceRemover(src: any): any {
                 }
 
                 if (!referenceFound) {
-                    if (srcValue instanceof Map) {
+                    if (srcValue instanceof Map || Array.isArray(srcValue)) {
                         const entries = Array.from(srcValue);
                         target[key] = entries;
 
@@ -48,5 +42,5 @@ function referenceRemover(src: any): any {
         return target;
     }
 
-    return internalRemover({}, src, [src]);
+    return internalRemover(initialNewTarget, src, [src]);
 }

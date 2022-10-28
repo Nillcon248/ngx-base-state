@@ -9,6 +9,7 @@
     "build:sandbox": "ng build ngx-base-state-sandbox",
     "build:library": "ng build ngx-base-state --configuration production",
     "test:library": "ng test ngx-base-state",
+    "test:extension": "ng test ngx-base-state-extension",
     "test-coverage:library": "ng test ngx-base-state --code-coverage"
   },
   "private": true,

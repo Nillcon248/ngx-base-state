@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { BaseState } from './base.state';
+import { NgxBaseStateDevtoolsConfig } from '../classes';
 import { NgxState } from '../decorators';
 import { NgxBaseStateDevtoolsModule } from '../devtools.module';
 import { NGX_BASE_STATE_DEVTOOLS_CONFIG } from '../tokens';
-import { NgxBaseStateDevtoolsConfig } from '../classes';
+import { BaseState } from './base.state';
 
 interface ItemMock {
 	readonly id: number;
@@ -40,7 +40,7 @@ class BaseStateInitDataMock extends BaseState<ItemMock> {
 @Injectable()
 class BaseStateWithoutDecoratorMock extends BaseState<ItemMock> {}
 
-describe('Base state', () => {
+describe('BaseState', () => {
 	let testBed: TestBed;
 	let baseState: BaseStateMock;
 
