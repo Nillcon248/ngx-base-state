@@ -7,7 +7,7 @@ import { removeCircularReferences } from '../helpers/circular-reference-remover.
 export function simplifyOperationData(data: unknown): unknown {
     const simplifiedData = simplifyUnknownData(data);
 
-    if (Array.isArray(data) || isObject(data)) {
+    if (Array.isArray(simplifiedData) || isObject(simplifiedData)) {
         return removeCircularReferences(simplifiedData);
     }
 
