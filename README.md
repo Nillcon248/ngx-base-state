@@ -98,7 +98,7 @@ Contains all fields and methods like at `BaseState`, and also:
 |:----------------- |:---------------------------|:--------------------------------------------------------------------|
 | keys$             |                            | stream with all keys of your Record object                          |
 | keys              |                            | all keys of your Record object                                      |
-| keys              |                            | all keys of your Record object                                      |
+| values            |                            | all values of your Record object                                      |
 | values$           |                            | stream with all values of your Record object                        |
 | setItem           | key: TKey, value: TValue   | set item by key into state's object                                 |
 | removeItem        | key: TKey                  | remove item by key from state's object                              |
