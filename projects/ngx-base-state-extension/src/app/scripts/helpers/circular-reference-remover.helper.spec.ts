@@ -1,5 +1,5 @@
+import { isObject } from '@extension-core';
 import { removeCircularReferences } from './circular-reference-remover.helper';
-import { isObject } from './methods.helpers';
 
 describe('removeCircularReferences [helper]', () => {
 	beforeEach(() => {});

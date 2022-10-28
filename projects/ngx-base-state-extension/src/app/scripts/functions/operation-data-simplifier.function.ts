@@ -1,9 +1,20 @@
 // This script simplifies complex data.
 // CustomEvent doesn't support objects which more complex that JSON objects.
-import { adaptDataToStringPreview } from '../../core/helpers/adapt-data-to-string-preview.helper';
 import { isObject } from '../../core/helpers/methods.helpers';
+import { adaptDataToStringPreview } from '../helpers/adapt-data-to-string-preview.helper';
+import { removeCircularReferences } from '../helpers/circular-reference-remover.helper';
 
-export function simplifyUnknownData(data: unknown): unknown {
+export function simplifyOperationData(data: unknown): unknown {
+    const simplifiedData = simplifyUnknownData(data);
+
+    if (Array.isArray(data) || isObject(data)) {
+        return removeCircularReferences(simplifiedData);
+    }
+
+    return simplifiedData;
+}
+
+function simplifyUnknownData(data: unknown): unknown {
     if (Array.isArray(data)) {
         return proccessArray(data);
     } else if (isObject(data)) {

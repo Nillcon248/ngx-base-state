@@ -1,7 +1,7 @@
 // Based on https://github.com/joaopmi/circular-reference-remover/blob/main/src/app-ts/circular-remover.ts
 import { adaptDataToStringPreview } from './adapt-data-to-string-preview.helper';
 
-export function removeCircularReferences(src: object | unknown[]): any {
+export function removeCircularReferences(src: unknown): any {
     const initialNewTarget = (Array.isArray(src)) ? [] : {};
 
     function internalRemover(target: any, src: any, references: any[]) {
