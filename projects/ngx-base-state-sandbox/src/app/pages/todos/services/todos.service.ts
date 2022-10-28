@@ -10,20 +10,11 @@ export class TodosService {
     ) {}
 
     public create(name: string): void {
-        const tst = {
+        this.todosState.pushItem({
             id: Math.random(),
             name,
             date: new Date().toJSON()
-        };
-        (tst as any).kek = {
-            lol: {
-                myField: 'ok',
-                myFieldNum: 123,
-                azaza: tst
-            }
-        }
-
-        this.todosState.pushItem(tst);
+        });
     }
 
     public delete(id: number): void {
