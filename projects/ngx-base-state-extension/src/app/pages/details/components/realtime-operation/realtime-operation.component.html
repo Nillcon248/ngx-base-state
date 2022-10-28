@@ -20,13 +20,12 @@
         </app-operation-type-chip>
     </app-title>
 
-    <app-stacktrace-button
-        *ngIf="lastOperation.stackTrace"
-        class="stacktrace-button"
+    <app-action-buttons
         [operation]="lastOperation">
-    </app-stacktrace-button>
-    
+    </app-action-buttons>
+
     <app-value-viewer
-        [data]="lastOperation.data">
+        [data]="lastOperation.data"
+        [isExpanded]="(isValueViewerExpanded$ | async)!">
     </app-value-viewer>
 </ng-container>

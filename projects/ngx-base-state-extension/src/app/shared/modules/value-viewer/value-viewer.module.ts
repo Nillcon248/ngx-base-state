@@ -4,13 +4,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
-import { JsonViewerComponent } from './json-viewer/json-viewer.component';
 import { ValueViewerComponent } from './value-viewer.component';
 
 @NgModule({
     declarations: [
-        ValueViewerComponent,
-        JsonViewerComponent
+        ValueViewerComponent
     ],
     imports: [
         CommonModule,

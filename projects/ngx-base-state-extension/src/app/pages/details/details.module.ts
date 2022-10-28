@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { ValueViewerModule } from '@extension-shared';
 import { SharedModule } from '../../shared';
 import {
+    ActionButtonsModule,
     HistoricalOperationComponent,
     HistoricalTimelineItemComponent,
     RealtimeOperationComponent,
     RealtimeTimelineItemComponent,
     StacktraceBottomSheetComponent,
-    StacktraceButtonComponent,
     TimelineComponent,
     ToolbarComponent
 } from './components';
@@ -23,13 +23,13 @@ import { DetailsRoutingModule } from './details.routing';
         TimelineComponent,
         RealtimeTimelineItemComponent,
         HistoricalTimelineItemComponent,
-        StacktraceButtonComponent,
         StacktraceBottomSheetComponent
     ],
     imports: [
         SharedModule,
         ValueViewerModule,
-        DetailsRoutingModule
+        DetailsRoutingModule,
+        ActionButtonsModule
     ]
 })
 export class DetailsModule {}

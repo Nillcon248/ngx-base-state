@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
 import { MetadataOperation } from '@extension-interfaces';
+import { map, Observable } from 'rxjs';
 import { ApplicationReloadEmitter, MetadataOperationEmitter } from '../emitters';
 import { MetadataOperationHistoryState } from '../states';
 
@@ -8,7 +8,7 @@ import { MetadataOperationHistoryState } from '../states';
     providedIn: 'root'
 })
 export class MetadataOperationHistoryService {
-    public readonly data$ = this.operationHistoryState.data$ as Observable<Map<number, MetadataOperation[]>>;
+    public readonly data$ = this.operationHistoryState.data$;
 
     constructor(
         private readonly applicationReloadEmitter: ApplicationReloadEmitter,
@@ -28,7 +28,7 @@ export class MetadataOperationHistoryService {
     public getAllWithinClassId(classId: number): Observable<MetadataOperation[]> {
         return this.data$
             .pipe(
-                map((historyMap) => historyMap.get(classId) as MetadataOperation[])
+                map((historyRecord) => historyRecord![classId] as MetadataOperation[])
             );
     }
 

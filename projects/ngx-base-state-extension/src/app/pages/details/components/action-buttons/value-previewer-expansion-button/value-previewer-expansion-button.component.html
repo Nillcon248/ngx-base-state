@@ -1,0 +1,8 @@
+<button
+    mat-icon-button
+    [color]="(color$ | async)"
+    [matTooltip]="'Toggle data tree expansion'"
+    [matTooltipPosition]="'right'"
+    (click)="onClick()">
+    <mat-icon>expand</mat-icon>
+</button>

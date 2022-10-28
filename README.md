@@ -86,6 +86,24 @@ Contains all fields and methods like at `BaseState`, and also:
 |:----------------- |:---------------------------|:--------------------------------------------------------------------|
 | updateWithPartial | value: Partial\<T\>        | update state by merging current state with new partial object       |
 
+### *RecordState*
+
+Extend your class from `RecordState` to store the `object` with `Record` interface.
+
+Store data in `key -> value` format.
+
+Contains all fields and methods like at `BaseState`, and also:
+
+| Name              | Arguments                  | Description                                                         |
+|:----------------- |:---------------------------|:--------------------------------------------------------------------|
+| keys$             |                            | stream with all keys of your Record object                          |
+| keys              |                            | all keys of your Record object                                      |
+| keys              |                            | all keys of your Record object                                      |
+| values$           |                            | stream with all values of your Record object                        |
+| setItem           | key: TKey, value: TValue   | set item by key into state's object                                 |
+| removeItem        | key: TKey                  | remove item by key from state's object                              |
+| removeAllItems    |                            | remove all items from state's object                                |
+
 ### *ArrayState*
 
 Extend your class from `ArrayState` to store the `array`.

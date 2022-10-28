@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ɵMetadataOperation } from '@ngx-base-state';
 import { AppRouteEnum } from '@extension-core';
+import { MetadataOperation } from '@extension-interfaces';
 import { ActionsService } from '@extension-services';
 
 @Component({
@@ -22,7 +22,7 @@ export class ActionListComponent {
         this.router.navigateByUrl(`/${AppRouteEnum.Details}/${stateClassId}`);
     }
 
-    public trackByFn(itemIndex: number, operation: ɵMetadataOperation): string {
+    public trackByFn(itemIndex: number, operation: MetadataOperation): string {
         return operation.className;
     }
 }

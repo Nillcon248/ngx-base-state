@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { ɵMetadataOperation } from '@ngx-base-state';
-import { StacktraceBottomSheetComponent } from '../stacktrace-bottom-sheet';
+import { MetadataOperation } from '@extension-interfaces';
+import { StacktraceBottomSheetComponent } from '../../stacktrace-bottom-sheet';
 
 @Component({
     selector: 'app-stacktrace-button',
@@ -11,7 +11,7 @@ import { StacktraceBottomSheetComponent } from '../stacktrace-bottom-sheet';
 })
 export class StacktraceButtonComponent {
     @Input()
-    public operation!: ɵMetadataOperation;
+    public operation!: MetadataOperation;
 
     constructor(
         private readonly bottomSheetService: MatBottomSheet

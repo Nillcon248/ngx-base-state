@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { memoize, isObject } from '@extension-core';
+import { isObject, memoize } from '@extension-core';
 
 @Component({
     selector: 'app-value-viewer',
@@ -10,6 +10,9 @@ import { memoize, isObject } from '@extension-core';
 export class ValueViewerComponent {
     @Input()
     public data: unknown;
+
+    @Input()
+    public isExpanded = false;
 
     @memoize
     public isDataUndefined(data: unknown): boolean {

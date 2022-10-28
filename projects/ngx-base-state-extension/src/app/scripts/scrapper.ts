@@ -1,13 +1,13 @@
 // FIXME: Need to avoid index.ts files & path aliases,
 // or investigate how to setup webpack
 // to avoid huge bundle sizes while using index.ts files.
-import type { Observable } from 'rxjs';
 import type { ɵMetadataOperation } from 'projects/ngx-base-state/src/lib/interfaces/metadata-operation.interface';
-import { fromEvent, takeUntil, map } from 'rxjs';
+import type { Observable } from 'rxjs';
+import { fromEvent, map, takeUntil } from 'rxjs';
 import { ɵMetadataKeyEnum } from '../../../../ngx-base-state/src/lib/enums/metadata-key.enum';
+import { adaptOperationToExtensionFormat } from './adapters/operation.adapter';
 import { CustomEventEnum } from './enums/custom-event.enum';
 import { emitCustomEvent } from './functions/emit-custom-event.function';
-import { adaptOperationToExtensionFormat } from './adapters/operation.adapter';
 
 const windowObj = (window as any);
 const metadataOperation$: Observable<ɵMetadataOperation> = windowObj[ɵMetadataKeyEnum.MetadataOperation];

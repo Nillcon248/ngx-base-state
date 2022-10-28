@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { DataTypeState } from '../states';
-import { ApplicationReloadEmitter, MetadataOperationEmitter } from '../emitters';
 import { DataType } from '../classes';
+import { ApplicationReloadEmitter, MetadataOperationEmitter } from '../emitters';
+import { DataTypeState } from '../states';
 
 @Injectable({
     providedIn: 'root'
 })
 export class DataTypeService {
-    public readonly data$ = this.dataTypeState.dataAsArray$;
+    public readonly data$ = this.dataTypeState.values$;
 
     constructor(
         private readonly applicationReloadEmitter: ApplicationReloadEmitter,
@@ -18,7 +18,7 @@ export class DataTypeService {
     }
 
     public getByName(dataTypeName: string): DataType {
-        return this.dataTypeState.data!.get(dataTypeName)!;
+        return this.dataTypeState.data![dataTypeName];
     }
 
     public initObserver(): void {

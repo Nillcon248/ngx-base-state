@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
-import { MapState, NgxState } from '@ngx-base-state';
+import { NgxState, RecordState } from '@ngx-base-state';
 import { DataType } from '../classes';
 
 @NgxState()
 @Injectable({
     providedIn: 'root'
 })
-export class DataTypeState extends MapState<string, DataType> {
+export class DataTypeState extends RecordState<string, DataType> {
     constructor() {
-        super(new Map());
+        super({});
     }
 
     public registerIfAbsent(dataTypeName: string): void {
-        if (!this.data!.has(dataTypeName)) {
+        if (!this.data![dataTypeName]) {
             const dataType = new DataType(dataTypeName);
 
             this.setItem(dataTypeName, dataType);

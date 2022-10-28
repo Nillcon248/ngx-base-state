@@ -1,12 +1,12 @@
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { ApplicationReloadService } from '@extension-services';
-import { AutoUnsubscribe } from 'ngx-auto-unsubscribe-decorator';
-import { OPENED_CLASS_NAME_PROVIDER } from './consts';
-import { TimelineItemTypeEnum } from './enums';
-import { SelectedTimelineItemState } from './states';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppRouteEnum } from '@extension-core';
+import { ApplicationReloadService } from '@extension-services';
+import { AutoUnsubscribe } from 'ngx-auto-unsubscribe-decorator';
+import { Subscription } from 'rxjs';
+import { OPENED_CLASS_NAME_PROVIDER } from './consts';
+import { TimelineItemTypeEnum } from './enums';
+import { SelectedTimelineItemState, ValuePreviewerExpansionState } from './states';
 
 @Component({
     selector: 'app-details',
@@ -15,7 +15,8 @@ import { AppRouteEnum } from '@extension-core';
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
         OPENED_CLASS_NAME_PROVIDER,
-        SelectedTimelineItemState
+        SelectedTimelineItemState,
+        ValuePreviewerExpansionState
     ]
 })
 export class DetailsComponent implements OnInit {

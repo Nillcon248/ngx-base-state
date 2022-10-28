@@ -1,5 +1,5 @@
-import { BaseState } from './base.state';
 import { ɵAction as Action } from '../decorators';
+import { BaseState } from './base.state';
 
 /**
  *	@class
@@ -16,11 +16,6 @@ export abstract class ObjectState<T> extends BaseState<T> {
 		this.set({ ...this.data!, ...value });
 	}
 
-	/**
-	 *  Copied value to new object for avoid issues with ChangeDetection
-     *  @protected
-     *  @param {T | null} value - the value that should be set to update `BehaviorSubject`.
-	 */
 	protected override setNewValue(value: T | null): void {
 		if (value) {
 			super.setNewValue({ ...value });

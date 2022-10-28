@@ -2,10 +2,10 @@ import {
     ChangeDetectionStrategy,
     Component,
     HostBinding,
-    Input,
+    Input
 } from '@angular/core';
-import { ɵMetadataOperation } from '@ngx-base-state';
 import { OPERATION_TYPE_MAP } from '@extension-data';
+import { MetadataOperation } from '@extension-interfaces';
 import { BaseTimelineItemComponent } from '../base.component';
 
 @Component({
@@ -16,7 +16,7 @@ import { BaseTimelineItemComponent } from '../base.component';
 })
 export class HistoricalTimelineItemComponent extends BaseTimelineItemComponent {
     @Input()
-    public operation!: ɵMetadataOperation;
+    public operation!: MetadataOperation;
     
     @HostBinding('style.--operation-color')
     public get hostCssClasses(): string {
