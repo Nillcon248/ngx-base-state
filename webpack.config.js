@@ -3,11 +3,11 @@ const path = require('path');
 module.exports = {
   mode: "development",
   entry: {
-    'scrapper': "./projects/ngx-base-state-extension/src/app/scripts/scrapper.ts",
-    'content-script': "./projects/ngx-base-state-extension/src/app/scripts/content-script.ts"
+    'scrapper': "./projects/extension/src/app/scripts/scrapper.ts",
+    'content-script': "./projects/extension/src/app/scripts/content-script.ts"
   },
   output: {
-    path: path.resolve(__dirname, './dist/ngx-base-state-extension'),
+    path: path.resolve(__dirname, './dist/extension'),
     filename: "[name].js"
   },
   resolve: {

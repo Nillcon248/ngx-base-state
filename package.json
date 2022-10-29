@@ -3,14 +3,14 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start:extension": "ng serve ngx-base-state-extension",
-    "build:extension": "ng build ngx-base-state-extension && npx webpack",
-    "start:sandbox": "ng serve ngx-base-state-sandbox",
-    "build:sandbox": "ng build ngx-base-state-sandbox",
-    "build:library": "ng build ngx-base-state --configuration production",
-    "test:library": "ng test ngx-base-state",
-    "test:extension": "ng test ngx-base-state-extension",
-    "test-coverage:library": "ng test ngx-base-state --code-coverage"
+    "start:extension": "ng serve extension",
+    "build:extension": "ng build extension && npx webpack",
+    "start:sandbox": "ng serve sandbox",
+    "build:sandbox": "ng build sandbox",
+    "build:library": "ng build library --configuration production",
+    "test:library": "ng test library",
+    "test:extension": "ng test extension",
+    "test-coverage:library": "ng test library --code-coverage"
   },
   "private": true,
   "dependencies": {

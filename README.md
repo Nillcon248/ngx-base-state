@@ -4,7 +4,7 @@
 [![npm](https://img.shields.io/npm/l/ngx-base-state.svg)]()
 [![Build status](https://travis-ci.org/Nillcon248/ngx-base-state.svg?branch=master)](https://travis-ci.org/Nillcon248/ngx-base-state)
 
-<img width="48" src="projects/ngx-base-state-extension/src/assets/icons/icon-96.png">
+<img width="48" src="projects/extension/src/assets/icons/icon-96.png">
 
 ### Classes have implemented base work with state
 
@@ -59,7 +59,7 @@ Click to some state and will opened "details page" with state changes history.
 
 List of States                                                                 | List of Actions                                                                | State details                                                                         |
 :-----------------------------------------------------------------------------:|:------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------:|
-![](projects/ngx-base-state-extension/src/assets/images/extension-states.png)  | ![](projects/ngx-base-state-extension/src/assets/images/extension-actions.png) | ![](projects/ngx-base-state-extension/src/assets/images/extension-state-details.png)  |
+![](projects/extension/src/assets/images/extension-states.png)  | ![](projects/extension/src/assets/images/extension-actions.png) | ![](projects/extension/src/assets/images/extension-state-details.png)  |
 
 ## Properties & Methods
 
