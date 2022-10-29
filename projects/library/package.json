@@ -1,12 +1,10 @@
 {
   "name": "ngx-base-state",
-  "version": "0.0.1",
-  "peerDependencies": {
+  "version": "1.0.0",
+  "devDependencies": {
     "@angular/common": "^14.2.0",
     "@angular/core": "^14.2.0",
-    "rxjs": "~7.5.0"
-  },
-  "dependencies": {
+    "rxjs": "~7.5.0",
     "tslib": "^2.3.0"
   }
 }

@@ -11,11 +11,14 @@
         "test:library": "ng test library",
         "test:extension": "ng test extension",
         "test-coverage:library": "ng test library --code-coverage",
-        "eslint:check": "eslint ./projects/**/*.ts",
-        "eslint:fix": "eslint ./projects/**/*.ts --fix"
+        "lint": "eslint ./projects/**/*.ts",
+        "lint:fix": "eslint ./projects/**/*.ts --fix",
+        "publish:patch": "npm run test:library && npm run build:library && npm version patch && npm publish",
+        "publish:minor": "npm run test:library && npm run build:library && npm version minor && npm publish",
+        "publish:major": "npm run test:library && npm run build:library && npm version major && npm publish"
     },
     "private": true,
-    "dependencies": {
+    "devDependencies": {
         "@angular/animations": "^14.2.0",
         "@angular/cdk": "^14.2.3",
         "@angular/common": "^14.2.0",
@@ -32,9 +35,7 @@
         "rxjs": "~7.5.0",
         "seed-color": "^2.0.1",
         "tslib": "^2.3.0",
-        "zone.js": "~0.11.4"
-    },
-    "devDependencies": {
+        "zone.js": "~0.11.4",
         "@angular-devkit/build-angular": "^14.2.4",
         "@angular-eslint/builder": "^14.1.2",
         "@angular-eslint/eslint-plugin": "^14.1.2",
