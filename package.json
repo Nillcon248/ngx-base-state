@@ -7,15 +7,12 @@
         "build:extension": "ng build extension && npx webpack",
         "start:sandbox": "ng serve sandbox",
         "build:sandbox": "ng build sandbox",
-        "build:library": "ng build library --configuration production",
+        "build:library": "ng build library --configuration production && cpx README.md dist/library",
         "test:library": "ng test library",
         "test:extension": "ng test extension",
         "test-coverage:library": "ng test library --code-coverage",
         "lint": "eslint ./projects/**/*.ts",
         "lint:fix": "eslint ./projects/**/*.ts --fix",
-        "publish:patch": "npm run test:library && npm run build:library && npm version patch && npm publish",
-        "publish:minor": "npm run test:library && npm run build:library && npm version minor && npm publish",
-        "publish:major": "npm run test:library && npm run build:library && npm version major && npm publish",
         "doc": "typedoc --exclude **/{node_modules,test,doc}/**/* ."
     },
     "private": true,
@@ -70,5 +67,23 @@
     },
     "browser": {
         "crypto": false
-    }
+    },
+    "keywords": [
+        "Angular state",
+        "RxJs state",
+        "State management",
+        "Store",
+        "Reactive",
+        "Angular store",
+        "Observable data store",
+        "Observable store",
+        "Observable state",
+        "Typescript",
+        "Angular"
+    ],
+    "sideEffects": false,
+    "maintainers": [
+        "Nillcon",
+        "Dreyliky"
+    ]
 }
