@@ -7,7 +7,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
-import { TodoCreationFormComponent, TodoCreationWindowComponent, TodosListComponent } from './components';
+import {
+    TodoCreationFormComponent,
+    TodoCreationWindowComponent,
+    TodosListComponent
+} from './components';
 import { TodosComponent } from './todos.component';
 import { TodosRoutingModule } from './todos.routing';
 

@@ -1,19 +1,20 @@
 // Based on https://github.com/Tinkoff/taiga-ui/blob/main/projects/cdk/decorators/pure.ts
+// eslint-disable-next-line max-lines-per-function
 export function memoize<T>(
     _target: object,
     propertyKey: string,
-    {get, enumerable, value}: TypedPropertyDescriptor<T>,
+    { get, enumerable, value }: TypedPropertyDescriptor<T>
 ): TypedPropertyDescriptor<T> {
     if (get) {
         return {
             enumerable,
             get(): T {
-                const value = get.call(this);
+                const result = get.call(this);
 
-                Object.defineProperty(this, propertyKey, {enumerable, value});
+                Object.defineProperty(this, propertyKey, { enumerable, value: result });
 
-                return value;
-            },
+                return result;
+            }
         };
     }
 
@@ -25,6 +26,7 @@ export function memoize<T>(
 
     return {
         enumerable,
+        // eslint-disable-next-line max-lines-per-function
         get(): T {
             let previousArgs: readonly unknown[] = [];
             let originalFnWasCalledLeastAtOnce = false;
@@ -47,9 +49,9 @@ export function memoize<T>(
                 return pureValue;
             };
 
-            Object.defineProperty(this, propertyKey, {value: patched});
+            Object.defineProperty(this, propertyKey, { value: patched });
 
             return patched as unknown as T;
-        },
+        }
     };
 }

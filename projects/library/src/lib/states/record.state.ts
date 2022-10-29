@@ -78,19 +78,22 @@ export abstract class RecordState<TKey extends string, TValue>
         this.set({} as Record<TKey, TValue>);
     }
 
-	protected override setNewValue(value: Record<TKey, TValue> | null): void {
-		if (value) {
-			super.setNewValue({ ...value });
-		} else {
-			super.setNewValue(null);
-		}
-	}
+    protected override setNewValue(value: Record<TKey, TValue> | null): void {
+        if (value) {
+            super.setNewValue({ ...value });
+        } else {
+            super.setNewValue(null);
+        }
+    }
 
-	protected override catchError(error: Error | TypeError, actionName: string): void {
-		if (error instanceof TypeError) {
-            throw new Error(`\n${this.constructor.name} [${actionName}]: Firstly set Object [Record].\n\n${error.message}`);
-		}
+    protected override catchError(error: Error | TypeError, actionName: string): void {
+        if (error instanceof TypeError) {
+            throw new Error(
+                `\n${this.constructor.name} [${actionName}]: ` +
+                `Firstly set Object [Record].\n\n${error.message}`
+            );
+        }
 
-		super.catchError(error, actionName);
-	}
+        super.catchError(error, actionName);
+    }
 }

@@ -9,13 +9,13 @@ interface ItemMock {
 }
 
 const itemDataMock1: ItemMock = {
-	id: 248,
-	data: 'Some info'
+    id: 248,
+    data: 'Some info'
 };
 
 const itemDataMock2: ItemMock = {
-	id: 163264,
-	data: 'Some info alala'
+    id: 163264,
+    data: 'Some info alala'
 };
 
 @NgxState()
@@ -23,40 +23,40 @@ const itemDataMock2: ItemMock = {
 class PrimitiveStateMock extends PrimitiveState<ItemMock> {}
 
 describe('PrimitiveState', () => {
-	let primitiveState: PrimitiveStateMock;
+    let primitiveState: PrimitiveStateMock;
 
-	beforeEach(() => {
-		const testBed = TestBed.configureTestingModule({
-			providers: [PrimitiveStateMock]
-		});
+    beforeEach(() => {
+        const testBed = TestBed.configureTestingModule({
+            providers: [PrimitiveStateMock]
+        });
 
-		primitiveState = testBed.inject(PrimitiveStateMock);
-	});
+        primitiveState = testBed.inject(PrimitiveStateMock);
+    });
 
-	it('should exist', () => {
-		expect(primitiveState).toBeTruthy();
-	});
+    it('should exist', () => {
+        expect(primitiveState).toBeTruthy();
+    });
 
-	it('should set data to state', () => {
-		primitiveState.set(itemDataMock1);
+    it('should set data to state', () => {
+        primitiveState.set(itemDataMock1);
 
-		expect(primitiveState.data).toEqual(itemDataMock1);
-	});
+        expect(primitiveState.data).toEqual(itemDataMock1);
+    });
 
-	it('should emit data to subscribers after data has set', () => {
-		const spy = jasmine.createSpy();
-		primitiveState.data$.subscribe(spy);
+    it('should emit data to subscribers after data has set', () => {
+        const spy = jasmine.createSpy();
+        primitiveState.data$.subscribe(spy);
 
-		primitiveState.set(itemDataMock2);
+        primitiveState.set(itemDataMock2);
 
-		expect(spy).toHaveBeenCalled();
-	});
+        expect(spy).toHaveBeenCalled();
+    });
 
-	it('should clear data in state', () => {
-		primitiveState.set(itemDataMock1);
+    it('should clear data in state', () => {
+        primitiveState.set(itemDataMock1);
 
-		primitiveState.clear();
+        primitiveState.clear();
 
-		expect(primitiveState.data).not.toBeTruthy();
-	});
+        expect(primitiveState.data).not.toBeTruthy();
+    });
 });

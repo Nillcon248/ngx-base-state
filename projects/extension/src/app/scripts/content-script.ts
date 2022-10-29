@@ -1,9 +1,13 @@
 // FIXME: Need to avoid index.ts files & path aliases,
 // or investigate how to setup webpack
 // to avoid huge bundle sizes while using index.ts files.
-import type { ɵMetadataOperation } from 'projects/library/src/lib/interfaces/metadata-operation.interface';
+import type {
+    ɵMetadataOperation
+} from 'projects/library/src/lib/interfaces/metadata-operation.interface';
 import { fromEvent, map, take } from 'rxjs';
-import { ContentScriptConnectionEnum as ConnectionEnum } from '../core/enums/content-script-connection.enum';
+import {
+    ContentScriptConnectionEnum as ConnectionEnum
+} from '../core/enums/content-script-connection.enum';
 import { RuntimeMessageEnum } from '../core/enums/runtime-message.enum';
 import { CustomEventEnum } from './enums/custom-event.enum';
 import { emitCustomEvent } from './functions/emit-custom-event.function';

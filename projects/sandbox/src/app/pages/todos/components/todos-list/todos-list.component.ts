@@ -9,7 +9,7 @@ import { TodosService } from '../../services';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TodosListComponent {
-    public readonly todos$ = this.todosService.data$
+    public readonly todos$ = this.todosService.data$;
 
     constructor(
         private readonly todosService: TodosService

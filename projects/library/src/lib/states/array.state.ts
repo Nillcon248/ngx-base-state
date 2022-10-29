@@ -13,7 +13,7 @@ export abstract class ArrayState<T> extends BaseState<T[]> {
      *	@param {Number} index - Quired index
      *	@return {Generic} Quired item.
      */
-	@Action
+    @Action
     public getItemByIndex(index: number): T | undefined {
         const items = this.data;
 
@@ -27,7 +27,7 @@ export abstract class ArrayState<T> extends BaseState<T[]> {
      *  @deprecated use `getItemByIndex` instead
      *	@return {Generic} quired item.
      */
-	@Action
+    @Action
     public getByIndex(index: number): T | undefined {
         return this.getItemByIndex(index);
     }
@@ -37,7 +37,7 @@ export abstract class ArrayState<T> extends BaseState<T[]> {
      *	@public
      *	@param {Generic} item - Item needs to unshift.
      */
-	@Action
+    @Action
     public unshiftItem(item: T): void {
         const items = this.data;
 
@@ -50,7 +50,7 @@ export abstract class ArrayState<T> extends BaseState<T[]> {
      * 	Shift array in state.
      *	@public
      */
-	@Action
+    @Action
     public shift(): void {
         const items = this.data;
 
@@ -63,7 +63,7 @@ export abstract class ArrayState<T> extends BaseState<T[]> {
      * 	Pop array in state.
      *	@public
      */
-	@Action
+    @Action
     public pop(): void {
         const items = this.data;
 
@@ -77,7 +77,7 @@ export abstract class ArrayState<T> extends BaseState<T[]> {
      *	@param {T[]} array - Another array to concat with the current state.
      *	@public
      */
-	@Action
+    @Action
     public concatWith(array: T[]): void {
         const items = this.data;
         const newItems = items!.concat(array);
@@ -90,7 +90,7 @@ export abstract class ArrayState<T> extends BaseState<T[]> {
      *	@public
      *	@param {Generic} item - Item needs to push
      */
-	@Action
+    @Action
     public pushItem(item: T): void {
         const items = this.data;
 
@@ -105,7 +105,7 @@ export abstract class ArrayState<T> extends BaseState<T[]> {
      *	@param {number} index - Index where to insert new item.
      *	@param {Generic} item - Item need to insert.
      */
-	@Action
+    @Action
     public insertItemByIndex(index: number, item: T): void {
         const items = this.data;
 
@@ -118,7 +118,7 @@ export abstract class ArrayState<T> extends BaseState<T[]> {
      *	@public
      *	@param {Generic} itemId - Id of item you want to remove.
      */
-	@Action
+    @Action
     public removeItem(item: T): T | undefined {
         const index = this.data!.findIndex((_item) =>
             this.compareItems(item, _item)
@@ -132,7 +132,7 @@ export abstract class ArrayState<T> extends BaseState<T[]> {
      *	@public
      *	@param {Generic} itemId - Id of item you want to remove.
      */
-	@Action
+    @Action
     public removeItemById(itemId: unknown): T | undefined {
         const index = this.data!.findIndex(
             (_item) => itemId === this.getItemId(_item)
@@ -146,7 +146,7 @@ export abstract class ArrayState<T> extends BaseState<T[]> {
      *	@public
      *	@param {number} index - Index of item you want to remove.
      */
-	@Action
+    @Action
     public removeItemByIndex(index: number): T | undefined {
         const items = this.data;
         const removedItem = this.data![index];
@@ -163,16 +163,16 @@ export abstract class ArrayState<T> extends BaseState<T[]> {
      *	@public
     *	@param {Generic} itemToUpdate - item that will be update.
     */
-	@Action
+    @Action
     public updateItem(itemToUpdate: T): void {
         const items = this.data;
-        itemToUpdate = { ...itemToUpdate };
+        const newItemToUpdate = { ...itemToUpdate };
 
         const itemIndex = items!.findIndex((_currentItem) =>
-            this.compareItems(_currentItem, itemToUpdate)
+            this.compareItems(_currentItem, newItemToUpdate)
         );
 
-        items![itemIndex] = itemToUpdate;
+        items![itemIndex] = newItemToUpdate;
 
         this.setNewValue(items);
     }
@@ -183,7 +183,7 @@ export abstract class ArrayState<T> extends BaseState<T[]> {
      *	@param {Generic} itemToUpdate - item that will be update.
      *	@param {Generic} index - index of item that need to update.
      */
-	@Action
+    @Action
     public updateItemByIndex(itemToUpdate: T, index: number): void {
         const items = this.data;
 
@@ -192,7 +192,7 @@ export abstract class ArrayState<T> extends BaseState<T[]> {
         this.setNewValue(items);
     }
 
-     protected override setNewValue(value: T[] | null): void {
+    protected override setNewValue(value: T[] | null): void {
         if (value) {
             super.setNewValue([...value]);
         } else {
@@ -201,12 +201,15 @@ export abstract class ArrayState<T> extends BaseState<T[]> {
     }
 
     protected override catchError(error: Error | TypeError, actionName: string): void {
-		if (error instanceof TypeError) {
-            throw new Error(`\n${this.constructor.name} [${actionName}]: Firstly set Array.\n\n${error.message}`);
-		}
+        if (error instanceof TypeError) {
+            throw new Error(
+                `\n${this.constructor.name} [${actionName}]: ` +
+                `Firstly set Array.\n\n${error.message}`
+            );
+        }
 
-		super.catchError(error, actionName);
-	}
+        super.catchError(error, actionName);
+    }
 
     /**
      *	Must return identify param of item.
@@ -218,7 +221,7 @@ export abstract class ArrayState<T> extends BaseState<T[]> {
      */
     protected getItemId(item: T): any {
         return item;
-    };
+    }
 
     /**
      * 	Compare two items via `getItemId`

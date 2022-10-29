@@ -4,18 +4,18 @@ import { DetailsComponent } from './details.component';
 import { DetailsParamEnum } from './enums';
 
 const routes: Routes = [
-  {
-    path: `:${DetailsParamEnum.ClassId}`,
-    component: DetailsComponent
-  }
+    {
+        path: `:${DetailsParamEnum.ClassId}`,
+        component: DetailsComponent
+    }
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(routes)
-  ],
-  exports: [
-    RouterModule
-  ]
+    imports: [
+        RouterModule.forChild(routes)
+    ],
+    exports: [
+        RouterModule
+    ]
 })
 export class DetailsRoutingModule {}

@@ -12,134 +12,138 @@ interface ItemMock {
 }
 
 const itemDataMock1: ItemMock = {
-	id: 248,
-	data: 'Some info'
+    id: 248,
+    data: 'Some info'
 };
 
 const itemDataMock2: ItemMock = {
-	id: 163264,
-	data: 'Some info alala'
+    id: 163264,
+    data: 'Some info alala'
 };
 
 @NgxState()
 @Injectable()
 class BaseStateMock extends BaseState<ItemMock> {
-	public throwErrorMockedAction(): void {
-		throw new Error('Something went wrong...');
-	}
+    public throwErrorMockedAction(): void {
+        throw new Error('Something went wrong...');
+    }
 }
 
 @NgxState()
 @Injectable()
 class BaseStateInitDataMock extends BaseState<ItemMock> {
-	constructor() {
-		super(itemDataMock1);
-	}
+    constructor() {
+        super(itemDataMock1);
+    }
 }
 
 @Injectable()
 class BaseStateWithoutDecoratorMock extends BaseState<ItemMock> {}
 
 describe('BaseState', () => {
-	let testBed: TestBed;
-	let baseState: BaseStateMock;
+    let testBed: TestBed;
+    let baseState: BaseStateMock;
 
-	beforeEach(() => {
-		testBed = TestBed.configureTestingModule({
-			imports: [NgxBaseStateDevtoolsModule],
-			providers: [
-				BaseStateMock,
-				BaseStateInitDataMock,
-				BaseStateWithoutDecoratorMock,
-				{
-					provide: NGX_BASE_STATE_DEVTOOLS_CONFIG,
-					useValue: new NgxBaseStateDevtoolsConfig({
-						isEnabled: true
-					})
-				}
-			]
-		});
+    beforeEach(() => {
+        testBed = TestBed.configureTestingModule({
+            imports: [NgxBaseStateDevtoolsModule],
+            providers: [
+                BaseStateMock,
+                BaseStateInitDataMock,
+                BaseStateWithoutDecoratorMock,
+                {
+                    provide: NGX_BASE_STATE_DEVTOOLS_CONFIG,
+                    useValue: new NgxBaseStateDevtoolsConfig({
+                        isEnabled: true
+                    })
+                }
+            ]
+        });
 
-		baseState = testBed.inject(BaseStateMock);
-	});
+        baseState = testBed.inject(BaseStateMock);
+    });
 
-	it('should exist', () => {
-		expect(baseState).toBeTruthy();
-	});
+    it('should exist', () => {
+        expect(baseState).toBeTruthy();
+    });
 
-	it('should set data to state', () => {
-		baseState.set(itemDataMock1);
+    it('should set data to state', () => {
+        baseState.set(itemDataMock1);
 
-		expect(baseState.data).toEqual(itemDataMock1);
-	});
+        expect(baseState.data).toEqual(itemDataMock1);
+    });
 
-	it('should emit data to subscribers after data has set', () => {
-		const spy = jasmine.createSpy();
-		baseState.data$.subscribe(spy);
+    it('should emit data to subscribers after data has set', () => {
+        const spy = jasmine.createSpy();
+        baseState.data$.subscribe(spy);
 
-		baseState.set(itemDataMock2);
+        baseState.set(itemDataMock2);
 
-		expect(spy).toHaveBeenCalled();
-	});
+        expect(spy).toHaveBeenCalled();
+    });
 
-	it('should clear data in state', () => {
-		baseState.set(itemDataMock1);
+    it('should clear data in state', () => {
+        baseState.set(itemDataMock1);
 
-		baseState.clear();
+        baseState.clear();
 
-		expect(baseState.data).not.toBeTruthy();
-	});
+        expect(baseState.data).not.toBeTruthy();
+    });
 
-	it('should restoreInitialData', () => {
-		const state = testBed.inject(BaseStateInitDataMock);
+    it('should restoreInitialData', () => {
+        const state = testBed.inject(BaseStateInitDataMock);
 
-		state.clear();
-		state.restoreInitialData();
-		expect(state.data).toEqual(itemDataMock1);
-	});
+        state.clear();
+        state.restoreInitialData();
+        expect(state.data).toEqual(itemDataMock1);
+    });
 
-	it('should use initData for first value in state', () => {
-		const baseStateInitDataMock = testBed.inject(BaseStateInitDataMock);
+    it('should use initData for first value in state', () => {
+        const baseStateInitDataMock = testBed.inject(BaseStateInitDataMock);
 
-		expect(baseStateInitDataMock.data).toEqual(itemDataMock1);
-	});
+        expect(baseStateInitDataMock.data).toEqual(itemDataMock1);
+    });
 
-	it('should access to config from window', () => {
-		const baseStateInitDataMock = testBed.inject(BaseStateInitDataMock);
+    it('should access to config from window', () => {
+        const baseStateInitDataMock = testBed.inject(BaseStateInitDataMock);
 
-		expect(baseStateInitDataMock.data).toEqual(itemDataMock1);
-	});
+        expect(baseStateInitDataMock.data).toEqual(itemDataMock1);
+    });
 
-	it('should throw error with specific message when object doesn\'t set', () => {
-		try {
-			baseState.throwErrorMockedAction();
+    it('should throw error with specific message when object doesn\'t set', () => {
+        try {
+            baseState.throwErrorMockedAction();
         } catch (error) {
-			const errorMessage = (error as Error).message;
-			const actionName = 'throwErrorMockedAction';
-			const constructorName = baseState.constructor.name;
+            const errorMessage = (error as Error).message;
+            const actionName = 'throwErrorMockedAction';
+            const constructorName = baseState.constructor.name;
 
             expect(errorMessage).toContain(`\n${constructorName} [${actionName}]: `);
         }
-	});
+    });
 
-	it('should throw error with specific message when object doesn\'t set', () => {
-		try {
-			baseState.throwErrorMockedAction();
+    it('should throw error with specific message when object doesn\'t set', () => {
+        try {
+            baseState.throwErrorMockedAction();
         } catch (error) {
-			const errorMessage = (error as Error).message;
-			const actionName = 'throwErrorMockedAction';
-			const constructorName = baseState.constructor.name;
+            const errorMessage = (error as Error).message;
+            const actionName = 'throwErrorMockedAction';
+            const constructorName = baseState.constructor.name;
 
             expect(errorMessage).toContain(`\n${constructorName} [${actionName}]: `);
         }
-	});
+    });
 
-	it('should show console.warn when state doesn\'t covered by @NgxState decorator and DevToolsConfig.isEnabled=true', () => {
-		spyOn(console, 'warn');
+    it(`should show console.warn when state doesn't covered by
+        @NgxState decorator and DevToolsConfig.isEnabled=true`, () => {
+        spyOn(console, 'warn');
 
-		const state = testBed.inject(BaseStateWithoutDecoratorMock);
-		const stateName = state.constructor.name;
+        const state = testBed.inject(BaseStateWithoutDecoratorMock);
+        const stateName = state.constructor.name;
 
-		expect(console.warn).toHaveBeenCalledOnceWith(`${stateName} class is missed @NgxState() decorator. Some features of DevTools will work incorrectly!`);
-	});
+        expect(console.warn).toHaveBeenCalledOnceWith(
+            `${stateName} class is missed @NgxState() decorator.` +
+            `Some features of DevTools will work incorrectly!`
+        );
+    });
 });

@@ -2,9 +2,7 @@ import { isObject } from 'projects/extension/src/app/core';
 import { removeCircularReferences } from './circular-reference-remover.helper';
 
 describe('removeCircularReferences [helper]', () => {
-	beforeEach(() => {});
-
-	it('should remove circular references from array with objects', () => {
+    it('should remove circular references from array with objects', () => {
         const data = [];
         const simpleItem = {
             myNumberField: 1,
@@ -23,7 +21,7 @@ describe('removeCircularReferences [helper]', () => {
         expect(processedResult[0]).toEqual(simpleItem);
         expect(processedResult[1].test).toBe('tst');
         expect(processedResult[1].circular).toContain('[CIRCULAR REFERENCE]');
-	});
+    });
 
     it('should remove circular references from object [depth=1]', () => {
         const data = {
@@ -36,7 +34,7 @@ describe('removeCircularReferences [helper]', () => {
 
         expect(isObject(processedResult)).toBeTrue();
         expect(processedResult.circular).toContain('[CIRCULAR REFERENCE]');
-	});
+    });
 
     it('should remove circular references from object [depth=2]', () => {
         const data = {
@@ -50,7 +48,7 @@ describe('removeCircularReferences [helper]', () => {
         const processedResult = removeCircularReferences(data);
 
         expect(processedResult.circular.depth1).toContain('[CIRCULAR REFERENCE]');
-	});
+    });
 
     it('should remove circular references from object [depth=2] with object inside array', () => {
         const data = {
@@ -61,10 +59,10 @@ describe('removeCircularReferences [helper]', () => {
             {
                 depth1: data
             }
-        ]
+        ];
 
         const processedResult = removeCircularReferences(data);
 
         expect(processedResult.circular[0].depth1).toContain('[CIRCULAR REFERENCE]');
-	});
+    });
 });

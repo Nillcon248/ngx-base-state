@@ -1,6 +1,6 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { MetadataListFiltersState, SelectedOperationItemViewTabIndexState } from './states';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FilteredOperationsService } from './services';
+import { MetadataListFiltersState, SelectedOperationItemViewTabIndexState } from './states';
 
 @Component({
     selector: 'app-list',
@@ -13,13 +13,13 @@ import { FilteredOperationsService } from './services';
     ]
 })
 export class ListComponent {
-    public readonly selectedTabIndex$ = this.selectedOperationItemViewTabIndexState.data$;
-    
+    public readonly selectedTabIndex$ = this.selectedTabIndexState.data$;
+
     constructor(
-        private readonly selectedOperationItemViewTabIndexState: SelectedOperationItemViewTabIndexState,
+        private readonly selectedTabIndexState: SelectedOperationItemViewTabIndexState
     ) {}
 
     public onOperationItemViewTabClick(operationItemViewTabIndex: number): void {
-        this.selectedOperationItemViewTabIndexState.set(operationItemViewTabIndex);
+        this.selectedTabIndexState.set(operationItemViewTabIndex);
     }
 }

@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ThemePalette } from '@angular/material/core';
-import { map, Observable } from 'rxjs';
+import { map } from 'rxjs';
 import { ValuePreviewerExpansionState } from '../../../states';
 
 @Component({
@@ -10,7 +9,7 @@ import { ValuePreviewerExpansionState } from '../../../states';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ValuePreviewerExpansionButtonComponent {
-    public readonly color$: Observable<ThemePalette | null> = this.valuePreviewerExpansionState.data$
+    public readonly color$ = this.valuePreviewerExpansionState.data$
         .pipe(
             map((isExpanded) => (isExpanded) ? 'primary' : null)
         );

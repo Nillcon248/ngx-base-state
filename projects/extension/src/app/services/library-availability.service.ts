@@ -14,7 +14,9 @@ export class LibraryAvailabilityService {
         return this.chromeTabsService.getActive()
             .pipe(
                 map((tab) => tab.id as number),
-                switchMap((tabId) => this.chromeTabsService.sendMessage<boolean>(tabId, { type: RuntimeMessageEnum.RequestIsLibraryAvailable }))
+                switchMap((tabId) => this.chromeTabsService.sendMessage<boolean>(tabId, {
+                    type: RuntimeMessageEnum.RequestIsLibraryAvailable
+                }))
             );
     }
 }

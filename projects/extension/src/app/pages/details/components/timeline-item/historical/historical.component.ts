@@ -17,7 +17,7 @@ import { BaseTimelineItemComponent } from '../base.component';
 export class HistoricalTimelineItemComponent extends BaseTimelineItemComponent {
     @Input()
     public operation!: MetadataOperation;
-    
+
     @HostBinding('style.--operation-color')
     public get hostCssClasses(): string {
         const operation = OPERATION_TYPE_MAP

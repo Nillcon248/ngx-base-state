@@ -1,9 +1,9 @@
-import { NgModule, Inject } from '@angular/core';
+import { Inject, NgModule } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
-import { ɵMetadataOperation } from './interfaces';
+import { NgxBaseStateDevtoolsConfig } from './classes';
 import { ɵMetadataKeyEnum } from './enums';
 import { ɵMetadataStorage } from './helpers';
-import { NgxBaseStateDevtoolsConfig } from './classes';
+import { ɵMetadataOperation } from './interfaces';
 import { NGX_BASE_STATE_DEVTOOLS_CONFIG } from './tokens';
 
 @NgModule({})
@@ -14,7 +14,10 @@ export class NgxBaseStateDevtoolsModule {
     ) {
         if (this.config.isEnabled) {
             this.metadataStorage.set(ɵMetadataKeyEnum.DevtoolsEnabled, true);
-            this.metadataStorage.set(ɵMetadataKeyEnum.MetadataOperation, new ReplaySubject<ɵMetadataOperation>());
+            this.metadataStorage.set(
+                ɵMetadataKeyEnum.MetadataOperation,
+                new ReplaySubject<ɵMetadataOperation>()
+            );
         }
     }
 }

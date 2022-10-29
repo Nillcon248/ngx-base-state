@@ -4,7 +4,7 @@ import { TodosState } from '../states';
 @Injectable()
 export class TodosService {
     public readonly data$ = this.todosState.data$;
-        
+
     constructor(
         private readonly todosState: TodosState
     ) {}

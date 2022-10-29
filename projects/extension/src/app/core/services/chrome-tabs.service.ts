@@ -35,6 +35,7 @@ export class ChromeTabsService {
         });
     }
 
+    // eslint-disable-next-line max-lines-per-function
     public connect<T>(tabId: number, connection: ContentScriptConnectionEnum): Observable<T> {
         return new Observable<T>((subscriber) => {
             const port = chrome.tabs.connect(tabId, {

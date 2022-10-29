@@ -20,7 +20,8 @@ export class MetadataOperationService {
         this.chromeTabsService.getActive()
             .pipe(
                 map((tab) => tab.id as number),
-                switchMap((tabId) => this.chromeTabsService.connect<MetadataOperation>(tabId, ConnectionEnum.Operation))
+                switchMap((tabId) => this.chromeTabsService
+                    .connect<MetadataOperation>(tabId, ConnectionEnum.Operation))
             )
             .subscribe((operation) => this.metadataOperationEmitter.emit(operation));
     }

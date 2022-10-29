@@ -1,7 +1,7 @@
-import { Component, Input, HostBinding, HostListener } from '@angular/core';
+import { Component, HostBinding, HostListener, Input } from '@angular/core';
 
 @Component({
-    template: '',
+    template: ''
 })
 export abstract class BaseTimelineItemComponent {
     @Input()
@@ -16,9 +16,9 @@ export abstract class BaseTimelineItemComponent {
         return (BaseTimelineItemComponent.selectedId === this.id);
     }
 
-    private readonly id = Math.random();
-
     private static selectedId: number;
+
+    private readonly id = Math.random();
 
     @HostListener('click')
     public onHostClick(): void {

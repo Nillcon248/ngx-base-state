@@ -33,9 +33,10 @@ function proccessArray(array: unknown[]): unknown {
 function processObject(data: object): unknown {
     if (data.constructor.name === 'Object') {
         return simplifyObject(data);
-    } else {
-        return adaptDataToStringPreview(data);
     }
+
+    return adaptDataToStringPreview(data);
+
 }
 
 function simplifyObject(data: object): object {

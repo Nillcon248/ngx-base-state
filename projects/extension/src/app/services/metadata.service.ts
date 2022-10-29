@@ -7,7 +7,7 @@ import { MetadataOperationHistoryState } from '../states';
     providedIn: 'root'
 })
 export class MetadataService {
-    public readonly data$: Observable<Record<number, MetadataOperation>> = this.operationHistoryState.data$
+    public readonly data$ = this.operationHistoryState.data$
         .pipe(
             map((historyRecord) => {
                 const metadataRecord: Record<number, MetadataOperation> = {};

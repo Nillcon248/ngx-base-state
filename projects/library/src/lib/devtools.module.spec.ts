@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { ReplaySubject } from 'rxjs';
-import { BaseState } from './states';
 import { NgxBaseStateDevtoolsConfig } from './classes';
 import { NgxState } from './decorators';
 import { NgxBaseStateDevtoolsModule } from './devtools.module';
 import { ɵMetadataKeyEnum } from './enums';
 import { ɵMetadataStorage } from './helpers';
 import { ɵNgxBaseStateConfigParams } from './interfaces';
+import { BaseState } from './states';
 import { NGX_BASE_STATE_DEVTOOLS_CONFIG } from './tokens';
 
 @NgxState()
@@ -33,7 +33,9 @@ describe('DevtoolsModule', () => {
                     provide: ɵMetadataStorage,
                     useFactory: () => {
                         const storage = <ɵMetadataStorage>{
+                            // eslint-disable-next-line @typescript-eslint/no-unused-vars
                             get: (key: ɵMetadataKeyEnum) => null,
+                            // eslint-disable-next-line @typescript-eslint/no-unused-vars
                             set: (key: ɵMetadataKeyEnum, value: unknown) => undefined
                         };
 
@@ -51,16 +53,19 @@ describe('DevtoolsModule', () => {
         return testBed;
     }
 
-	it('should not modify window when isEnabled=false passed into config', () => {
+    it('should not modify window when isEnabled=false passed into config', () => {
         createTestBedWithDevtoolsModule({ isEnabled: false });
 
-		expect(metadataStorage.set).toHaveBeenCalledTimes(0);
-	});
+        expect(metadataStorage.set).toHaveBeenCalledTimes(0);
+    });
 
     it('should modify window when isEnabled=true passed into config', () => {
         createTestBedWithDevtoolsModule({ isEnabled: true });
 
-		expect(metadataStorage.set).toHaveBeenCalledWith(ɵMetadataKeyEnum.DevtoolsEnabled, true);
-		expect(metadataStorage.set).toHaveBeenCalledWith(ɵMetadataKeyEnum.MetadataOperation, new ReplaySubject());
-	});
+        expect(metadataStorage.set).toHaveBeenCalledWith(ɵMetadataKeyEnum.DevtoolsEnabled, true);
+        expect(metadataStorage.set).toHaveBeenCalledWith(
+            ɵMetadataKeyEnum.MetadataOperation,
+            new ReplaySubject()
+        );
+    });
 });

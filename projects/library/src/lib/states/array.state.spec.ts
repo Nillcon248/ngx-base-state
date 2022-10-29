@@ -18,12 +18,12 @@ class ArrayStateMock extends ArrayState<ItemMock> {
 
 const itemDataMock1: ItemMock = {
     id: 248,
-    data: 'Some info',
+    data: 'Some info'
 };
 
 const itemDataMock2: ItemMock = {
     id: 163264,
-    data: 'Some info alala',
+    data: 'Some info alala'
 };
 
 const itemArrayDataMock: ItemMock[] = [itemDataMock1, itemDataMock2];
@@ -33,8 +33,8 @@ describe('ArrayState', () => {
 
     beforeEach(() => {
         const testBed = TestBed.configureTestingModule({
-			providers: [ArrayStateMock]
-		});
+            providers: [ArrayStateMock]
+        });
 
         arrayState = testBed.inject(ArrayStateMock);
     });
@@ -85,7 +85,7 @@ describe('ArrayState', () => {
     it('should push item to array', () => {
         const newItem: ItemMock = {
             id: Math.random(),
-            data: 'new data',
+            data: 'new data'
         };
 
         arrayState.set(itemArrayDataMock);
@@ -98,7 +98,7 @@ describe('ArrayState', () => {
     it('should remove item from array', () => {
         const newItem: ItemMock = {
             id: Math.random(),
-            data: 'new data',
+            data: 'new data'
         };
 
         arrayState.set(itemArrayDataMock);
@@ -112,7 +112,7 @@ describe('ArrayState', () => {
     it('should remove item from array by index', () => {
         const newItem: ItemMock = {
             id: Math.random(),
-            data: 'new data',
+            data: 'new data'
         };
 
         arrayState.set(itemArrayDataMock);
@@ -127,7 +127,7 @@ describe('ArrayState', () => {
     it('should removeItemById', () => {
         const newItem: ItemMock = {
             id: 333,
-            data: 'new data',
+            data: 'new data'
         };
 
         arrayState.set([...itemArrayDataMock, newItem]);
@@ -157,7 +157,7 @@ describe('ArrayState', () => {
     it('should unshiftItem into array', () => {
         const newItem: ItemMock = {
             id: Math.random(),
-            data: 'new data',
+            data: 'new data'
         };
         arrayState.set(itemArrayDataMock);
         arrayState.unshiftItem(newItem);
@@ -168,7 +168,7 @@ describe('ArrayState', () => {
     it('should insertItemByIndex into array', () => {
         const newItem: ItemMock = {
             id: Math.random(),
-            data: 'new data',
+            data: 'new data'
         };
         arrayState.set(itemArrayDataMock);
         arrayState.insertItemByIndex(1, newItem);
@@ -179,7 +179,7 @@ describe('ArrayState', () => {
     it('should concatWith another array', () => {
         const newItem: ItemMock = {
             id: Math.random(),
-            data: 'new data',
+            data: 'new data'
         };
         const anotherArray = [newItem];
         arrayState.set(itemArrayDataMock);
@@ -192,7 +192,7 @@ describe('ArrayState', () => {
     it('should return removed item after remove', () => {
         const newItem: ItemMock = {
             id: Math.random(),
-            data: 'new data',
+            data: 'new data'
         };
 
         arrayState.set(itemArrayDataMock);

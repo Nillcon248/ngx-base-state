@@ -1,10 +1,12 @@
+/* eslint-disable max-lines-per-function */
+// FIXME: Refactor
 // Based on https://github.com/joaopmi/circular-reference-remover/blob/main/src/app-ts/circular-remover.ts
 import { adaptDataToStringPreview } from './adapt-data-to-string-preview.helper';
 
-export function removeCircularReferences(src: unknown): any {
-    const initialNewTarget = (Array.isArray(src)) ? [] : {};
+export function removeCircularReferences(data: unknown): any {
+    const initialNewTarget = (Array.isArray(data)) ? [] : {};
 
-    function internalRemover(target: any, src: any, references: any[]) {
+    function internalRemover(target: any, src: any, references: any[]): unknown {
         for (const key in src) {
             const srcValue = src[key];
 
@@ -17,7 +19,10 @@ export function removeCircularReferences(src: unknown): any {
 
                 for (const reference of references) {
                     if (reference === srcValue) {
-                        target[key] = `[CIRCULAR REFERENCE] ${adaptDataToStringPreview(reference, 60)}`;
+                        target[key] = (
+                            `[CIRCULAR REFERENCE] ` +
+                            `${adaptDataToStringPreview(reference, 60)}`
+                        );
                         referenceFound = true;
 
                         break;
@@ -42,5 +47,5 @@ export function removeCircularReferences(src: unknown): any {
         return target;
     }
 
-    return internalRemover(initialNewTarget, src, [src]);
+    return internalRemover(initialNewTarget, data, [data]);
 }

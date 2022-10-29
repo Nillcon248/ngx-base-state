@@ -19,7 +19,7 @@ import { TodosState } from './states';
 export class TodosComponent {
     constructor(
         private readonly injector: Injector,
-        private readonly dialogService: MatDialog,
+        private readonly dialogService: MatDialog
     ) {}
 
     @AutoUnsubscribe()

@@ -25,7 +25,7 @@ export class FilteredOperationsService {
         const searchString = filters.searchString.toLowerCase();
 
         return operations
-            .filter((operation) => 
+            .filter((operation) =>
                 this.filterItemBySearchString(operation, searchString) &&
                 this.filterItemByDataType(operation, filters.dataType)
             )
@@ -47,19 +47,25 @@ export class FilteredOperationsService {
         );
     }
 
-    private isItemClassNameMatchWithSearchString(operation: Operation, searchString: string): boolean {
+    private isItemClassNameMatchWithSearchString(
+        operation: Operation,
+        searchString: string
+    ): boolean {
         return operation.className
             .toLowerCase()
             .includes(searchString);
     }
 
-    private isItemClassContextMatchWithSearchString(operation: Operation, searchString: string): boolean {
+    private isItemClassContextMatchWithSearchString(
+        operation: Operation,
+        searchString: string
+    ): boolean {
         if (operation.classContext) {
             return operation.classContext
                 .toLowerCase()
                 .includes(searchString);
         }
-        
+
         return false;
     }
 }
