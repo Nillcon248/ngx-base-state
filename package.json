@@ -1,6 +1,7 @@
 {
     "name": "ngx-base-state",
     "version": "0.0.0",
+    "license": "MIT",
     "scripts": {
         "ng": "ng",
         "start:extension": "ng serve extension",

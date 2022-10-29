@@ -1,6 +1,7 @@
 {
   "name": "ngx-base-state",
   "version": "1.0.0",
+  "license": "MIT",
   "description": "Base classes for creation state service via Rxjs observable",
   "devDependencies": {
     "@angular/common": "^14.2.0",
