@@ -1,24 +1,19 @@
+/* eslint-disable max-lines-per-function */
 // This script simplifies complex data.
-// CustomEvent doesn't support objects which more complex that JSON objects.
-import { isObject } from '../../core/helpers/methods.helpers';
+// CustomEvent doesn't support no-serializable objects.
+
+// FIXME: Refactor
+// FIXME: Might be added web worker if this algorithm has optimization issues
+import { isExtendedObject, isObject } from '../../core/helpers/methods.helpers';
 import { adaptDataToStringPreview } from '../helpers/adapt-data-to-string-preview.helper';
-import { removeCircularReferences } from '../helpers/circular-reference-remover.helper';
 
-export function simplifyOperationData(data: unknown): unknown {
-    const simplifiedData = simplifyUnknownData(data);
-
-    if (Array.isArray(simplifiedData) || isObject(simplifiedData)) {
-        return removeCircularReferences(simplifiedData);
-    }
-
-    return simplifiedData;
-}
-
-function simplifyUnknownData(data: unknown): unknown {
+export function simplifyUnknownData(data: unknown): unknown {
     if (Array.isArray(data)) {
-        return proccessArray(data);
+        return simplifyArrayItems(data);
+    } else if (isObject(data) && isExtendedObject(data)) {
+        return adaptDataToStringPreview(data);
     } else if (isObject(data)) {
-        return processObject(data);
+        return removeCircularReferencesAndSimplifyObject(data);
     } else if (typeof data === 'function') {
         return adaptDataToStringPreview(data);
     }
@@ -26,23 +21,44 @@ function simplifyUnknownData(data: unknown): unknown {
     return data;
 }
 
-function proccessArray(array: unknown[]): unknown {
+function simplifyArrayItems(array: unknown[]): unknown {
     return array.map((item) => simplifyUnknownData(item));
 }
 
-function processObject(data: object): unknown {
-    if (data.constructor.name === 'Object') {
-        return simplifyObject(data);
+function removeCircularReferencesAndSimplifyObject(data: object): any {
+    function internalRemover(target: any, originalData: any, references: any[]): unknown {
+        for (const [key, value] of Object.entries(originalData)) {
+            if (isObjectWithDefaultConstructorName(value)) {
+                if (isObjectContainedInReferences(value, references)) {
+                    target[key] = getCircularReferenceStringPreview(value);
+                } else {
+                    target[key] = (Array.isArray(value)) ? [] : {};
+
+                    internalRemover(target[key], value, [...references, value]);
+                }
+            } else {
+                target[key] = simplifyUnknownData(value);
+            }
+        }
+
+        return target;
     }
 
-    return adaptDataToStringPreview(data);
-
+    return internalRemover({}, data, [data]);
 }
 
-function simplifyObject(data: object): object {
-    return Object.entries(data).reduce((output, [key, value]) => {
-        output[key] = simplifyUnknownData(value);
+function getCircularReferenceStringPreview(data: any): string {
+    return `[[CIRCULAR REFERENCE]] ${adaptDataToStringPreview(data, 60)}`;
+}
 
-        return output;
-    }, {} as any);
+function isObjectContainedInReferences(data: any, references: unknown[]): boolean {
+    return references.some((reference) => (reference === data));
+}
+
+function isObjectWithDefaultConstructorName(data: unknown): boolean {
+    return (
+        (data !== null) &&
+        (typeof data === 'object') &&
+        (data.constructor.name === 'Object')
+    );
 }
