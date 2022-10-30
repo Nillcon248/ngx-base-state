@@ -142,7 +142,7 @@ describe('BaseState', () => {
         const stateName = state.constructor.name;
 
         expect(console.warn).toHaveBeenCalledOnceWith(
-            `${stateName} class is missed @NgxState() decorator.` +
+            `${stateName} class is missed @NgxState() decorator. ` +
             `Some features of DevTools will work incorrectly!`
         );
     });
