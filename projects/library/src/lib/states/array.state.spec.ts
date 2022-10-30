@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { ArrayState } from './array.state';
 import { NgxState } from '../decorators';
+import { ArrayState } from './array.state';
 
 interface ItemMock {
     readonly id: number;
@@ -72,14 +72,6 @@ describe('ArrayState', () => {
         arrayState.set(itemArrayDataMock);
 
         expect(arrayState.getByIndex(index)).toEqual(arrayState.data![index]);
-    });
-
-    it('should return item by quired index', () => {
-        const index = 0;
-
-        arrayState.set(itemArrayDataMock);
-
-        expect(arrayState.getItemByIndex(index)).toEqual(arrayState.data![index]);
     });
 
     it('should push item to array', () => {

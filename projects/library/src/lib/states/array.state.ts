@@ -11,25 +11,13 @@ export abstract class ArrayState<T> extends BaseState<T[]> {
      * 	Return item by quired index.
      *	@public
      *	@param {Number} index - Quired index
-     *	@return {Generic} Quired item.
+     *  @deprecated use `this.data[index]` instead
+     *	@return {Generic} quired item.
      */
-    @Action
-    public getItemByIndex(index: number): T | undefined {
+    public getByIndex(index: number): T | undefined {
         const items = this.data;
 
         return items![index];
-    }
-
-    /**
-     * 	Return item by quired index.
-     *	@public
-     *	@param {Number} index - Quired index
-     *  @deprecated use `getItemByIndex` instead
-     *	@return {Generic} quired item.
-     */
-    @Action
-    public getByIndex(index: number): T | undefined {
-        return this.getItemByIndex(index);
     }
 
     /**
