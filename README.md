@@ -111,7 +111,6 @@ Contains all fields and methods like at `BaseState`, and also:
 |:------------------|:----------------------------|:-------------------------------------------------------------------------------- |
 | getItemId         | item: T                     | `protected` **method might be overridden, it used for comparing items in array** |
 | set               | value: T[]                  | set new array for state                                                          |
-| getItemByIndex    | index: number               | get item from array by it's index                                                |
 | pushItem          | item: T                     | push new item to array                                                           |
 | unshiftItem       | item: T                     | unshift item to array                                                            |
 | shift             |                             | shift array                                                                      |
