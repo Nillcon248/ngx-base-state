@@ -1,5 +1,5 @@
-import { OperationType } from 'projects/extension/src/app/interfaces';
-import { ɵMetadataOperationTypeEnum } from 'projects/library/src/lib';
+import { OperationType } from '@extension-interfaces';
+import { ɵMetadataOperationTypeEnum } from '@ngx-base-state';
 
 export const OPERATION_TYPE_MAP = new Map<ɵMetadataOperationTypeEnum, OperationType>([
     [

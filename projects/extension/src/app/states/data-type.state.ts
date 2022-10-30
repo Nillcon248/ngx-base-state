@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { NgxState, RecordState } from 'projects/library/src/lib';
+import { NgxState, RecordState } from '@ngx-base-state';
 import { DataType } from '../classes';
 
 @NgxState()

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
-import { MetadataService } from 'projects/extension/src/app/services';
+import { MetadataService } from '@extension-services';
 import { OPENED_CLASS_ID } from '../../consts';
 import { ValuePreviewerExpansionState } from '../../states';
 

@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
+import { MetadataOperation } from '@extension-interfaces';
+import { ApplicationReloadService } from '@extension-services';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe-decorator';
-import { MetadataOperation } from 'projects/extension/src/app/interfaces';
-import { ApplicationReloadService } from 'projects/extension/src/app/services';
 import { Subscription } from 'rxjs';
 
 @Component({

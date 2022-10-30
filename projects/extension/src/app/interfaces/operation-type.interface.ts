@@ -1,4 +1,4 @@
-import { ɵMetadataOperationTypeEnum } from 'projects/library/src/lib';
+import { ɵMetadataOperationTypeEnum } from '@ngx-base-state';
 
 export interface OperationType {
     readonly id: ɵMetadataOperationTypeEnum;

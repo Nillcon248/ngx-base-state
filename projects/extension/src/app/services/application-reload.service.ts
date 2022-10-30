@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {
     ChromeTabsService,
     ContentScriptConnectionEnum as ConnectionEnum
-} from 'projects/extension/src/app/core';
+} from '@extension-core';
 import { map, switchMap } from 'rxjs';
 import { ApplicationReloadEmitter } from '../emitters';
 

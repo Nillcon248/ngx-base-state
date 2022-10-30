@@ -1,5 +1,5 @@
 import { FormControl, FormGroup } from '@angular/forms';
-import { FormGroupDef } from '../../../core';
+import { FormGroupDef } from '@sandbox-core';
 import { Todo } from '../interfaces';
 
 export class TodoCreationForm extends FormGroup<FormGroupDef<Partial<Todo>>> {

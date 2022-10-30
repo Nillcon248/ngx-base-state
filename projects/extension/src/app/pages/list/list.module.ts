@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { SharedModule } from 'projects/extension/src/app/shared';
+import { SharedModule } from '@extension-shared';
 import {
     ActionListComponent,
     StateListComponent, StatesFiltersComponent, ToolbarComponent

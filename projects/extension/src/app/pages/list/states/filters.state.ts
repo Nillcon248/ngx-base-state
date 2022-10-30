@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { NgxState, ObjectState } from 'projects/library/src/lib';
+import { NgxState, ObjectState } from '@ngx-base-state';
 import { SORT_OPERATION_ARRAY } from '../data';
 import { Filters } from '../interfaces';
 

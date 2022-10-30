@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { MetadataOperation } from 'projects/extension/src/app/interfaces';
+import { MetadataOperation } from '@extension-interfaces';
 import { StacktraceBottomSheetComponent } from '../../stacktrace-bottom-sheet';
 
 @Component({

@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AppRouteEnum } from '@extension-core';
+import { ApplicationReloadService } from '@extension-services';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe-decorator';
-import { AppRouteEnum } from 'projects/extension/src/app/core';
-import { ApplicationReloadService } from 'projects/extension/src/app/services';
 import { Subscription } from 'rxjs';
 
 @Component({

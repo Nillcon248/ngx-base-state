@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { MetadataOperation } from 'projects/extension/src/app/interfaces';
-import { ArrayState, NgxState } from 'projects/library/src/lib';
+import { MetadataOperation } from '@extension-interfaces';
+import { ArrayState, NgxState } from '@ngx-base-state';
 
 @NgxState()
 @Injectable({
