@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppRouteEnum } from 'projects/extension/src/app/core';
-import { MetadataService } from 'projects/extension/src/app/services';
+import { AppRouteEnum } from '@extension-core';
+import { MetadataService } from '@extension-services';
 import { OPENED_CLASS_ID } from '../../consts';
 
 @Component({

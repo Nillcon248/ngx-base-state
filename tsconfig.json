@@ -28,7 +28,11 @@
       "@extension-classes/*": ["projects/extension/src/app/classes/*"],
       "@extension-enums": ["projects/extension/src/app/enums"],
       "@extension-enums/*": ["projects/extension/src/app/enums/*"],
-      "@extension-env": ["projects/extension/src/environments/environment"]
+      "@extension-env": ["projects/extension/src/environments/environment"],
+      "@sandbox-core": ["projects/sandbox/src/app/core"],
+      "@sandbox-core/*": ["projects/sandbox/src/app/core/*"],
+      "@sandbox-layouts": ["projects/sandbox/src/app/layouts"],
+      "@sandbox-layouts/*": ["projects/sandbox/src/app/layouts/*"]
     },
     "declaration": false,
     "downlevelIteration": true,

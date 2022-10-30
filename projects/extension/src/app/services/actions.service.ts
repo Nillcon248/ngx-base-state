@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MetadataOperation } from 'projects/extension/src/app/interfaces';
+import { MetadataOperation } from '@extension-interfaces';
 import { filter, Observable } from 'rxjs';
 import { ApplicationReloadEmitter, MetadataOperationEmitter } from '../emitters';
 import { ActionsState } from '../states';

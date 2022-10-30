@@ -4,8 +4,8 @@ import {
     HostBinding,
     Input
 } from '@angular/core';
-import { OPERATION_TYPE_MAP } from 'projects/extension/src/app/data';
-import { MetadataOperation } from 'projects/extension/src/app/interfaces';
+import { OPERATION_TYPE_MAP } from '@extension-data';
+import { MetadataOperation } from '@extension-interfaces';
 import { BaseTimelineItemComponent } from '../base.component';
 
 @Component({

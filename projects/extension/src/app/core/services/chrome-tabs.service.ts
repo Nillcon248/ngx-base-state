@@ -1,6 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
-import { ContentScriptConnectionEnum } from 'projects/extension/src/app/core/enums';
 import { Observable, retry } from 'rxjs';
+import { ContentScriptConnectionEnum } from '../enums';
 import { RuntimeMessage } from '../interfaces';
 
 @Injectable({

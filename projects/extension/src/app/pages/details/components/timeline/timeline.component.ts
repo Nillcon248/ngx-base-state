@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
-import { MetadataOperation } from 'projects/extension/src/app/interfaces';
-import { MetadataOperationHistoryService } from 'projects/extension/src/app/services';
+import { MetadataOperation } from '@extension-interfaces';
+import { MetadataOperationHistoryService } from '@extension-services';
 import { OPENED_CLASS_ID } from '../../consts';
 import { TimelineItemTypeEnum } from '../../enums';
 import { SelectedTimelineItemState } from '../../states';

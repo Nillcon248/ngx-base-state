@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BaseEmitter } from 'projects/extension/src/app/core';
-import { MetadataOperation } from 'projects/extension/src/app/interfaces';
+import { BaseEmitter } from '@extension-core';
+import { MetadataOperation } from '@extension-interfaces';
 
 @Injectable({
     providedIn: 'root'

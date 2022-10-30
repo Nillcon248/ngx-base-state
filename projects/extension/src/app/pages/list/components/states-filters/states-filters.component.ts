@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { DataTypeService } from 'projects/extension/src/app/services';
+import { DataTypeService } from '@extension-services';
 import { SORT_OPERATION_ARRAY } from '../../data';
 import { SortOperation } from '../../interfaces';
 import { MetadataListFiltersState } from '../../states';

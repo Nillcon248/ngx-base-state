@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BaseEmitter } from 'projects/extension/src/app/core';
+import { BaseEmitter } from '@extension-core';
 
 @Injectable({
     providedIn: 'root'

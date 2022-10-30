@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { isObject, memoize } from 'projects/extension/src/app/core';
+import { isObject, memoize } from '@extension-core';
 
 @Component({
     selector: 'app-value-viewer',

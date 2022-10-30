@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { MetadataOperation as Operation } from 'projects/extension/src/app/interfaces';
-import { MetadataService } from 'projects/extension/src/app/services';
+import { MetadataOperation as Operation } from '@extension-interfaces';
+import { MetadataService } from '@extension-services';
 import { combineLatest, map, shareReplay } from 'rxjs';
 import { Filters } from '../interfaces';
 import { MetadataListFiltersState } from '../states';

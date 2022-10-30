@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataType } from 'projects/extension/src/app/classes';
-import { AppRouteEnum } from 'projects/extension/src/app/core';
-import { MetadataOperation } from 'projects/extension/src/app/interfaces';
-import { DataTypeService } from 'projects/extension/src/app/services';
-import { ɵMetadataOperationTypeEnum } from 'projects/library/src/lib';
+import { DataType } from '@extension-classes';
+import { AppRouteEnum } from '@extension-core';
+import { MetadataOperation } from '@extension-interfaces';
+import { DataTypeService } from '@extension-services';
+import { ɵMetadataOperationTypeEnum } from '@ngx-base-state';
 import { FilteredOperationsService } from '../../../services';
 
 @Component({

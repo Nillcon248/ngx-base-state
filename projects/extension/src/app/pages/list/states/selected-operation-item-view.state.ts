@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { NgxState, PrimitiveState } from 'projects/library/src/lib';
+import { NgxState, PrimitiveState } from '@ngx-base-state';
 
 @NgxState()
 @Injectable({

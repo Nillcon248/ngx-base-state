@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ChromeTabsService, RuntimeMessageEnum } from 'projects/extension/src/app/core';
+import { ChromeTabsService, RuntimeMessageEnum } from '@extension-core';
 import { map, Observable, switchMap } from 'rxjs';
 
 @Injectable({

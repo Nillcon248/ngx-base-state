@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ArrayState, NgxState } from 'projects/library/src/lib';
+import { ArrayState, NgxState } from '@ngx-base-state';
 import { Todo } from '../interfaces';
 
 @NgxState()

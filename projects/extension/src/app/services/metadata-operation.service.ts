@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MetadataOperation } from 'projects/extension/src/app/interfaces';
+import { MetadataOperation } from '@extension-interfaces';
 import { map, switchMap } from 'rxjs';
 import {
     ChromeTabsService,
