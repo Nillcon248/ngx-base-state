@@ -118,11 +118,6 @@ export abstract class BaseState<T> implements OnDestroy {
      *	@return {Generic} result of the callback call.
      */
     protected tryDoAction<V>(actionName: string, actionFunc: () => any): V | undefined {
-        if (this._devtoolsConfig.isEnabled && !this._currentlyInvokedAction) {
-            this._currentlyInvokedAction = actionName;
-            this._stackTraceOfCurrentlyInvokedAction = ɵStackTrace.capture();
-        }
-
         try {
             return actionFunc();
         } catch (error) {
@@ -140,6 +135,22 @@ export abstract class BaseState<T> implements OnDestroy {
      */
     protected catchError(error: Error, actionName: string): void {
         throw new Error(`\n${this.constructor.name} [${actionName}]: ${error.message}`);
+    }
+
+    // Using by decorators
+    private _onActionLikeInvoked(actionName: string): void {
+        if (this._devtoolsConfig.isEnabled && !this._currentlyInvokedAction) {
+            this._currentlyInvokedAction = actionName;
+            this._stackTraceOfCurrentlyInvokedAction = ɵStackTrace.capture();
+        }
+    }
+
+    // Using by decorators
+    private _onActionLikeInvokeEnd(): void {
+        if (this._devtoolsConfig.isEnabled) {
+            this._currentlyInvokedAction = null;
+            this._stackTraceOfCurrentlyInvokedAction = null;
+        }
     }
 
     private showConsoleWarningIfClassHaveNotDecorator(): void {
@@ -177,9 +188,6 @@ export abstract class BaseState<T> implements OnDestroy {
                 data: this.data,
                 stackTrace: this._stackTraceOfCurrentlyInvokedAction!
             });
-
-            this._currentlyInvokedAction = null;
-            this._stackTraceOfCurrentlyInvokedAction = null;
         }
     }
 }

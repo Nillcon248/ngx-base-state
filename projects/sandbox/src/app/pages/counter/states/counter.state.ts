@@ -8,6 +8,10 @@ export class CounterState extends PrimitiveState<number> {
         super(0);
     }
 
+    public get(): number {
+        return this.data!;
+    }
+
     public increment(): void {
         const newData = (this.data! + 1);
 

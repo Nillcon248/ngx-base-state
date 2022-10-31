@@ -1,5 +1,5 @@
-import { ɵNGX_STATE_DECORATOR_METADATA_FIELD, ɵTRY_DO_ACTION_METHOD_NAME } from '../constants';
-import { ɵTryDoActionFunction } from '../types';
+import { ɵNGX_STATE_DECORATOR_METADATA_FIELD } from '../constants';
+import { patchedActionFunction } from '../functions';
 
 const forbiddenMethodNamesToPatch = [
     'constructor',
@@ -31,13 +31,7 @@ function markMethodOfStateAsAction(
     fieldName: string,
     originalMethod: Function
 ): void {
-    const tryDoAction: ɵTryDoActionFunction = stateClass[ɵTRY_DO_ACTION_METHOD_NAME];
-
-    stateClass[fieldName] = function(...args: unknown[]): unknown {
-        return tryDoAction.call(this, fieldName, () => {
-            return originalMethod.apply(this, args);
-        });
-    };
+    stateClass[fieldName] = patchedActionFunction(fieldName, originalMethod);
 }
 
 function isFieldHaveTypeFunction(stateClass: any, fieldName: string): boolean {
