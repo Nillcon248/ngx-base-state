@@ -15,9 +15,7 @@ export class CounterComponent {
 
     constructor(
         private readonly counterState: CounterState
-    ) {
-        this.counterState.get();
-    }
+    ) {}
 
     public onIncrementButtonClick(): void {
         this.counterState.increment();
