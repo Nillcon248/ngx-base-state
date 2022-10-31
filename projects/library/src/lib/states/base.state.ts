@@ -59,7 +59,7 @@ export abstract class BaseState<T> implements OnDestroy {
 
         this.initClassIdIfAbsent();
         this.showConsoleWarningIfClassHaveNotDecorator();
-        this.emitMetadataOperation(ɵMetadataOperationTypeEnum.Init);
+        this.init();
     }
 
     /**
@@ -135,6 +135,11 @@ export abstract class BaseState<T> implements OnDestroy {
      */
     protected catchError(error: Error, actionName: string): void {
         throw new Error(`\n${this.constructor.name} [${actionName}]: ${error.message}`);
+    }
+
+    @Action
+    private init(): void {
+        this.emitMetadataOperation(ɵMetadataOperationTypeEnum.Init);
     }
 
     // Using by decorators
