@@ -13,6 +13,10 @@ The main idea of this library is remove useless code from class.
 Usually state services violate [DRY pattern](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself)  
 This library will help to create state in 3 lines.
 
+# Wiki
+
+Visit [wiki page](https://github.com/Nillcon248/ngx-base-state/wiki) to get more useful information.
+
 # Installation
 `npm install ngx-base-state --save`
 
