@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { environment } from '@extension-env';
-import { map } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { FilteredOperationsService } from '../../services';
 
 @Component({
@@ -10,10 +10,7 @@ import { FilteredOperationsService } from '../../services';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ToolbarComponent {
-    public readonly amountOfDisplayedStates$ = this.filteredOperationsState.data$
-        .pipe(
-            map((operations) => operations.length)
-        );
+    public readonly amountOfDisplayedStates$: Observable<number>;
 
     public get version(): string {
         return environment.version;
@@ -21,5 +18,14 @@ export class ToolbarComponent {
 
     constructor(
         private readonly filteredOperationsState: FilteredOperationsService
-    ) {}
+    ) {
+        this.amountOfDisplayedStates$ = this.createAmountOfDisplayedStatesObservable();
+    }
+
+    private createAmountOfDisplayedStatesObservable(): Observable<number> {
+        return this.filteredOperationsState.data$
+            .pipe(
+                map((operations) => operations.length)
+            );
+    }
 }
