@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppRouteEnum } from '@extension-core';
-import { MetadataService } from '@extension-services';
+import { RealtimeMetadataService } from '@extension-services';
 import { OPENED_CLASS_ID } from '../../consts';
 
 @Component({
@@ -15,7 +15,7 @@ export class ToolbarComponent {
 
     constructor(
         @Inject(OPENED_CLASS_ID) private readonly openedClassId: number,
-        private readonly metadataService: MetadataService,
+        private readonly metadataService: RealtimeMetadataService,
         private readonly router: Router
     ) {}
 

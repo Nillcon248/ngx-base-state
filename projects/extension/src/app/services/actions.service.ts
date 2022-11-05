@@ -1,33 +1,30 @@
 import { Injectable } from '@angular/core';
-import { MetadataOperation } from '@extension-interfaces';
-import { filter, Observable } from 'rxjs';
-import { ApplicationReloadEmitter, MetadataOperationEmitter } from '../emitters';
+import { ChromeActiveTabService } from '@extension-core';
+import { MetadataOperation, OperationProcessor } from '@extension-interfaces';
+import { Observable } from 'rxjs';
 import { ActionsState } from '../states';
 
 @Injectable({
     providedIn: 'root'
 })
-export class ActionsService {
+export class ActionsService implements OperationProcessor {
     public readonly data$ = (this.actionsState.data$ as Observable<MetadataOperation[]>);
 
     constructor(
-        private readonly applicationReloadEmitter: ApplicationReloadEmitter,
-        private readonly metadataOperationEmitter: MetadataOperationEmitter,
+        private readonly chromeTabService: ChromeActiveTabService,
         private readonly actionsState: ActionsState
     ) {
         this.initApplicationReloadObserver();
     }
 
-    public initObserver(): void {
-        this.metadataOperationEmitter.data$
-            .pipe(
-                filter((operation) => !!operation.actionName)
-            )
-            .subscribe((operation) => this.actionsState.register(operation));
+    public onNewOperation(operation: MetadataOperation): void {
+        if (operation.actionName) {
+            this.actionsState.register(operation);
+        }
     }
 
     private initApplicationReloadObserver(): void {
-        this.applicationReloadEmitter.data$
+        this.chromeTabService.onReload$
             .subscribe(() => this.actionsState.restoreInitialData());
     }
 }

@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppRouteEnum } from '@extension-core';
-import { ApplicationReloadService } from '@extension-services';
+import { AppRouteEnum, ChromeActiveTabService } from '@extension-core';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe-decorator';
 import { Subscription } from 'rxjs';
 import { OPENED_CLASS_NAME_PROVIDER } from './consts';
@@ -25,7 +24,7 @@ export class DetailsComponent implements OnInit {
 
     constructor(
         private readonly router: Router,
-        private readonly applicationReloadService: ApplicationReloadService,
+        private readonly chromeTabService: ChromeActiveTabService,
         private readonly selectedTimelineItemState: SelectedTimelineItemState
     ) {}
 
@@ -35,7 +34,7 @@ export class DetailsComponent implements OnInit {
 
     @AutoUnsubscribe()
     private initApplicationReloadObserver(): Subscription {
-        return this.applicationReloadService.onReload$
+        return this.chromeTabService.onReload$
             .subscribe(() => this.router.navigateByUrl(`/${AppRouteEnum.List}`));
     }
 }

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
-import { MetadataService } from '@extension-services';
+import { RealtimeMetadataService } from '@extension-services';
 import { OPENED_CLASS_ID } from '../../consts';
 import { ValuePreviewerExpansionState } from '../../states';
 
@@ -15,7 +15,7 @@ export class RealtimeOperationComponent {
 
     constructor(
         @Inject(OPENED_CLASS_ID) private readonly openedClassId: number,
-        private readonly metadataService: MetadataService,
+        private readonly metadataService: RealtimeMetadataService,
         private readonly valueViewerExpansionState: ValuePreviewerExpansionState
     ) {}
 }

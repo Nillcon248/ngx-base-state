@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MetadataOperation as Operation } from '@extension-interfaces';
-import { MetadataService } from '@extension-services';
+import { RealtimeMetadataService } from '@extension-services';
 import { combineLatest, map, shareReplay } from 'rxjs';
 import { Filters } from '../interfaces';
 import { MetadataListFiltersState } from '../states';
@@ -17,7 +17,7 @@ export class FilteredOperationsService {
         );
 
     constructor(
-        private readonly operationsService: MetadataService,
+        private readonly operationsService: RealtimeMetadataService,
         private readonly filtersState: MetadataListFiltersState
     ) {}
 

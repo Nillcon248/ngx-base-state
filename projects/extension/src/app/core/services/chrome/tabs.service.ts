@@ -1,8 +1,9 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Observable, retry } from 'rxjs';
-import { ContentScriptConnectionEnum } from '../enums';
-import { RuntimeMessage } from '../interfaces';
+import { ContentScriptConnectionEnum } from '../../enums';
+import { RuntimeMessage } from '../../interfaces';
 
+/** @internal */
 @Injectable({
     providedIn: 'root'
 })

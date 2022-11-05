@@ -1,9 +1,9 @@
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
-import { AppConfig } from './app.config';
 import { AppRoutingModule } from './app.routing';
+import { APP_CONFIG_PROVIDER } from './config';
 
 @NgModule({
     declarations: [
@@ -15,12 +15,7 @@ import { AppRoutingModule } from './app.routing';
         AppRoutingModule
     ],
     providers: [
-        {
-            provide: APP_INITIALIZER,
-            useFactory: (config: AppConfig) => () => config.load(),
-            deps: [AppConfig],
-            multi: true
-        }
+        APP_CONFIG_PROVIDER
     ],
     bootstrap: [
         AppComponent

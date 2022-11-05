@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
+import { ChromeActiveTabService } from '@extension-core';
 import { MetadataOperation } from '@extension-interfaces';
-import { ApplicationReloadService } from '@extension-services';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe-decorator';
 import { Subscription } from 'rxjs';
 
@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
 export class StacktraceBottomSheetComponent implements OnInit {
     constructor(
         @Inject(MAT_BOTTOM_SHEET_DATA) public readonly operation: MetadataOperation,
-        private readonly applicationReloadService: ApplicationReloadService,
+        private readonly chromeTabService: ChromeActiveTabService,
         private readonly bottomSheetRef: MatBottomSheetRef
     ) {}
 
@@ -24,7 +24,7 @@ export class StacktraceBottomSheetComponent implements OnInit {
 
     @AutoUnsubscribe()
     private initApplicationReloadObserver(): Subscription {
-        return this.applicationReloadService.onReload$
+        return this.chromeTabService.onReload$
             .subscribe(() => this.bottomSheetRef.dismiss());
     }
 }

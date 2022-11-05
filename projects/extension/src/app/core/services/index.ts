@@ -1,1 +1,2 @@
-export * from './chrome-tabs.service';
+export * from './chrome';
+
