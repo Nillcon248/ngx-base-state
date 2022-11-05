@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppRouteEnum } from '@extension-core';
-import { ApplicationReloadService } from '@extension-services';
+import { AppRouteEnum, ChromeActiveTabService } from '@extension-core';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe-decorator';
 import { Subscription } from 'rxjs';
 
@@ -14,12 +13,12 @@ import { Subscription } from 'rxjs';
 export class ErrorComponent implements OnInit {
     constructor(
         private readonly router: Router,
-        private readonly applicationReloadService: ApplicationReloadService
+        private readonly chromeTabService: ChromeActiveTabService
     ) {}
 
     @AutoUnsubscribe()
     public ngOnInit(): Subscription {
-        return this.applicationReloadService.onReload$
+        return this.chromeTabService.onReload$
             .subscribe(() => this.router.navigateByUrl(`/${AppRouteEnum.List}`));
     }
 }

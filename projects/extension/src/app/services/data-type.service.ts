@@ -1,33 +1,32 @@
 import { Injectable } from '@angular/core';
-import { DataType } from '../classes';
-import { ApplicationReloadEmitter, MetadataOperationEmitter } from '../emitters';
+import { DataType } from '@extension-classes';
+import { ChromeActiveTabService } from '@extension-core';
+import { MetadataOperation, OperationProcessor } from '@extension-interfaces';
 import { DataTypeState } from '../states';
 
 @Injectable({
     providedIn: 'root'
 })
-export class DataTypeService {
+export class DataTypeService implements OperationProcessor {
     public readonly data$ = this.dataTypeState.values$;
 
     constructor(
-        private readonly applicationReloadEmitter: ApplicationReloadEmitter,
-        private readonly metadataOperationEmitter: MetadataOperationEmitter,
+        private readonly chromeTabService: ChromeActiveTabService,
         private readonly dataTypeState: DataTypeState
     ) {
         this.initApplicationReloadObserver();
+    }
+
+    public onNewOperation(operation: MetadataOperation): void {
+        this.dataTypeState.registerIfAbsent(operation.dataType);
     }
 
     public getByName(dataTypeName: string): DataType {
         return this.dataTypeState.data![dataTypeName];
     }
 
-    public initObserver(): void {
-        this.metadataOperationEmitter.data$
-            .subscribe((operation) => this.dataTypeState.registerIfAbsent(operation.dataType));
-    }
-
     private initApplicationReloadObserver(): void {
-        this.applicationReloadEmitter.data$
+        this.chromeTabService.onReload$
             .subscribe(() => this.dataTypeState.restoreInitialData());
     }
 }

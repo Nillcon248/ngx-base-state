@@ -1,28 +1,20 @@
 import { Injectable } from '@angular/core';
 import { MetadataOperation } from '@extension-interfaces';
-import { map, switchMap } from 'rxjs';
+import { Observable } from 'rxjs';
 import {
-    ChromeTabsService,
+    ChromeActiveTabService,
     ContentScriptConnectionEnum as ConnectionEnum
 } from '../core';
-import { MetadataOperationEmitter } from '../emitters';
 
 @Injectable({
     providedIn: 'root'
 })
 export class MetadataOperationService {
     constructor(
-        private readonly chromeTabsService: ChromeTabsService,
-        private readonly metadataOperationEmitter: MetadataOperationEmitter
+        private readonly chromeTabService: ChromeActiveTabService
     ) {}
 
-    public initObserver(): void {
-        this.chromeTabsService.getActive()
-            .pipe(
-                map((tab) => tab.id as number),
-                switchMap((tabId) => this.chromeTabsService
-                    .connect<MetadataOperation>(tabId, ConnectionEnum.Operation))
-            )
-            .subscribe((operation) => this.metadataOperationEmitter.emit(operation));
+    public observeOperations(): Observable<MetadataOperation> {
+        return this.chromeTabService.connect<MetadataOperation>(ConnectionEnum.Operation);
     }
 }
