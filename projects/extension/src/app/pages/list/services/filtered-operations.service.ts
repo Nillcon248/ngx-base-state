@@ -1,25 +1,31 @@
 import { Injectable } from '@angular/core';
 import { MetadataOperation as Operation } from '@extension-interfaces';
 import { RealtimeMetadataService } from '@extension-services';
-import { combineLatest, map, shareReplay } from 'rxjs';
+import { combineLatest, map, Observable, shareReplay } from 'rxjs';
 import { Filters } from '../interfaces';
 import { MetadataListFiltersState } from '../states';
 
 @Injectable()
 export class FilteredOperationsService {
-    public readonly data$ = combineLatest([
-        this.operationsService.dataAsArray$,
-        this.filtersState.data$
-    ])
-        .pipe(
-            map(([operations, filters]) => this.filter(operations, filters!)),
-            shareReplay(1)
-        );
+    public readonly data$: Observable<Operation[]>;
 
     constructor(
         private readonly operationsService: RealtimeMetadataService,
         private readonly filtersState: MetadataListFiltersState
-    ) {}
+    ) {
+        this.data$ = this.createDataObservable();
+    }
+
+    private createDataObservable(): Observable<Operation[]> {
+        return combineLatest([
+            this.operationsService.dataAsArray$,
+            this.filtersState.data$
+        ])
+            .pipe(
+                map(([operations, filters]) => this.filter(operations, filters!)),
+                shareReplay(1)
+            );
+    }
 
     private filter(operations: Operation[], filters: Filters): Operation[] {
         const searchString = filters.searchString.toLowerCase();

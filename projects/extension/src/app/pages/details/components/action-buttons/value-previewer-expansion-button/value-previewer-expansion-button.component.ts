@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { map } from 'rxjs';
+import { ThemePalette } from '@angular/material/core';
+import { map, Observable } from 'rxjs';
 import { ValuePreviewerExpansionState } from '../../../states';
 
 @Component({
@@ -9,16 +10,22 @@ import { ValuePreviewerExpansionState } from '../../../states';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ValuePreviewerExpansionButtonComponent {
-    public readonly color$ = this.valuePreviewerExpansionState.data$
-        .pipe(
-            map((isExpanded) => (isExpanded) ? 'primary' : null)
-        );
+    public readonly color$: Observable<ThemePalette | null>;
 
     constructor(
         private readonly valuePreviewerExpansionState: ValuePreviewerExpansionState
-    ) {}
+    ) {
+        this.color$ = this.createColorObservable();
+    }
 
     public onClick(): void {
         this.valuePreviewerExpansionState.toggle();
+    }
+
+    private createColorObservable(): Observable<ThemePalette | null> {
+        return this.valuePreviewerExpansionState.data$
+            .pipe(
+                map((isExpanded) => (isExpanded) ? 'primary' : null)
+            );
     }
 }

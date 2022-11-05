@@ -14,13 +14,13 @@ import { SelectedTimelineItemState } from '../../states';
 export class TimelineComponent {
     public readonly timelineItemTypeEnum = TimelineItemTypeEnum;
 
-    public readonly operationHistory$ = this.metadataOperationHistoryService
+    public readonly operationHistory$ = this.operationHistoryService
         .getAllWithinClassId(this.openedClassId);
 
     constructor(
         @Inject(OPENED_CLASS_ID) private readonly openedClassId: number,
         private readonly selectedTimelineItemState: SelectedTimelineItemState,
-        private readonly metadataOperationHistoryService: MetadataOperationHistoryService
+        private readonly operationHistoryService: MetadataOperationHistoryService
     ) {}
 
     public onTimelineItemClick(type: TimelineItemTypeEnum, operation?: MetadataOperation): void {
