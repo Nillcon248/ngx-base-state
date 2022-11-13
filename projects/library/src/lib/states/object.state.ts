@@ -5,7 +5,7 @@ import { BaseState } from './base.state';
  *	@class
  *	@classdes Object state class. Used for save state with Object type.
  */
-export abstract class ObjectState<T> extends BaseState<T> {
+export abstract class ObjectState<T extends object> extends BaseState<T> {
     /**
      *  Updates state by merging new partial object with the existing one.
      *  @public
