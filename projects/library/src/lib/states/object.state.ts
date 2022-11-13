@@ -1,4 +1,5 @@
 import { ɵAction as Action } from '../decorators';
+import { isObject } from '../helpers';
 import { BaseState } from './base.state';
 
 /**
@@ -33,5 +34,11 @@ export abstract class ObjectState<T extends object> extends BaseState<T> {
         }
 
         super.catchError(error, actionName);
+    }
+
+    protected override validateDataType(data: unknown): void {
+        if (!isObject(data)) {
+            throw new Error(`${this.constructor.name}: Expected data in Object format!`);
+        }
     }
 }

@@ -55,6 +55,8 @@ export abstract class BaseState<T> implements OnDestroy {
         @Inject(INITIAL_CONFIG) @Optional()
         private readonly initialConfig: ɵInitialConfig | null = null
     ) {
+        this.validateNullableDataType(this.initialData);
+
         this._data$ = new BehaviorSubject(this.initialData);
 
         this.initClassIdIfAbsent();
@@ -106,6 +108,7 @@ export abstract class BaseState<T> implements OnDestroy {
      *	@param {Generic | null} value - the value that should be set to update `BehaviorSubject`.
      */
     protected setNewValue(value: T | null): void {
+        this.validateNullableDataType(value);
         this._data$.next(value);
         this.emitMetadataOperation(ɵMetadataOperationTypeEnum.Update);
     }
@@ -136,6 +139,12 @@ export abstract class BaseState<T> implements OnDestroy {
     protected catchError(error: Error, actionName: string): void {
         throw new Error(`\n${this.constructor.name} [${actionName}]: ${error.message}`);
     }
+
+    /**
+     *  Define data type validation for runtime. Throw an error if the data type is incorrect.
+     *  @protected
+     */
+    protected validateDataType?(data: unknown): void;
 
     @Action
     private init(): void {
@@ -170,6 +179,12 @@ export abstract class BaseState<T> implements OnDestroy {
     private initClassIdIfAbsent(): void {
         if (!this.constructor[CLASS_ID_FIELD]) {
             this.constructor[CLASS_ID_FIELD] = Math.random();
+        }
+    }
+
+    private validateNullableDataType(data: unknown | null): void {
+        if (data !== null) {
+            this.validateDataType?.(data);
         }
     }
 

@@ -22,6 +22,13 @@ const userMock2: User = {
 @Injectable()
 class UserMockState extends RecordState<string, User> {}
 
+function expectErrorWhenPassIncorrectDataType(state: RecordState<any, any>, error: Error): void {
+    expect(error.message).toContain(
+        `${state.constructor.name}: ` +
+        `Expected data in Object (Record) format!`
+    );
+}
+
 describe('RecordState', () => {
     let recordState: UserMockState;
 
@@ -101,6 +108,22 @@ describe('RecordState', () => {
         } catch (error) {
             const errorMessage = (error as TypeError).message;
             expect(errorMessage).toContain('Firstly set Object [Record].');
+        }
+    });
+
+    it('should throw error when pass incorrect data type (array)', () => {
+        try {
+            recordState.set([] as any);
+        } catch (error) {
+            expectErrorWhenPassIncorrectDataType(recordState, (error as Error));
+        }
+    });
+
+    it('should throw error when pass incorrect data type (number)', () => {
+        try {
+            recordState.set(Symbol('hello') as any);
+        } catch (error) {
+            expectErrorWhenPassIncorrectDataType(recordState, (error as Error));
         }
     });
 });

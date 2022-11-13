@@ -27,6 +27,13 @@ class ObjectStateMock extends ObjectState<ItemMock> {
     }
 }
 
+function expectErrorWhenPassIncorrectDataType(state: ObjectState<any>, error: Error): void {
+    expect(error.message).toContain(
+        `${state.constructor.name}: ` +
+        `Expected data in Object format!`
+    );
+}
+
 describe('ObjectState', () => {
     let objectState: ObjectStateMock;
 
@@ -79,6 +86,22 @@ describe('ObjectState', () => {
         } catch (error) {
             const errorMessage = (error as TypeError).message;
             expect(errorMessage).toContain('Firstly set Object.');
+        }
+    });
+
+    it('should throw error when pass incorrect data type (array)', () => {
+        try {
+            objectState.set([] as any);
+        } catch (error) {
+            expectErrorWhenPassIncorrectDataType(objectState, (error as Error));
+        }
+    });
+
+    it('should throw error when pass incorrect data type (number)', () => {
+        try {
+            objectState.set(123 as any);
+        } catch (error) {
+            expectErrorWhenPassIncorrectDataType(objectState, (error as Error));
         }
     });
 });
