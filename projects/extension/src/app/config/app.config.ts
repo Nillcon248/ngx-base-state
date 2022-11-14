@@ -1,11 +1,11 @@
 import { inject, Injectable } from '@angular/core';
-import { MetadataOperation, OperationProcessor } from '@extension-interfaces';
+import { MetadataOperation, OperationProcessor } from '@extension/interfaces';
 import {
     ActionsService,
     DataTypeService,
     MetadataOperationHistoryService,
     MetadataOperationService
-} from '@extension-services';
+} from '@extension/services';
 
 @Injectable({
     providedIn: 'root'

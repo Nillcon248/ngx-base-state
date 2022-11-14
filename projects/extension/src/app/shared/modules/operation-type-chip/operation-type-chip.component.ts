@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, HostBinding, Input } from '@angular/core';
-import { OPERATION_TYPE_MAP } from '@extension-data';
-import { OperationType } from '@extension-interfaces';
+import { OPERATION_TYPE_MAP } from '@extension/data';
+import { OperationType } from '@extension/interfaces';
 import { ɵMetadataOperationTypeEnum } from '@ngx-base-state';
 
 @Component({

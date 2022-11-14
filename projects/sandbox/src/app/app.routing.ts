@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppRouteEnum } from '@sandbox-core';
-import { LayoutsModule, MainLayoutComponent } from '@sandbox-layouts';
+import { AppRouteEnum } from '@sandbox/core';
+import { LayoutsModule, MainLayoutComponent } from '@sandbox/layouts';
 
 const routes: Routes = [
     {

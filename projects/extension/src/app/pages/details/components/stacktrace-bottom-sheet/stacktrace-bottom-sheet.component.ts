@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
-import { ChromeActiveTabService } from '@extension-core';
-import { MetadataOperation } from '@extension-interfaces';
+import { ChromeActiveTabService } from '@extension/core';
+import { MetadataOperation } from '@extension/interfaces';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe-decorator';
 import { Subscription } from 'rxjs';
 

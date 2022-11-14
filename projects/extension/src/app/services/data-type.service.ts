@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { DataType } from '@extension-classes';
-import { ChromeActiveTabService } from '@extension-core';
-import { MetadataOperation, OperationProcessor } from '@extension-interfaces';
+import { DataType } from '@extension/classes';
+import { ChromeActiveTabService } from '@extension/core';
+import { MetadataOperation, OperationProcessor } from '@extension/interfaces';
 import { DataTypeState } from '../states';
 
 @Injectable({

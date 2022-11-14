@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MetadataOperation } from '@extension-interfaces';
+import { MetadataOperation } from '@extension/interfaces';
 import { NgxState, RecordState } from '@ngx-base-state';
 
 /** Record contain key as `classId` */

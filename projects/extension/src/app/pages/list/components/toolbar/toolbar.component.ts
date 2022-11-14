@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { environment } from '@extension-env';
+import { environment } from '@extension-environment';
 import { map, Observable } from 'rxjs';
 import { FilteredOperationsService } from '../../services';
 

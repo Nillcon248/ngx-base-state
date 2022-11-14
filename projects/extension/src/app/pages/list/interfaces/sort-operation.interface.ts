@@ -1,4 +1,4 @@
-import { MetadataOperation } from '@extension-interfaces';
+import { MetadataOperation } from '@extension/interfaces';
 
 export interface SortOperation {
     readonly name: string;

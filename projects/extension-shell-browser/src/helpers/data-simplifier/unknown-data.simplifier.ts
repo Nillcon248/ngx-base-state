@@ -5,7 +5,7 @@ import { FunctionSimplifier } from './function.simplifier';
 import { ObjectSimplifier } from './object.simplifier';
 
 /**
- * This class simplifies complex data.
+ * Simplifies complex data.
  * CustomEvent doesn't support no-serializable objects.
  **/
 export abstract class UnknownDataSimplifier {

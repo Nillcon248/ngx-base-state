@@ -1,13 +1,14 @@
 const path = require('path');
 
 module.exports = {
-  mode: "development",
+  mode: "production",
+  context: path.resolve(__dirname),
   entry: {
-    'scrapper': "./projects/extension/src/app/scripts/scrapper.ts",
-    'content-script': "./projects/extension/src/app/scripts/content-script.ts"
+    'scrapper': "./src/scrapper.ts",
+    'content-script': "./src/content-script.ts"
   },
   output: {
-    path: path.resolve(__dirname, './dist/extension'),
+    path: path.resolve(__dirname, '../../dist/extension'),
     filename: "[name].js"
   },
   resolve: {
@@ -21,5 +22,7 @@ module.exports = {
       }
     ]
   },
-  devtool: 'cheap-module-source-map'
+  optimization: {
+    usedExports: true
+  }
 };

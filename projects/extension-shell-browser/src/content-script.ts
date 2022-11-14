@@ -1,16 +1,8 @@
-// FIXME: Need to avoid index.ts files & path aliases,
-// or investigate how to setup webpack
-// to avoid huge bundle sizes while using index.ts files.
-import type {
-    ɵMetadataOperation
-} from 'projects/library/src/lib/interfaces/metadata-operation.interface';
+// FIXME: Refactor
 import { fromEvent, map, take } from 'rxjs';
-import {
-    ContentScriptConnectionEnum as ConnectionEnum
-} from '../core/enums/content-script-connection.enum';
-import { RuntimeMessageEnum } from '../core/enums/runtime-message.enum';
-import { CustomEventEnum } from './enums/custom-event.enum';
-import { emitCustomEvent } from './functions/emit-custom-event.function';
+import { ContentScriptConnectionEnum, CustomEventEnum, RuntimeMessageEnum } from './enums';
+import { emitCustomEvent } from './functions';
+import { OriginalMetadataOperation } from './interfaces';
 
 const scrapperScriptName = 'scrapper.js';
 const scrapperScriptPath = chrome.runtime.getURL(scrapperScriptName);
@@ -25,9 +17,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 });
 
 chrome.runtime.onConnect.addListener((port) => {
-    if (port.name === ConnectionEnum.AppInit) {
+    if (port.name === ContentScriptConnectionEnum.AppInit) {
         onAppInitConnectionEstablished(port);
-    } else if (port.name === ConnectionEnum.Operation) {
+    } else if (port.name === ContentScriptConnectionEnum.Operation) {
         onOperationConnectionEstablished(port);
     }
 });
@@ -37,7 +29,7 @@ function onAppInitConnectionEstablished(port: chrome.runtime.Port): void {
 }
 
 function onOperationConnectionEstablished(port: chrome.runtime.Port): void {
-    const operationEmitterSubscription = fromEvent<CustomEvent<ɵMetadataOperation>>(
+    const operationEmitterSubscription = fromEvent<CustomEvent<OriginalMetadataOperation>>(
         document,
         CustomEventEnum.MetadataOperation
     )

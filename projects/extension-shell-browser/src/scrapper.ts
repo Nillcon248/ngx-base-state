@@ -1,19 +1,14 @@
-// FIXME: Need to avoid index.ts files & path aliases,
-// or investigate how to setup webpack
-// to avoid huge bundle sizes while using index.ts files.
-import type {
-    ɵMetadataOperation
-} from 'projects/library/src/lib/interfaces/metadata-operation.interface';
+// FIXME: Refactor
 import type { Observable } from 'rxjs';
 import { fromEvent, map, takeUntil } from 'rxjs';
-import { ɵMetadataKeyEnum } from '../../../../library/src/lib/enums/metadata-key.enum';
-import { adaptOperationToExtensionFormat } from './adapters/operation.adapter';
-import { CustomEventEnum } from './enums/custom-event.enum';
-import { emitCustomEvent } from './functions/emit-custom-event.function';
+import { adaptOperationToExtensionFormat } from './adapters';
+import { CustomEventEnum, MetadataKeyEnum } from './enums';
+import { emitCustomEvent } from './functions';
+import { OriginalMetadataOperation } from './interfaces';
 
 const windowObj = (window as any);
-const metadataOperation$: Observable<ɵMetadataOperation>
-    = windowObj[ɵMetadataKeyEnum.MetadataOperation];
+const metadataOperation$: Observable<OriginalMetadataOperation>
+    = windowObj[MetadataKeyEnum.MetadataOperation];
 
 emitIsDevtoolsEnabled();
 initOperationMetadataRequestObserver();
@@ -33,7 +28,7 @@ function initMetadataOperationEmitter(): void {
 }
 
 function emitIsDevtoolsEnabled(): void {
-    const state = (windowObj[ɵMetadataKeyEnum.DevtoolsEnabled] ?? false);
+    const state = (windowObj[MetadataKeyEnum.DevtoolsEnabled] ?? false);
 
     emitCustomEvent(CustomEventEnum.IsDevtoolsEnabled, state);
 }

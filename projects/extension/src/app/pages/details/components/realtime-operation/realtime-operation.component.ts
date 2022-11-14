@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
-import { RealtimeMetadataService } from '@extension-services';
+import { RealtimeMetadataService } from '@extension/services';
 import { OPENED_CLASS_ID } from '../../consts';
 import { ValuePreviewerExpansionState } from '../../states';
 

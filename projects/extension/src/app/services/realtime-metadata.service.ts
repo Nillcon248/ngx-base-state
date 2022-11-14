@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MetadataOperation } from '@extension-interfaces';
+import { MetadataOperation } from '@extension/interfaces';
 import { map, Observable, shareReplay } from 'rxjs';
 import { MetadataOperationHistoryState } from '../states';
 
