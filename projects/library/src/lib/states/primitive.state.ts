@@ -1,6 +1,6 @@
 import { BaseState } from './base.state';
 
-type Primitive = null | number | string | boolean | bigint | symbol;
+type Primitive = number | string | boolean | bigint | symbol;
 
 /**
  *	@class
