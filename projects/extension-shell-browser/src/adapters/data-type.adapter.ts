@@ -1,4 +1,4 @@
-export function adaptDataToType(data: unknown): string {
+export function adaptDataToType(data: any): string {
     if (data === undefined) {
         return 'undefined';
     } else if (data === null) {

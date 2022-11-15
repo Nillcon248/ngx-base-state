@@ -1,4 +1,3 @@
-// FIXME: Refactor
 import type { Observable } from 'rxjs';
 import { fromEvent, map, takeUntil } from 'rxjs';
 import { adaptOperationToExtensionFormat } from './adapters';
@@ -11,12 +10,9 @@ const metadataOperation$: Observable<OriginalMetadataOperation>
     = windowObj[MetadataKeyEnum.MetadataOperation];
 
 emitIsDevtoolsEnabled();
-initOperationMetadataRequestObserver();
 
-function initOperationMetadataRequestObserver(): void {
-    fromEvent(document, CustomEventEnum.RequestMetadataOperation)
-        .subscribe(() => initMetadataOperationEmitter());
-}
+fromEvent(document, CustomEventEnum.RequestMetadataOperation)
+    .subscribe(() => initMetadataOperationEmitter());
 
 function initMetadataOperationEmitter(): void {
     metadataOperation$
