@@ -1,6 +1,11 @@
-export const enum CustomEventEnum {
-    RequestMetadataOperation = 'nbs-req-o-e',
-    StopRequestMetadataOperation = 'nbs-stop-req-o-e',
-    MetadataOperation = 'nbs-o-e',
+/** CustomEvent from content-script to scrapper */
+export const enum CustomRequestEventEnum {
+    MetadataOperation = 'nbs-req-o-e',
+    StopReceiveMetadataOperation = 'nbs-stop-req-o-e',
+}
+
+/** CustomEvent from scrapper to content-script */
+export const enum CustomResponseEventEnum {
+    MetadataOperation = 'nbs-res-o-e',
     IsDevtoolsEnabled = 'nbs-enabled'
 }

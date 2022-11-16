@@ -1,6 +1,8 @@
-import { CustomEventEnum } from '../enums';
+import { CustomRequestEventEnum, CustomResponseEventEnum } from '../enums';
 
-export function emitCustomEvent<T>(eventName: CustomEventEnum, detail: T | null = null): void {
+type EventType = CustomRequestEventEnum | CustomResponseEventEnum;
+
+export function emitCustomEvent<T>(eventName: EventType, detail: T | null = null): void {
     const event = new CustomEvent(eventName, { detail });
 
     document.dispatchEvent(event);

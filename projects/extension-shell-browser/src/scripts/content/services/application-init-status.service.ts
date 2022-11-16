@@ -1,4 +1,4 @@
-import { ContentScriptConnectionEnum } from '../enums';
+import { ContentScriptConnectionEnum } from '@shell-browser/enums';
 
 export class ApplicationInitStatusService {
     public initObserver(): void {

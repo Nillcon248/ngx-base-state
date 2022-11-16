@@ -1,8 +1,12 @@
+import {
+    ContentScriptConnectionEnum,
+    CustomRequestEventEnum,
+    CustomResponseEventEnum
+} from '@shell-browser/enums';
+import { emitCustomEvent } from '@shell-browser/functions';
+import { OriginalMetadataOperation } from '@shell-browser/interfaces';
 import type { Subscription } from 'rxjs';
 import { fromEvent, map } from 'rxjs';
-import { ContentScriptConnectionEnum, CustomEventEnum } from '../enums';
-import { emitCustomEvent } from '../functions';
-import { OriginalMetadataOperation } from '../interfaces';
 
 export class MetadataOperationsService {
     private metadataOperationsSubscription: Subscription | undefined;
@@ -12,7 +16,7 @@ export class MetadataOperationsService {
             if (port.name === ContentScriptConnectionEnum.Operation) {
                 this.initMetadataOperationObserver(port);
                 this.initPortDisconnectObserver(port);
-                emitCustomEvent(CustomEventEnum.RequestMetadataOperation);
+                emitCustomEvent(CustomRequestEventEnum.MetadataOperation);
             }
         });
     }
@@ -20,7 +24,7 @@ export class MetadataOperationsService {
     private initMetadataOperationObserver(port: chrome.runtime.Port): void {
         this.metadataOperationsSubscription = fromEvent<CustomEvent<OriginalMetadataOperation>>(
             document,
-            CustomEventEnum.MetadataOperation
+            CustomResponseEventEnum.MetadataOperation
         )
             .pipe(map((event) => event.detail))
             .subscribe((metadataOperation) => port.postMessage(metadataOperation));
@@ -29,7 +33,7 @@ export class MetadataOperationsService {
     private initPortDisconnectObserver(port: chrome.runtime.Port): void {
         port.onDisconnect
             .addListener(() => {
-                emitCustomEvent(CustomEventEnum.StopRequestMetadataOperation);
+                emitCustomEvent(CustomRequestEventEnum.StopReceiveMetadataOperation);
                 this.metadataOperationsSubscription?.unsubscribe();
             });
     }

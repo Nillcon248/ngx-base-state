@@ -1,4 +1,4 @@
-import { injectScriptToDocument } from '../functions';
+import { injectScriptToDocument } from '@shell-browser/functions';
 
 export class ScrapperScriptService {
     private readonly scrapperScriptName = 'scrapper.js';
