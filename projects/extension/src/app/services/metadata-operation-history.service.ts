@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ChromeActiveTabService } from '@extension-core';
-import { MetadataOperation, OperationProcessor } from '@extension-interfaces';
+import { ChromeActiveTabService } from '@extension/core';
+import { MetadataOperation, OperationProcessor } from '@extension/interfaces';
 import { map, Observable } from 'rxjs';
 import { MetadataOperationHistoryState } from '../states';
 

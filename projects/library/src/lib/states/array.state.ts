@@ -182,6 +182,7 @@ export abstract class ArrayState<T> extends BaseState<T[]> {
 
     protected override setNewValue(value: T[] | null): void {
         if (value) {
+            this.validateDataType(value);
             super.setNewValue([...value]);
         } else {
             super.setNewValue(null);
@@ -205,10 +206,16 @@ export abstract class ArrayState<T> extends BaseState<T[]> {
      *	Used for compare two any items.
      *  @protected
      *	@param {Generic} item - item of your state.
-     *	@return {Generic} identify param of item.
+     *	@return {any} identify param of item.
      */
     protected getItemId(item: T): any {
         return item;
+    }
+
+    protected override validateDataType(data: unknown): void {
+        if (!Array.isArray(data)) {
+            throw new Error(`${this.constructor.name}: Expected data in Array format!`);
+        }
     }
 
     /**

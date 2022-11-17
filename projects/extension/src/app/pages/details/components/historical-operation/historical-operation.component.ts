@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { MetadataOperation } from '@extension-interfaces';
+import { MetadataOperation } from '@extension/interfaces';
 import { ValuePreviewerExpansionState } from '../../states';
 
 @Component({

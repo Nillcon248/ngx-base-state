@@ -1,5 +1,5 @@
-import { isExtendedObject, isObject } from '../../../core/helpers/methods.helpers';
 import { adaptDataToStringPreview } from '../adapt-data-to-string-preview.helper';
+import { isExtendedObject, isObject } from '../methods.helpers';
 import { BaseSimplifier } from './base.simplifier';
 import { UnknownDataSimplifier } from './unknown-data.simplifier';
 

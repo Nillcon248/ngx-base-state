@@ -1,5 +1,6 @@
 import { map, Observable, shareReplay } from 'rxjs';
 import { ɵAction as Action } from '../decorators';
+import { isObject } from '../helpers';
 import { BaseState } from './base.state';
 
 /**
@@ -95,5 +96,11 @@ export abstract class RecordState<TKey extends string, TValue>
         }
 
         super.catchError(error, actionName);
+    }
+
+    protected override validateDataType(data: unknown): void {
+        if (!isObject(data)) {
+            throw new Error(`${this.constructor.name}: Expected data in Object (Record) format!`);
+        }
     }
 }

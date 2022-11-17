@@ -5,7 +5,8 @@
     "scripts": {
         "ng": "ng",
         "start:extension": "ng serve extension",
-        "build:extension": "ng build extension && npx webpack",
+        "build:extension": "ng build extension && npm run build:extension-shell-browser",
+        "build:extension-shell-browser": "npx webpack build --config projects/extension-shell-browser/webpack.config.js",
         "start:sandbox": "ng serve sandbox",
         "build:sandbox": "ng build sandbox",
         "build:library": "ng build library --configuration production && cpx README.md dist/library",

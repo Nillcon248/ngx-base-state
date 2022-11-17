@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppRouteEnum } from '@extension-core';
-import { MetadataOperation } from '@extension-interfaces';
-import { ActionsService } from '@extension-services';
+import { AppRouteEnum } from '@extension/core';
+import { MetadataOperation } from '@extension/interfaces';
+import { ActionsService } from '@extension/services';
 
 @Component({
     selector: 'app-action-list',

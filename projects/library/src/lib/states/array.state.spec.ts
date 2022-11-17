@@ -28,6 +28,13 @@ const itemDataMock2: ItemMock = {
 
 const itemArrayDataMock: ItemMock[] = [itemDataMock1, itemDataMock2];
 
+function expectErrorWhenPassIncorrectDataType(state: ArrayState<any>, error: Error): void {
+    expect(error.message).toContain(
+        `${state.constructor.name}: ` +
+        `Expected data in Array format!`
+    );
+}
+
 describe('ArrayState', () => {
     let arrayState: ArrayStateMock;
 
@@ -223,6 +230,22 @@ describe('ArrayState', () => {
         } catch (error) {
             const errorMessage = (error as TypeError).message;
             expect(errorMessage).toContain('Firstly set Array.');
+        }
+    });
+
+    it('should throw error when pass incorrect data type (object)', () => {
+        try {
+            arrayState.set({} as any);
+        } catch (error) {
+            expectErrorWhenPassIncorrectDataType(arrayState, (error as Error));
+        }
+    });
+
+    it('should throw error when pass incorrect data type (string)', () => {
+        try {
+            arrayState.set('Hi there' as any);
+        } catch (error) {
+            expectErrorWhenPassIncorrectDataType(arrayState, (error as Error));
         }
     });
 });

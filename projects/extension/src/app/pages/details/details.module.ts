@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { ValueViewerModule } from '@extension-shared';
+import { ValueViewerModule } from '@extension/shared';
 import { SharedModule } from '../../shared';
 import {
     ActionButtonsModule,

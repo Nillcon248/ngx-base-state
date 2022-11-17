@@ -1,11 +1,12 @@
 import { ɵAction as Action } from '../decorators';
+import { isObject } from '../helpers';
 import { BaseState } from './base.state';
 
 /**
  *	@class
  *	@classdes Object state class. Used for save state with Object type.
  */
-export abstract class ObjectState<T> extends BaseState<T> {
+export abstract class ObjectState<T extends object> extends BaseState<T> {
     /**
      *  Updates state by merging new partial object with the existing one.
      *  @public
@@ -33,5 +34,11 @@ export abstract class ObjectState<T> extends BaseState<T> {
         }
 
         super.catchError(error, actionName);
+    }
+
+    protected override validateDataType(data: unknown): void {
+        if (!isObject(data)) {
+            throw new Error(`${this.constructor.name}: Expected data in Object format!`);
+        }
     }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { AppRouteEnum } from '@extension-core';
-import { LibraryAvailabilityService } from '@extension-services';
+import { AppRouteEnum } from '@extension/core';
+import { LibraryAvailabilityService } from '@extension/services';
 import { map, Observable, take, tap } from 'rxjs';
 
 @Injectable()

@@ -1,6 +1,4 @@
 {
-    "workbench.iconTheme": "material-icon-theme",
-    "workbench.colorTheme": "Community Material Theme High Contrast",
     "git.enableSmartCommit": true,
     "git.confirmSync": false,
     "typescript.updateImportsOnFileMove.enabled": "always",

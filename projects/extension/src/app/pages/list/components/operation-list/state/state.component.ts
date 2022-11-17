@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataType } from '@extension-classes';
-import { AppRouteEnum } from '@extension-core';
-import { MetadataOperation } from '@extension-interfaces';
-import { DataTypeService } from '@extension-services';
+import { DataType } from '@extension/classes';
+import { AppRouteEnum } from '@extension/core';
+import { MetadataOperation } from '@extension/interfaces';
+import { DataTypeService } from '@extension/services';
 import { ɵMetadataOperationTypeEnum } from '@ngx-base-state';
 import { FilteredOperationsService } from '../../../services';
 
