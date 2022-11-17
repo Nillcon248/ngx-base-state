@@ -1,4 +1,4 @@
-## ngx-base-state 🐍 [Angular 14+]
+## ngx-base-state 🐍
 
 [![npm](https://img.shields.io/npm/dt/ngx-base-state.svg)]()
 [![npm](https://img.shields.io/npm/l/ngx-base-state.svg)]()
