@@ -71,6 +71,7 @@ export abstract class BaseState<T> implements OnDestroy {
      */
     public ngOnDestroy(): void {
         this.emitMetadataOperation(ɵMetadataOperationTypeEnum.Destroy);
+        this._data$.complete();
     }
 
     /**
