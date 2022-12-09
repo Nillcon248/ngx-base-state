@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AppRouteEnum, ChromeActiveTabService } from '@extension/core';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe-decorator';
 import { Subscription } from 'rxjs';
-import { OPENED_CLASS_NAME_PROVIDER } from './consts';
+import { OPENED_CLASS_ID_PROVIDER } from './consts';
 import { TimelineItemTypeEnum } from './enums';
 import { SelectedTimelineItemState, ValuePreviewerExpansionState } from './states';
 
@@ -13,7 +13,7 @@ import { SelectedTimelineItemState, ValuePreviewerExpansionState } from './state
     styleUrls: ['./details.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
-        OPENED_CLASS_NAME_PROVIDER,
+        OPENED_CLASS_ID_PROVIDER,
         SelectedTimelineItemState,
         ValuePreviewerExpansionState
     ]
