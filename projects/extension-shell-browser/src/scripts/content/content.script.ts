@@ -14,4 +14,5 @@ applicationInitStatusService.initObserver();
 devtoolsAvailabilityService.initIsDevtoolsEnabledObserver();
 devtoolsAvailabilityService.initIsLibraryAvailableMessageObserver();
 metadataOperationsService.initObserver();
-scrapperScriptService.injectToDocument();
+
+window.addEventListener('load', () => scrapperScriptService.injectToDocument());
