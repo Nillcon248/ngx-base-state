@@ -7,8 +7,7 @@ import {
 } from '@shell-browser/enums';
 import { emitCustomEvent } from '@shell-browser/functions';
 import { OriginalMetadataOperation } from '@shell-browser/interfaces';
-import type { Observable } from 'rxjs';
-import { fromEvent, map, takeUntil } from 'rxjs';
+import { Observable, fromEvent, map, takeUntil } from 'rxjs';
 
 export class MetadataOperationsService {
     private get metadataOperation$(): Observable<OriginalMetadataOperation> {
