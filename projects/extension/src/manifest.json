@@ -1,6 +1,6 @@
 {
     "name": "ngx-base-state",
-    "version": "0.12",
+    "version": "0.13",
     "description": "This tool allows you to see data in your states based on ngx-base-state.",
     "manifest_version": 3,
     "icons": {

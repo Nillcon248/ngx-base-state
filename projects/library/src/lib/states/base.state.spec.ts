@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { NgxBaseStateDevtoolsConfig } from '../classes';
 import { NgxState } from '../decorators';
 import { NgxBaseStateDevtoolsModule } from '../devtools.module';
-import { NGX_BASE_STATE_DEVTOOLS_CONFIG } from '../tokens';
 import { BaseState } from './base.state';
 
 interface ItemMock {
@@ -46,17 +44,13 @@ describe('BaseState', () => {
 
     beforeEach(() => {
         testBed = TestBed.configureTestingModule({
-            imports: [NgxBaseStateDevtoolsModule],
+            imports: [
+                NgxBaseStateDevtoolsModule.forRoot({ isEnabled: true })
+            ],
             providers: [
                 BaseStateMock,
                 BaseStateInitDataMock,
-                BaseStateWithoutDecoratorMock,
-                {
-                    provide: NGX_BASE_STATE_DEVTOOLS_CONFIG,
-                    useValue: new NgxBaseStateDevtoolsConfig({
-                        isEnabled: true
-                    })
-                }
+                BaseStateWithoutDecoratorMock
             ]
         });
 

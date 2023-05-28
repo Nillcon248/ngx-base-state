@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { ReplaySubject } from 'rxjs';
-import { NgxBaseStateDevtoolsConfig } from './classes';
 import { NgxState } from './decorators';
 import { NgxBaseStateDevtoolsModule } from './devtools.module';
 import { ɵMetadataKeyEnum } from './enums';
 import { ɵMetadataStorage } from './helpers';
 import { ɵNgxBaseStateConfigParams } from './interfaces';
 import { BaseState } from './states';
-import { NGX_BASE_STATE_DEVTOOLS_CONFIG } from './tokens';
 
 @NgxState()
 @Injectable()
@@ -21,14 +19,10 @@ describe('DevtoolsModule', () => {
     function createTestBedWithDevtoolsModule(config: ɵNgxBaseStateConfigParams): TestBed {
         testBed = TestBed.configureTestingModule({
             imports: [
-                NgxBaseStateDevtoolsModule
+                NgxBaseStateDevtoolsModule.forRoot(config)
             ],
             providers: [
                 BaseStateMock,
-                {
-                    provide: NGX_BASE_STATE_DEVTOOLS_CONFIG,
-                    useValue: new NgxBaseStateDevtoolsConfig(config)
-                },
                 {
                     provide: ɵMetadataStorage,
                     useFactory: () => {

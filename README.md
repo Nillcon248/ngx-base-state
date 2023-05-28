@@ -25,22 +25,12 @@ Visit [wiki page](https://github.com/Nillcon248/ngx-base-state/wiki) to get more
 ### In your AppModule
 
 ``` typescript
-import {
-    NgxBaseStateDevtoolsModule,
-    NgxBaseStateDevtoolsConfig,
-    NGX_BASE_STATE_DEVTOOLS_CONFIG
-} from 'ngx-base-state';
+import { NgxBaseStateDevtoolsModule } from 'ngx-base-state';
 import { environment } from 'src/environments/environment'; 
 
 @NgModule({
-    imports: [NgxBaseStateDevtoolsModule],
-    providers: [
-        {
-            provide: NGX_BASE_STATE_DEVTOOLS_CONFIG,
-            useValue: new NgxBaseStateDevtoolsConfig({
-                isEnabled: !environment.production // Devtools will not work in production
-            })
-        }
+    imports: [
+        NgxBaseStateDevtoolsModule.forRoot({ isEnabled: !environment.production })
     ]
 })
 export class AppModule {}
