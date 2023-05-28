@@ -262,5 +262,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

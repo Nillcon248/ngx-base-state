@@ -1,4 +1,4 @@
-import { Inject, NgModule } from '@angular/core';
+import { Inject, ModuleWithProviders, NgModule } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { NgxBaseStateDevtoolsConfig } from './classes';
 import { ɵMetadataKeyEnum } from './enums';
@@ -19,5 +19,19 @@ export class NgxBaseStateDevtoolsModule {
                 new ReplaySubject<ɵMetadataOperation>()
             );
         }
+    }
+
+    public static forRoot(
+        options: NgxBaseStateDevtoolsConfig
+    ): ModuleWithProviders<NgxBaseStateDevtoolsModule> {
+        return {
+            ngModule: NgxBaseStateDevtoolsModule,
+            providers: [
+                {
+                    provide: NGX_BASE_STATE_DEVTOOLS_CONFIG,
+                    useValue: options
+                }
+            ]
+        };
     }
 }
